@@ -176,13 +176,20 @@
                     <div class="grid">
                         <div class="x2 row clearfix">
                             <div class="items">
-                                <span class="l black labels">вечерняя причёска</span>
-                                <span class="r red labels">Free</span>
-                                <a href="/lessons/1"><img src="/img/webinarGridItem.jpg" /></a>
-                                <div class="title"><a href="/lessons/1">Создание индивидуального образа</a></div>
-                                <div class="controls clearfix">
-                                    <a href="" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> 2 часа 15 минут</span>
-                                </div>
+                                @if(!empty($lesson))
+                                    <span class="l black labels">вечерняя причёска</span>
+                                    @if(empty($lesson->price))
+                                        <span class="r red labels">Free</span>
+                                    @else
+                                        <span class="r labels">{{ number_format($lesson->price, 0, '', ' ') }}.-</span>
+                                    @endif
+
+                                    <a href="/lessons/{{ $lesson->id }}"><img src="/img/webinarGridItem.jpg" /></a>
+                                    <div class="title"><a href="/lessons/{{ $lesson->id }}">{{ $lesson->name }}</a></div>
+                                    <div class="controls clearfix">
+                                        <a href="" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> 2 часа 15 минут</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="items">
                                 <span class="l black labels">hair-tatoo</span>

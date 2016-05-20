@@ -1,0 +1,241 @@
+@import "common";
+
+.quantity{
+  @include round(1.5em);
+
+  max-width: 94px;
+  border: 1px $lightGray solid;
+  text-align: center;
+  span, i{
+    display: inline-block;
+    padding: 5px 0;
+  }
+  span{
+    min-width: 2em;
+  }
+  i{
+    cursor: pointer;
+    &:hover{
+      color: $red;
+    }
+  }
+}
+
+
+
+.section1 {
+  @extend .top.common-section;
+}
+
+.section2{
+  @extend .mini.inverted-section;
+
+  margin-top: 0;
+  background: url("../img/shopTeaser.jpg");
+  h3{
+    padding-top: 0;
+  }
+}
+
+.section3{
+  @extend .mini.common-section;
+}
+
+.section4{
+  @extend .mini.common-section;
+
+  .cart-grid, .calculation{
+    padding: $gutter;
+    border: 1px $lightGray solid;
+  }
+  .cart-grid{
+    .items{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-bottom: $gutter;
+      > div{
+        display: table-cell;
+        vertical-align: middle;
+        &:first-child{
+          width: 120px;
+          img{
+            max-width: 100%;
+          }
+        }
+        &:nth-child(2){
+          width: 395px - ($gutter * 3);
+          padding: 0 $gutter * 1.5;
+        }
+        &:nth-child(3){
+          width: 96px;
+          text-align: center;
+        }
+        &:nth-child(4), &:nth-child(5){
+          @extend .big.font;
+
+          width: ($contentWidth - ($gutter * 2) - 120 - 395 - 96) / 2;
+          text-align: center;
+        }
+        &:nth-child(4){
+          color: $gray;
+        }
+      }
+      a{
+        color: $black;
+        text-decoration: none;
+        &:hover{
+          color: $red;
+        }
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+  .calculation{
+    border-top: none;
+    .grid{
+      .items{
+        width: 50%;
+        margin: 0;
+        &:last-child{
+          @extend .big.font;
+
+          text-align: right;
+        }
+      }
+    }
+  }
+  .controls{
+    padding-top: $gutter;
+    text-align: center;
+    a{
+      display: inline-block;
+      margin: 0 0.5em;
+    }
+  }
+}
+
+.section5{
+  @extend .mini.common-section;
+
+  h1{
+    margin-bottom: $gutter;
+  }
+  .gallery{
+    img{
+      max-width: 100%;
+    }
+  }
+  .vendor-code{
+    color: $gray;
+  }
+  .controls{
+    padding: $gutter 0;
+    margin: $gutter 0;
+    border-top: 1px solid $lightGray;
+    border-bottom: 1px solid $lightGray;
+    .items{
+      &:last-child{
+        text-align: right;
+      }
+    }
+    li{
+      margin-bottom: $gutter;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+    .stock{
+      @extend .big.font;
+
+      color: $red;
+    }
+    .price{
+      @extend .big.font;
+    }
+  }
+}
+
+.section6{
+  $asideWidth: 159px;
+
+  @extend .mini.common-section;
+
+  .info, .aside{
+    display: inline-block;
+  }
+  .info{
+    width: $contentWidth - $asideWidth - ($gutter * 2.5);
+    float: left;
+    color: #616161;
+    nav{
+      @extend .ristretto.font;
+      @extend .big.font;
+
+      border-bottom: 1px $lightGray solid;
+      color: $black;
+      span{
+        position: relative;
+        bottom: -1px;
+        display: inline-block;
+        float: left;
+        padding-bottom: 2px;
+        margin: 0 27px;
+        border-bottom: 3px transparent solid;
+        cursor: pointer;
+        &:first-child{
+          margin-left: 0;
+        }
+        &.active{
+          border-color: $red;
+        }
+        &:hover{
+          border-color: $black;
+        }
+      }
+    }
+    &.real{
+      padding-top: $gutter * 1.5;
+      > div{
+        display: none;
+        &:first-child{
+          display: block;
+        }
+      }
+    }
+  }
+  .aside{
+    float: right;
+    width: $asideWidth;
+    nav{
+      $height: 142px;
+      a{
+        @include round(22px);
+
+        display: block;
+        width: 159px;
+        height: $height;
+        margin-bottom: 20px;
+        background: url("../img/shopItemAsideIcons.png") no-repeat;
+        transition: 0.2s;
+        &:nth-child(2){
+          background-position: 0 0 - $height;
+        }
+        &:nth-child(3){
+          background-position: 0 0 - ($height * 2);
+        }
+        &:nth-child(4){
+          background-position: 0 0 - ($height * 3);
+        }
+        &:last-child{
+          margin-bottom: 0;
+        }
+        &:hover{
+          background-color: $black;
+        }
+      }
+    }
+  }
+}

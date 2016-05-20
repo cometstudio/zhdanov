@@ -1,0 +1,5 @@
+@import "common";
+
+.gallery{
+  @extend .top.common-section;
+}

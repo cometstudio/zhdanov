@@ -1,0 +1,276 @@
+@import "common";
+
+.section1{
+  @extend .top.common-section;
+
+  .timeline{
+    @extend .ristretto.font;
+
+    font-size: 25px;
+    line-height: 1.2em;
+    color: #fff;
+    text-align: center;
+    nav{
+      padding: 15px;
+      background: $black;
+      a{
+        display: inline-block;
+        margin: 0 12px;
+      }
+    }
+    a{
+      text-decoration: none;
+      color: inherit;
+      &:hover, &.active{
+        color: $red;
+      }
+    }
+    .chosen{
+      $width: 12px;
+
+      position: relative;
+      display: inline-block;
+      > div {
+        @include roundExtended(0, 0, $width, $width);
+
+        padding: $width;
+        background: $black;
+      }
+      i{
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        display: block;
+        width: $width;
+        height: $width;
+        background: url("../img/timetableChosenCorner.png") no-repeat;
+        &:first-child{
+          left: - $width;
+        }
+        &:last-child{
+          right: - $width;
+          background-position: 0 - $width;
+        }
+      }
+      a{
+        display: inline-block;
+        padding: 0 0.5em;
+        text-decoration: none;
+      }
+      span{
+        color: $red;
+      }
+    }
+    &.fixed{
+      position: fixed;
+      z-index: 40;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
+
+.timetable{
+  @extend .mini.common-section;
+
+  .grid{
+    margin-top: $gridGutter / 2;
+    .items {
+      margin-top: $gridGutter / 2;
+    }
+  }
+}
+
+.section2{
+  @extend .mini.common-section;
+
+  .grid{
+    .x2{
+      .items{
+        position: relative;
+        $width: 430px;
+        min-height: 307px;
+
+        &:first-child{
+          width: $width;
+        }
+        &:last-child{
+          width: $contentWidth - $width - 258px;
+          padding-right: 210px;
+          > img{
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
+          .date{
+            @extend .common-date;
+
+            color: $gray;
+          }
+          .performer{
+            @extend .ristretto.font;
+
+            margin: 10px 0;
+            font-size: 30px;
+            line-height: 1.3em;
+            text-transform: uppercase;
+            color: $gold;
+          }
+          .buttons{
+            margin-top: 22px;
+          }
+        }
+      }
+    }
+    .calendar-grid{
+      height: 307px;
+    }
+  }
+  .social-icons{
+    padding: 15px 0;
+    margin-top: 24px;
+    border-top: 1px $lightGray solid;
+    border-bottom: 1px $lightGray solid;
+  }
+}
+
+.section3{
+  @extend .common-section;
+}
+
+.section4{
+  @extend .inverted-section;
+
+  background: url("../img/shopTeaser.jpg");
+  img{
+    display: inline-block;
+  }
+  .grid{
+    @extend .manually-formatted-text;
+
+    font-size: 16px;
+    line-height: 1.5em;
+  }
+}
+
+.section5{
+  @extend .common-section;
+
+  h3{
+    margin-bottom: $gutter;
+    color: $gold;
+  }
+  .grid{
+    .row{
+      margin-bottom: $gutter;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+  .apply, .add{
+    @extend .mini.common-section;
+  }
+  .add{
+    text-align: center;
+  }
+}
+
+.section6{
+  @extend .inverted-section;
+
+  background: url("../img/shopTeaser.jpg");
+  .shop-grid{
+    .title{
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.section7{
+  @extend .common-section;
+
+  h3{
+    margin-bottom: $gutter / 2;
+  }
+  .price{
+    @extend .big.font;
+
+    margin-bottom: $gutter;
+  }
+}
+
+.section8{
+  @extend .common-section;
+
+  h3{
+    margin-bottom: $gutter / 2;
+  }
+}
+
+.section9{
+  .courses-grid{
+    @extend .mini.common-section;
+
+    .items{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-bottom: $gutter * 2;
+      > div{
+        display: table-cell;
+        vertical-align: middle;
+        &:first-child{
+          width: 180px;
+          img{
+            max-width: 100%;
+          }
+        }
+        &:nth-child(2){
+          padding: 0 $gutter;
+          p{
+            margin-bottom: 10px;
+            &.title{
+              @extend .big.font;
+
+              a{
+                color: $black;
+                text-decoration: none;
+                &:hover{
+                  color: $red;
+                }
+              }
+            }
+            &.length{
+              @extend .small.font;
+            }
+            &:last-child{
+              margin-bottom: 0;
+            }
+          }
+        }
+        &:last-child{
+          width: 160px;
+          text-align: center;
+        }
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+  .more-grid-items{
+    @extend .mini.common-section;
+  }
+}
+
+.map{
+  @extend .common-section;
+
+  .container{
+    min-height: 450px;
+    background: url("../img/preloader.gif") 50% 50% no-repeat $black;
+  }
+}

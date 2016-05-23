@@ -1,0 +1,37 @@
+@import "common";
+
+.section1{
+  @extend .top.common-section;
+}
+
+.section2{
+  @extend .micro.common-section;
+
+  .buttons{
+    margin-bottom: 5px;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.section3{
+  @extend .mini.common-section;
+}
+
+.section4{
+  .grid{
+    .items{
+      margin-top: $gutter * 2;
+      img, > div{
+        width: 49%;
+      }
+      img{
+        float: left;
+      }
+      > div{
+        float: right;
+      }
+    }
+  }
+}

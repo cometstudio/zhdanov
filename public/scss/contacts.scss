@@ -1,0 +1,52 @@
+@import "common";
+
+.quantity{
+  @include round(1.5em);
+
+  max-width: 94px;
+  border: 1px $lightGray solid;
+  text-align: center;
+  span, i{
+    display: inline-block;
+    padding: 5px 0;
+  }
+  span{
+    min-width: 2em;
+  }
+  i{
+    cursor: pointer;
+    &:hover{
+      color: $red;
+    }
+  }
+}
+
+.section1 {
+  @extend .top.common-section;
+
+  .phones{
+    @extend .ristretto.font;
+    @extend .big.font;
+
+    p{
+      display: block;
+      padding-left: 25px;
+      background: url("../img/footerPhone.png") 0 50% no-repeat;
+    }
+  }
+  .buttons{
+    margin-bottom: 5px;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.map {
+  @extend .mini.common-section;
+
+  .container{
+    min-height: 485px;
+    background: url("../img/preloader.gif") 50% 50% no-repeat $black;
+  }
+}

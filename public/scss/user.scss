@@ -1,0 +1,25 @@
+@import "common";
+
+.section1 {
+  @extend .top.common-section;
+}
+
+.section2, .section3 {
+  h3{
+    margin-bottom: $gutter;
+  }
+  ul{
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+}
+.section2 {
+  .buttons{
+    margin-top: $gutter;
+  }
+  .form{
+    padding-top: $gutter * 2;
+    margin-top: $gutter * 2;
+    border-top: 2px dotted #959595;
+  }
+}

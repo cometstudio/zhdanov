@@ -1,0 +1,138 @@
+@import "common";
+
+
+.section1 {
+  @extend .top.common-section;
+
+}
+
+.section2 {
+  .info{
+    background: url("../img/webinarPaymentsInfo.jpg") no-repeat;
+    height: 519px - ($gutter * 2);
+    padding: $gutter;
+    .container{
+      display: table-cell;
+      vertical-align: middle;
+      width: $contentWidth - ($gutter * 8);
+      height: 519px - ($gutter * 4);
+      padding: $gutter $gutter * 3;
+      text-align: center;
+      color: #fff;
+    }
+  }
+}
+
+.lessons-grid{
+  .grid{
+    @extend .mini.common-section;
+
+    &.no-margin{
+      padding-top: 0;
+    }
+  }
+}
+
+.section3{
+  .details{
+    margin-top: $gutter / 2;
+  }
+}
+
+.section4, .section5, .section7, .section9{
+  @extend .mini.common-section;
+}
+
+.section5{
+  margin-bottom: $gutter * 2;
+}
+
+.section6{
+  @extend .common-section;
+}
+
+.section7{
+  margin-top: $commonH2Margin;
+  background: url("../img/personSectionBg1.jpg") no-repeat #131313;
+  color: #fff;
+  .items{
+    .title{
+      a{
+        @extend a.white;
+      }
+    }
+  }
+  .more-grid-items{
+    padding-bottom: $commonH2Margin;
+  }
+}
+
+.section8{
+  @extend .micro.common-section;
+
+  .countdown{
+    p {
+      @extend .ristretto.font;
+      @extend .big.font;
+
+      margin-bottom: 10px;
+    }
+    text-align: center;
+  }
+}
+
+.section9{
+  .social-icons{
+    margin-top: $gutter;
+    text-align: center;
+  }
+}
+
+.chat{
+  $margin: $gutter / 2;
+
+  h3{
+    margin-bottom: $margin;
+  }
+  .pop-chat{
+    @extend .small.font;
+
+    padding-top: 1em;
+    text-align: right;
+  }
+  .input{
+    textarea{
+      height: 6em * 1.5;
+      margin-bottom: 5px;
+    }
+    .buttons{
+      float: right;
+    }
+  }
+  .stack{
+    .container{
+      max-height: 260px;
+      padding-right: 16px;
+      overflow-y: auto;
+    }
+    .item{
+      margin-bottom: $gutter;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+    .name, .date{
+      @extend .small.font;
+    }
+    .name{
+      @extend .b;
+
+      float: left;
+    }
+    .date{
+      float: right;
+      color: $gold;
+    }
+  }
+}
+

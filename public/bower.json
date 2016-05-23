@@ -1,0 +1,17 @@
+{
+  "name": "Juri Zhdanov",
+  "version": "0.0.0",
+  "authors": [
+    "Alex"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "lt-ie-9": "~0.1.0",
+    "jquery-form": "~3.46.0",
+    "animate.css": "https://github.com/daneden/animate.css.git#~3.4.0",
+    "cookie": "^1.1.0",
+    "font-awesome": "~4.4.0",
+    "video.js": "^5.8.7"
+  }
+}

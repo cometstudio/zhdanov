@@ -17,12 +17,12 @@
         <div class="lessons-grid section">
             <div class="wrapper">
                 <div class="filter clearfix">
-                    <form action="/lessons" method="get">
+                    <form action="{{ route('lessons', [], false) }}" method="get">
                         @if(!empty($options['authors']))
-                            <select name="">
+                            <select name="author_id">
                                 <option value="">все авторы</option>
                                 @foreach($options['authors'] as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}"{{ $user->id == request('author_id') ? ' selected' : '' }}>{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         @endif

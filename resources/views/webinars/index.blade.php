@@ -17,13 +17,15 @@
         <div class="lessons-grid section">
             <div class="wrapper">
                 <div class="filter clearfix">
-                    <form action="/webinars" method="get">
-                        <select name="">
-                            <option value="">все мастера</option>
-                            <option value="">Юрий Жданов</option>
-                            <option value="">Ирина Агрба</option>
-                        </select>
-
+                    <form action="{{ route('webinars', [], false) }}" method="get">
+                        @if(!empty($options['authors']))
+                            <select name="author_id">
+                                <option value="">все авторы</option>
+                                @foreach($options['authors'] as $user)
+                                    <option value="{{ $user->id }}"{{ $user->id == request('author_id') ? ' selected' : '' }}>{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
                         <select name="">
                             <option value="">все тематики</option>
                             <option value="">hair-tatoo</option>

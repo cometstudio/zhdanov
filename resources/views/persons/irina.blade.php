@@ -198,17 +198,27 @@
                                 @endif
                             </div>
                             <div class="items">
-                                <span class="l black labels">hair-tatoo</span>
-                                <span class="r labels">1 500.-</span>
-                                <a href="/webinars/1"><img src="/img/webinarGridItem.jpg" /></a>
-                                <ul class="date clearfix">
-                                    <li>14 сентября, 18:00</li>
-                                    <li><span class="fa fa-clock-o"></span> 2 часа 15 минут</li>
-                                </ul>
-                                <div class="title"><a href="/webinars/1">Двухчасовой вебинар "Основы химической завивки"</a></div>
-                                <div class="controls clearfix">
-                                    <a href="" class="empty red buttons">Записаться</a><span>8 из 15 мест свободны</span>
-                                </div>
+                                @if(!empty($webinar))
+                                    <span class="l black labels">hair-tatoo</span>
+                                    @if(empty($webinar->price))
+                                        <span class="r red labels">Free</span>
+                                    @else
+                                        <span class="r labels">{{ number_format($webinar->price, 0, '', ' ') }}.-</span>
+                                    @endif
+                                    <a href="/webinars/{{ $webinar->id }}"><img src="/img/webinarGridItem.jpg" /></a>
+                                    <ul class="date clearfix">
+                                        <li>14 сентября, 18:00</li>
+                                        @if($webinar->length_hr || $webinar->length_min)
+                                            <li><span class="fa fa-clock-o"></span> {{ $webinar->length_hr }} часа {{ $webinar->length_min }} минут</li>
+                                        @endif
+                                    </ul>
+                                    <div class="title"><a href="/webinars/{{ $webinar->id }}">{{ $webinar->name }}</a></div>
+                                    <div class="controls clearfix">
+                                        <a href="" class="empty red buttons">Записаться</a><span>8 из 15 мест свободны</span>
+                                    </div>
+                                @else
+                                    &nbsp;
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -168,8 +168,8 @@
                 </div>
                 <div class="grid">
                     <div class="x2 row clearfix">
-                        <div class="tar items"><a href="/lessons" class="empty white big buttons">Все видеоуроки</a></div>
-                        <div class="items"><a href="/webinars" class="empty white big buttons">Все вебинары</a></div>
+                        <div class="tar items"><a href="{{ route('lessons', ['author_id'=>$authorId], false) }}" class="empty white big buttons">Все видеоуроки</a></div>
+                        <div class="items"><a href="{{ route('webinars', ['author_id'=>$authorId], false) }}" class="empty white big buttons">Все вебинары</a></div>
                     </div>
                 </div>
                 <div class="lessons-grid">
@@ -183,32 +183,40 @@
                                     @else
                                         <span class="r labels">{{ number_format($lesson->price, 0, '', ' ') }}.-</span>
                                     @endif
-
-                                    <a href="/lessons/{{ $lesson->id }}"><img src="/img/webinarGridItem.jpg" /></a>
-                                    <div class="title"><a href="/lessons/{{ $lesson->id }}">{{ $lesson->name }}</a></div>
+                                    <a href="{{ route('lesson', ['id'=>$lesson->id], false) }}"><img src="/img/webinarGridItem.jpg" /></a>
+                                    <div class="title"><a href="{{ route('lesson', ['id'=>$lesson->id], false) }}">{{ $lesson->name }}</a></div>
                                     <div class="controls clearfix">
                                         <a href="" class="empty red buttons">Смотреть</a>
                                         @if($lesson->length_hr || $lesson->length_min)
                                             <span><span class="fa fa-clock-o"></span> {{ $lesson->length_hr }} часа {{ $lesson->length_min }} минут</span>
                                         @endif
-
                                     </div>
                                 @else
                                     &nbsp;
                                 @endif
                             </div>
                             <div class="items">
+                                @if(!empty($webinar))
                                 <span class="l black labels">hair-tatoo</span>
-                                <span class="r labels">1 500.-</span>
-                                <a href="/webinars/1"><img src="/img/webinarGridItem.jpg" /></a>
+                                @if(empty($webinar->price))
+                                    <span class="r red labels">Free</span>
+                                @else
+                                    <span class="r labels">{{ number_format($webinar->price, 0, '', ' ') }}.-</span>
+                                @endif
+                                <a href="{{ route('webinar', ['id'=>$webinar->id], false) }}"><img src="/img/webinarGridItem.jpg" /></a>
                                 <ul class="date clearfix">
                                     <li>14 сентября, 18:00</li>
-                                    <li><span class="fa fa-clock-o"></span> 2 часа 15 минут</li>
+                                    @if($webinar->length_hr || $webinar->length_min)
+                                        <li><span class="fa fa-clock-o"></span> {{ $webinar->length_hr }} часа {{ $webinar->length_min }} минут</li>
+                                    @endif
                                 </ul>
-                                <div class="title"><a href="/webinars/1">Двухчасовой вебинар "Основы химической завивки"</a></div>
+                                <div class="title"><a href="{{ route('webinar', ['id'=>$webinar->id], false) }}">{{ $webinar->name }}</a></div>
                                 <div class="controls clearfix">
                                     <a href="" class="empty red buttons">Записаться</a><span>8 из 15 мест свободны</span>
                                 </div>
+                                @else
+                                    &nbsp;
+                                @endif
                             </div>
                         </div>
                     </div>

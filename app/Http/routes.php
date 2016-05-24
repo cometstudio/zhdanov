@@ -22,14 +22,14 @@ Route::get('/courses', 'CoursesController@index');
 Route::get('/courses/{id}', 'CoursesController@item')->where('id', '[0-9]+');
 
 // Lessons
-Route::get('/lessons', 'LessonsController@index');
+Route::get('/lessons', 'LessonsController@index')->name('lessons');
 // Item
-Route::get('/lessons/{id}', 'LessonsController@item')->where('id', '[0-9]+');
+Route::get('/lessons/{id}', 'LessonsController@item')->where('id', '[0-9]+')->name('lesson');
 
 // Webinars
-Route::get('/webinars', 'WebinarsController@index');
+Route::get('/webinars', 'WebinarsController@index')->name('webinars');
 // Item
-Route::get('/webinars/{id}', 'WebinarsController@item')->where('id', '[0-9]+');
+Route::get('/webinars/{id}', 'WebinarsController@item')->where('id', '[0-9]+')->name('webinar');
 
 // Shop
 Route::get('/shop', 'ShopController@index');

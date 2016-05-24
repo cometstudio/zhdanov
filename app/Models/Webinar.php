@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class Lesson extends BaseModel
+class Webinar extends BaseModel
 {
     protected $fillable = [
         'name', 'author_id', 'teaser', 'price', 'length_hr', 'length_min', 'text'

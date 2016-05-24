@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Models\Webinar;
 
 class WebinarsController extends Controller
 {
@@ -12,7 +12,12 @@ class WebinarsController extends Controller
 
     public function index()
     {
-        return view('webinars.index', ['css'=>$this->css]);
+        $webinar = new Webinar();
+
+        return view('webinars.index', [
+            'css'=>$this->css,
+            'options'=>$webinar->getOptions(),
+        ]);
     }
 
     public function item($id)

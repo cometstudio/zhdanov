@@ -5,30 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Lesson;
+use App\Models\Webinar;
 
 class PersonsController extends Controller
 {
     protected $css = 'person';
-    protected $yuriId = 2;
-    protected $irinaId = 3;
 
     public function yuri()
     {
-        return $this->person($this->yuriId, 'yuri');
+        return $this->person('yuri');
     }
 
     public function irina()
     {
-        return $this->person($this->irinaId, 'irina');
+        return $this->person('irina');
     }
 
-    private function person($userId = 0, $view = '')
+    private function person($alias = '')
     {
-        $lesson = Lesson::where('author_id', '=', $userId)->orderBy('id', 'DESC')->first();
+        // Get user id from config
+        $authorId = config('persons.'.$alias);
+        // Get user's last lesson
+        $lesson = Lesson::where('author_id', '=', $authorId)->orderBy('id', 'DESC')->first();
+        // Get user's last webinar
+        $webinar = Webinar::where('author_id', '=', $authorId)->orderBy('id', 'DESC')->first();
 
-        return view('persons.'.$view, [
+        return view('persons.'.$alias, [
             'css'=>$this->css,
+            'authorId'=>$authorId,
             'lesson'=>$lesson,
+            'webinar'=>$webinar,
         ]);
     }
 }

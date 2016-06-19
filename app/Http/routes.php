@@ -32,9 +32,9 @@ Route::get('/webinars', 'WebinarsController@index')->name('webinars');
 Route::get('/webinars/{id}', 'WebinarsController@item')->where('id', '[0-9]+')->name('webinar');
 
 // Shop
-Route::get('/shop', 'ShopController@index');
+Route::get('/products', 'ProductsController@index');
 // Item
-Route::get('/shop/{id}', 'ShopController@item')->where('id', '[0-9]+');
+Route::get('/products/{id}', 'ProductsController@item')->where('id', '[0-9]+')->name('product');
 
 // Timetable
 Route::get('/timetable', 'TimetableController@index');

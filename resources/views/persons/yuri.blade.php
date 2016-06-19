@@ -288,15 +288,15 @@
                 <div class="shop-teaser grid">
                     <div class="x3 row">
                         <div class="items">
-                            <a href="/courses"><img src="/img/shopTeaser1.jpg" /></a>
+                            <a href="/courses"><img src="/img/productsTeaser1.jpg" /></a>
                             <h3><a href="/courses">Для салонов</a></h3>
                         </div>
                         <div class="items">
-                            <a href="/courses"><img src="/img/shopTeaser2.jpg" /></a>
+                            <a href="/courses"><img src="/img/productsTeaser2.jpg" /></a>
                             <h3><a href="/courses">Для мужчин</a></h3>
                         </div>
                         <div class="items">
-                            <a href="/courses"><img src="/img/shopTeaser3.jpg" /></a>
+                            <a href="/courses"><img src="/img/productsTeaser3.jpg" /></a>
                             <h3><a href="/courses">Для женщин</a></h3>
                         </div>
                     </div>
@@ -304,97 +304,22 @@
             </div>
         </div>
 
-        <div class="section5 section">
-            <div class="wrapper">
-                <div class="inverted common-h2">
-                    <h2><span>Рекомендуем</span></h2>
-                </div>
-                <div class="small shop-grid grid">
-                    <div class="x5 row clearfix">
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
+        @if(!empty($products) && $products->count())
+            <div class="section5 section">
+                <div class="wrapper">
+                    <div class="inverted common-h2">
+                        <h2><span>Рекомендуем</span></h2>
+                    </div>
+                    <div class="small shop-grid grid">
+                        <div class="x5 row clearfix">
+                            @foreach($products as $product)
+                                @include('shop.gridItem')
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="footer section">
             <div class="wrapper clearfix">

@@ -19,13 +19,13 @@
                 <div class="shop-teaser grid">
                     <div class="x4 row">
                         <div class="items">
-                            <h3><a href="/shop">Для салонов</a></h3>
+                            <h3><a href="/products">Для салонов</a></h3>
                         </div>
                         <div class="items">
-                            <h3><a href="/shop">Для мужчин</a></h3>
+                            <h3><a href="/products">Для мужчин</a></h3>
                         </div>
                         <div class="items">
-                            <h3><a href="/shop">Для женщин</a></h3>
+                            <h3><a href="/products">Для женщин</a></h3>
                         </div>
                         <div class="items">
                             <h3><span class="active">Корзина<sup>2</sup></span></h3>
@@ -39,9 +39,9 @@
             <div class="wrapper">
                 <div class="cart-grid">
                     <div id="i0" class="items clearfix">
-                        <div><a href="/shop/1"><img src="/img/shopGridItem.jpg" /></a></div>
+                        <div><a href="/products/1"><img src="/img/shopGridItem.jpg" /></a></div>
                         <div>
-                            <a href="/shop/1">Увлажняющий кератиновый шампунь с маслом арганы, PH LABORATORIES</a>
+                            <a href="/products/1">Увлажняющий кератиновый шампунь с маслом арганы, PH LABORATORIES</a>
                         </div>
                         <div>
                             <div class="quantity">
@@ -54,9 +54,9 @@
                         <div><span class="summary">1 290</span>.-</div>
                     </div>
                     <div id="i1" class="items clearfix">
-                        <div><a href="/shop/1"><img src="/img/shopGridItem.jpg" /></a></div>
+                        <div><a href="/products/1"><img src="/img/shopGridItem.jpg" /></a></div>
                         <div>
-                            <a href="/shop/1">Увлажняющий кератиновый шампунь с маслом арганы, PH LABORATORIES</a>
+                            <a href="/products/1">Увлажняющий кератиновый шампунь с маслом арганы, PH LABORATORIES</a>
                         </div>
                         <div>
                             <div class="quantity">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <a href="/shop" class="red empty big buttons">В магазин</a><a href="" class="big buttons">Заказать</a>
+                    <a href="/products" class="red empty big buttons">В магазин</a><a href="" class="big buttons">Заказать</a>
                 </div>
             </div>
         </div>

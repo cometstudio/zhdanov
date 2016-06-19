@@ -17,4 +17,26 @@ class BaseModel extends Model
     {
         return [];
     }
+    
+    public function gallery($useEmptyImage = false)
+    {
+        try{
+            if(empty($this->gallery)) throw  new \Exception;
+            
+            $gallery = \Resizer::gallery($this->gallery, $useEmptyImage);
+
+            if(empty($gallery)) throw  new \Exception;
+            
+            return $gallery;
+        }catch (\Exception $e){
+            return [];
+        }
+    }
+    
+    public function thumbnail()
+    {
+        $gallery = $this->gallery(true);
+    
+        return reset($gallery);
+    }
 }

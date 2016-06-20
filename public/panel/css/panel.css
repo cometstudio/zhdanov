@@ -278,6 +278,12 @@ b, strong, .bold, .panel-model-name {
     color: #fff; }
   .form.login button {
     float: right; }
+.form .x2 {
+  width: 50%; }
+.form .x3 {
+  width: 33.33%; }
+.form .x4 {
+  width: 25%; }
 
 .common-grid .items {
   transition: 0.5s;

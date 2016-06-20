@@ -24,7 +24,7 @@ class User extends PanelUser implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'is_author', 'email', 'password',
     ];
 
     /**

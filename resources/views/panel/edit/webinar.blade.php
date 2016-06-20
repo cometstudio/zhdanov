@@ -30,7 +30,7 @@
         </select>
     </div>
     <div class="row">
-        <dl>Стоимость просмотра, рублей</dl>
+        <dl>Стоимость участия, рублей</dl>
         <input class="x4" name="price" value="{{ $item->price }}" type="text" />
     </div>
     <div class="row">

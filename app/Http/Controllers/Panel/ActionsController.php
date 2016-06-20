@@ -231,8 +231,8 @@ class ActionsController extends Controller
         $data = $request->all();
 
         if(empty($this->id)) {
-            $model->create($data);
-
+            $model->id = $model->create($data)->id;
+            
             if($this->hasOptions($model)) $model->setOptions($data);
 
             // Move gallery images from temporary to the permanent location

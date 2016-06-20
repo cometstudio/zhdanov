@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\Lesson;
 
 class LessonsController extends Controller
 {
@@ -12,7 +13,12 @@ class LessonsController extends Controller
 
     public function index()
     {
-        return view('lessons.index', ['css'=>$this->css]);
+        $lesson = new Lesson();
+
+        return view('lessons.index', [
+            'css'=>$this->css,
+            'options'=>$lesson->getOptions(),
+        ]);
     }
 
     public function item($id)

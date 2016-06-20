@@ -7,8 +7,8 @@
 Route::get('/', 'IndexController@index')->name('index');
 
 // Person
-Route::get('/irina', 'IrinaController@index');
-Route::get('/yuri', 'YuriController@index');
+Route::get('/yuri', 'PersonsController@yuri');
+Route::get('/irina', 'PersonsController@irina');
 
 // Users
 // Login
@@ -22,19 +22,19 @@ Route::get('/courses', 'CoursesController@index');
 Route::get('/courses/{id}', 'CoursesController@item')->where('id', '[0-9]+');
 
 // Lessons
-Route::get('/lessons', 'LessonsController@index');
+Route::get('/lessons', 'LessonsController@index')->name('lessons');
 // Item
-Route::get('/lessons/{id}', 'LessonsController@item')->where('id', '[0-9]+');
+Route::get('/lessons/{id}', 'LessonsController@item')->where('id', '[0-9]+')->name('lesson');
 
 // Webinars
-Route::get('/webinars', 'WebinarsController@index');
+Route::get('/webinars', 'WebinarsController@index')->name('webinars');
 // Item
-Route::get('/webinars/{id}', 'WebinarsController@item')->where('id', '[0-9]+');
+Route::get('/webinars/{id}', 'WebinarsController@item')->where('id', '[0-9]+')->name('webinar');
 
 // Shop
-Route::get('/shop', 'ShopController@index');
+Route::get('/products', 'ProductsController@index');
 // Item
-Route::get('/shop/{id}', 'ShopController@item')->where('id', '[0-9]+');
+Route::get('/products/{id}', 'ProductsController@item')->where('id', '[0-9]+')->name('product');
 
 // Timetable
 Route::get('/timetable', 'TimetableController@index');

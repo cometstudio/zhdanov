@@ -29,7 +29,7 @@
         <li><a href="/timetable">Расписание</a></li>
         <li class="index-logo"><span></span></li>
         <li class="second-col"><a href="/proffashiontime">PROF fashion TIME</a></li>
-        <li><a href="/shop">Магазин</a></li>
+        <li><a href="/products">Магазин</a></li>
         <li><a href="/gallery">Галерея</a></li>
         <li><a href="/contacts">Контакты</a></li>
     </ul>

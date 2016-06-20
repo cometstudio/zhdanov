@@ -261,16 +261,16 @@
             <div class="shop-teaser grid">
                 <div class="x3 row">
                     <div class="items">
-                        <a href="/shop"><img src="/img/shopTeaser1.jpg" /></a>
-                        <h3><a href="/shop">Для салонов</a></h3>
+                        <a href="/products"><img src="/img/productsTeaser1.jpg" /></a>
+                        <h3><a href="/products">Для салонов</a></h3>
                     </div>
                     <div class="items">
-                        <a href="/shop"><img src="/img/shopTeaser2.jpg" /></a>
-                        <h3><a href="/shop">Для мужчин</a></h3>
+                        <a href="/products"><img src="/img/productsTeaser2.jpg" /></a>
+                        <h3><a href="/products">Для мужчин</a></h3>
                     </div>
                     <div class="items">
-                        <a href="/shop"><img src="/img/shopTeaser3.jpg" /></a>
-                        <h3><a href="/shop">Для женщин</a></h3>
+                        <a href="/products"><img src="/img/productsTeaser3.jpg" /></a>
+                        <h3><a href="/products">Для женщин</a></h3>
                     </div>
                 </div>
             </div>

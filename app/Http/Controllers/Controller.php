@@ -13,4 +13,5 @@ class Controller extends BaseController
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     protected $css = 'index';
+    protected $title = '';
 }

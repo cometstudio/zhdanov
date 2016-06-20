@@ -18,15 +18,15 @@
         <div class="wrapper clearfix">
             <div class="shop-teaser grid">
                 <div class="x4 row">
-                    <div class="items">
-                        <h3><a href="/products?aid=1"{!! (request('aid', null) == 1) ? ' class="active"' : '' !!}>Для салонов</a></h3>
-                    </div>
-                    <div class="items">
-                        <h3><a href="/products?aid=2"{!! (request('aid', null) == 2) ? ' class="active"' : '' !!}>Для женщин</a></h3>
-                    </div>
-                    <div class="items">
-                        <h3><a href="/products?aid=3"{!! (request('aid', null) == 3) ? ' class="active"' : '' !!}>Для мужчин</a></h3>
-                    </div>
+                    @if(!empty($audiences))
+                        @foreach($audiences as $audience)
+                            @if(!empty($audience))
+                                <div class="items">
+                                    <h3><a href="{{ route('products', ['aid'=>$audience[0]]) }}"{!! (request('aid', null) == $audience[0]) ? ' class="active"' : '' !!}>{{ $audience[2] }}</a></h3>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
                     <div class="items">
                         <h3><a href="/cart">Корзина<sup>2</sup></a></h3>
                     </div>
@@ -45,9 +45,11 @@
                         @endforeach
                     </div>
                 </div>
+                <!--
                 <div class="more-grid-items">
                     <a href="" class="black big empty buttons">Показать больше</a>
                 </div>
+                -->
             @endif
         </div>
     </div>

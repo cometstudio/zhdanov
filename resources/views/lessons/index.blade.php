@@ -19,66 +19,39 @@
                 <div class="filter clearfix">
                     <form action="{{ route('lessons', [], false) }}" method="get">
                         @if(!empty($options['authors']))
-                            <select name="author_id">
-                                <option value="">все авторы</option>
+                            <select name="aid">
+                                <option value="0">все авторы</option>
                                 @foreach($options['authors'] as $user)
-                                    <option value="{{ $user->id }}"{{ $user->id == request('author_id') ? ' selected' : '' }}>{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}"{{ $user->id == request('aid') ? ' selected' : '' }}>{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         @endif
-                        <select name="">
-                            <option value="">все тематики</option>
-                            <option value="">hair-tatoo</option>
-                            <option value="">вечерняя причёска</option>
-                            <option value="">мода</option>
-                            <option value="">свадебная причёска</option>
-                            <option value="">техника</option>
-                        </select>
+                        @if(!empty($options['themes']))
+                            <select name="tid">
+                                <option value="0">все тематики</option>
+                                @foreach($options['themes'] as $theme)
+                                    <option value="{{ $theme->id }}"{{ $theme->id == request('tid') ? ' selected' : '' }}>{{ $theme->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
 
                         <button class="empty buttons">Показать</button>
                     </form>
                 </div>
-                <div class="grid">
-                    <div class="x2 row clearfix">
-                        <div class="items">
-                            <span class="l labels">вечерняя причёска</span>
-                            <span class="r red labels">Free</span>
-                            <a href="/lessons/1"><img src="/img/webinarGridItem.jpg" /></a>
-                            <div class="title"><a href="/lessons/1">Создание индивидуального образа</a></div>
-                            <div class="controls clearfix">
-                                <a href="" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> 2 часа 15 минут</span>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <span class="l labels">hair-tatoo</span>
-                            <span class="r gold labels">1 500.-</span>
-                            <a href="/lessons/1"><img src="/img/webinarGridItem.jpg" /></a>
-                            <div class="title"><a href="/lessons/1">Создание индивидуального образа</a></div>
-                            <div class="controls clearfix">
-                                <a href="" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> 2 часа 15 минут</span>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <span class="l labels">свадебная причёска</span>
-                            <img src="/img/webinarGridItem.jpg" />
-                            <div class="title">Создание индивидуального образа</div>
-                            <div class="controls clearfix">
-                                <span class="fa fa-magic"></span> В процессе создания
-                            </div>
-                        </div>
-                        <div class="items">
-                            <span class="l labels">мода</span>
-                            <img src="/img/webinarGridItem.jpg" />
-                            <div class="title">Создание индивидуального образа</div>
-                            <div class="controls clearfix">
-                                <span class="fa fa-magic"></span> В процессе создания
-                            </div>
+                @if(!empty($lessons) && $lessons->count())
+                    <div class="grid">
+                        <div class="x2 row clearfix">
+                            @foreach($lessons as $lesson)
+                                @include('lessons.gridItem')
+                            @endforeach
                         </div>
                     </div>
-                </div>
-                <div class="more-grid-items">
-                    <a href="" class="black big empty buttons">Показать больше</a>
-                </div>
+                    <!--
+                    <div class="more-grid-items">
+                        <a href="" class="black big empty buttons">Показать больше</a>
+                    </div>
+                    -->
+                @endif
             </div>
         </div>
 

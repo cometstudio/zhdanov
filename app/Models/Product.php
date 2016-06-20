@@ -20,9 +20,10 @@ class Product extends BaseModel
     public function getOptions()
     {
         $audiences = [
+            [],
             [1, 'Cалоны', 'Для салонов'],
-            [2, 'Женщины', 'Для мужчин'],
-            [3, 'Мужчины', 'Для женщин'],
+            [2, 'Женщины', 'Для женщин'],
+            [3, 'Мужчины', 'Для мужчин'],
         ];
         
         return compact('audiences');

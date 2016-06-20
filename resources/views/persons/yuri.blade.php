@@ -168,33 +168,18 @@
                 </div>
                 <div class="grid">
                     <div class="x2 row clearfix">
-                        <div class="tar items"><a href="{{ route('lessons', ['author_id'=>$authorId], false) }}" class="empty white big buttons">Все видеоуроки</a></div>
-                        <div class="items"><a href="{{ route('webinars', ['author_id'=>$authorId], false) }}" class="empty white big buttons">Все вебинары</a></div>
+                        <div class="tar items"><a href="{{ route('lessons', ['aid'=>$authorId], false) }}" class="empty white big buttons">Все видеоуроки</a></div>
+                        <div class="items"><a href="{{ route('webinars', ['aid'=>$authorId], false) }}" class="empty white big buttons">Все вебинары</a></div>
                     </div>
                 </div>
                 <div class="lessons-grid">
                     <div class="grid">
                         <div class="x2 row clearfix">
-                            <div class="items">
-                                @if(!empty($lesson))
-                                    <span class="l black labels">вечерняя причёска</span>
-                                    @if(empty($lesson->price))
-                                        <span class="r red labels">Free</span>
-                                    @else
-                                        <span class="r labels">{{ number_format($lesson->price, 0, '', ' ') }}.-</span>
-                                    @endif
-                                    <a href="{{ route('lesson', ['id'=>$lesson->id], false) }}"><img src="/img/webinarGridItem.jpg" /></a>
-                                    <div class="title"><a href="{{ route('lesson', ['id'=>$lesson->id], false) }}">{{ $lesson->name }}</a></div>
-                                    <div class="controls clearfix">
-                                        <a href="" class="empty red buttons">Смотреть</a>
-                                        @if($lesson->length_hr || $lesson->length_min)
-                                            <span><span class="fa fa-clock-o"></span> {{ $lesson->length_hr }} часа {{ $lesson->length_min }} минут</span>
-                                        @endif
-                                    </div>
-                                @else
-                                    &nbsp;
-                                @endif
-                            </div>
+                            @if(!empty($lesson))
+                                @include('lessons.gridItem', ['lesson'=>$lesson, 'options'=>$lesson->getOptions()])
+                            @else
+                                <div class="items">&nbsp;</div>
+                            @endif
                             <div class="items">
                                 @if(!empty($webinar))
                                 <span class="l black labels">hair-tatoo</span>
@@ -313,7 +298,7 @@
                     <div class="small shop-grid grid">
                         <div class="x5 row clearfix">
                             @foreach($products as $product)
-                                @include('shop.gridItem')
+                                @include('products.gridItem')
                             @endforeach
                         </div>
                     </div>

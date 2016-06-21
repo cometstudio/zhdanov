@@ -9,9 +9,20 @@
         <div class="row">
             <dl>Автор</dl>
             <select name="author_id">
-                <option value=""></option>
+                <option value="0"></option>
                 @foreach($options['authors'] as $user)
                     <option value="{{ $user->id }}"{{ $item->author_id == $user->id ? ' selected' : '' }}>{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    @endif
+    @if(!empty($options['themes']))
+        <div class="row">
+            <dl>Тематика</dl>
+            <select name="theme_id">
+                <option value="0"></option>
+                @foreach($options['themes'] as $theme)
+                    <option value="{{ $theme->id }}"{{ $item->theme_id == $theme->id ? ' selected' : '' }}>{{ $theme->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -32,6 +43,10 @@
     <div class="row">
         <dl>Стоимость участия, рублей</dl>
         <input class="x4" name="price" value="{{ $item->price }}" type="text" />
+    </div>
+    <div class="row">
+        <dl>Количество мест и участников</dl>
+        <input class="x4" name="vacancies" value="{{ $item->vacancies }}" type="text" /> <input class="x4" name="participants" value="{{ $item->participants }}" type="text" />
     </div>
     <div class="row">
         <dl>Краткое описание</dl>

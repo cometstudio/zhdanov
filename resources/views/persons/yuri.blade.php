@@ -175,34 +175,19 @@
                 <div class="lessons-grid">
                     <div class="grid">
                         <div class="x2 row clearfix">
+
                             @if(!empty($lesson))
                                 @include('lessons.gridItem', ['lesson'=>$lesson, 'options'=>$lesson->getOptions()])
                             @else
                                 <div class="items">&nbsp;</div>
                             @endif
-                            <div class="items">
-                                @if(!empty($webinar))
-                                <span class="l black labels">hair-tatoo</span>
-                                @if(empty($webinar->price))
-                                    <span class="r red labels">Free</span>
-                                @else
-                                    <span class="r labels">{{ number_format($webinar->price, 0, '', ' ') }}.-</span>
-                                @endif
-                                <a href="{{ route('webinar', ['id'=>$webinar->id], false) }}"><img src="/img/webinarGridItem.jpg" /></a>
-                                <ul class="date clearfix">
-                                    <li>14 сентября, 18:00</li>
-                                    @if($webinar->length_hr || $webinar->length_min)
-                                        <li><span class="fa fa-clock-o"></span> {{ $webinar->length_hr }} часа {{ $webinar->length_min }} минут</li>
-                                    @endif
-                                </ul>
-                                <div class="title"><a href="{{ route('webinar', ['id'=>$webinar->id], false) }}">{{ $webinar->name }}</a></div>
-                                <div class="controls clearfix">
-                                    <a href="" class="empty red buttons">Записаться</a><span>8 из 15 мест свободны</span>
-                                </div>
-                                @else
-                                    &nbsp;
-                                @endif
-                            </div>
+
+                            @if(!empty($webinar))
+                                @include('webinars.gridItem', ['webinar'=>$webinar, 'options'=>$webinar->getOptions()])
+                            @else
+                                <div class="items">&nbsp;</div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -315,7 +300,7 @@
                     <a href="">PROF fashion TIME</a>
                     <a href="">Магазин</a>
                     <a href="">Галерея</a>
-                    <a href="contacts.html">Контакты</a>
+                    <a href="/contacts">Контакты</a>
                 </nav>
                 <div class="contacts grid">
                     <div class="x3 row">

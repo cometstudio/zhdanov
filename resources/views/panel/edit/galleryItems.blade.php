@@ -1,5 +1,5 @@
 @if(!empty($item->gallery))
-    @foreach(\Resizer::gallery($item->gallery) as $index=>$image)
+    @foreach($item->getGallery() as $index=>$image)
         <div class="items">
             <div class="control">
                 <div class="bg"></div>

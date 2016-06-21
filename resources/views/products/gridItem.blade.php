@@ -9,7 +9,7 @@
                 <div>{{ $product->teaser }}</div>
             </div>
         @endif
-        <img src="{{ $imagesPath }}/small/{{ $product->thumbnail() }}.jpg" />
+        <img src="{{ $imagesPath }}/small/{{ $product->getThumbnail() }}.jpg" />
     </a>
     @if(!empty($product->price))
         <ul class="info clearfix">

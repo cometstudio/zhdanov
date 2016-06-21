@@ -12,9 +12,9 @@ class Product extends BaseModel
         'price',
         'audience_id',
         'teaser',
-        'gallery',
         'text',
         'recommendations',
+        'gallery',
     ];
 
     public function getOptions()

@@ -7,9 +7,9 @@
     @else
         <span class="r red labels">Free</span>
     @endif
-    <a href="{{ route('lesson', ['id'=>$lesson->id], false) }}"><img src="{{ $imagesPath }}/small1/{{ $lesson->thumbnail() }}.jpg" /></a>
+    <a href="{{ route('lesson', ['id'=>$lesson->id], false) }}"><img src="{{ $imagesPath }}/small1/{{ $lesson->getThumbnail() }}.jpg" /></a>
     <div class="title"><a href="{{ route('lesson', ['id'=>$lesson->id], false) }}">{{ $lesson->name }}</a></div>
     <div class="controls clearfix">
-        <a href="{{ route('lesson', ['id'=>$lesson->id], false) }}" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> {{ $lesson->length_hr }} часа {{ $lesson->length_min }} минут</span>
+        <a href="{{ route('lesson', ['id'=>$lesson->id], false) }}" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> {{ $lesson->length_hr }} {{ \Dictionary::get('time.hours', $lesson->length_hr ) }} {{ $lesson->length_min }} {{ \Dictionary::get('time.min', $lesson->length_min) }}</span>
     </div>
 </div>

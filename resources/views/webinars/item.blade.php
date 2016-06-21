@@ -17,8 +17,8 @@
         <div class="section3 section">
             <div class="wrapper">
                 <div class="common-h2">
-                    <h1>Основы химической завивки</h1>
-                    <div class="details">10 мая 2016 в 18:00, Юрий Жданов <a href="/lessons" class="labels">вечерняя причёска</a></div>
+                    <h1>{{ $webinar->name }}</h1>
+                    <div class="details">10 мая 2016 в 18:00, {{ $webinar->author->name }} <a href="{{ route('lessons', ['tid'=>$webinar->theme_id], false) }}" class="labels">{{ $webinar->theme->name }}</a></div>
                 </div>
             </div>
         </div>
@@ -28,11 +28,17 @@
                 <div class="grid">
                     <div class="x2 row clearfix">
                         <div class="items">
-                            Вебинар &mdash; мастер-класс в прямом эфире с возможностью получить ответ на интересующие вас вопросы. Во время трансляции будет открыт чат.
+                            @if(!empty($webinar->teaser))
+                                {{ $webinar->teaser }}
+                            @else
+                                &nbsp;
+                            @endif
                         </div>
                         <div class="countdown items">
-                            <p>Начало через 10 дней, 10 часов и 35 минут</p>
-                            <a href="" class="big buttons">Принять участие за 1 500.-</a>
+                            <p>Начало через 10 {{ \Dictionary::get('time.days', 10) }}, 10 {{ \Dictionary::get('time.hours', 10) }} и 35 {{ \Dictionary::get('time.min', 35) }}</p>
+                            @if(!empty($webinar->price))
+                                <a href="" class="big buttons">Принять участие за {{ number_format($webinar->price, 0, '', ' ') }}.-</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -113,7 +119,9 @@
 
         <div class="section9 section">
             <div class="wrapper">
-                Текст-описание вебинара. If your computer or network is protected by a firewall or proxy, make sure that Firefox is permitted to access the Web. If your computer or network is protected by a firewall or proxy, make sure that Firefox is permitted to access the Web. If your computer or network is protected by a firewall or proxy, make sure that Firefox is permitted to access the Web.
+                @if(!empty($webinar->text))
+                    {!! $webinar->text !!}
+                @endif
                 <div class="social-icons">
                     <span>Поделиться:</span><a class="vk" href=""></a><a class="tw" href=""></a><a class="ig" href=""></a><a class="fb" href=""></a>
                 </div>
@@ -122,77 +130,43 @@
 
         <div class="lessons-grid section6 section">
             <div class="wrapper">
+                @if(!empty($nextWebinars) && $nextWebinars->count())
                 <div class="common-h2">
                     <h2><span>Ближайшие вебинары</span></h2>
                 </div>
                 <div class="no-margin grid">
                     <div class="x2 row clearfix">
-                        <div class="items">
-                            <span class="l labels">вечерняя причёска</span>
-                            <span class="r red labels">Free</span>
-                            <a href="webinar.html"><img src="/img/webinarGridItem.jpg" /></a>
-                            <ul class="date clearfix">
-                                <li>14 мая, 18:00</li>
-                                <li><span class="fa fa-clock-o"></span> 2 часа 15 минут</li>
-                            </ul>
-                            <div class="title"><a href="webinar.html">Двухчасовой вебинар "Основы химической завивки"</a></div>
-                            <div class="controls clearfix">
-                                <a href="" class="empty red buttons">Записаться</a><span>8 из 15 мест свободны</span>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <span class="l labels">свадебная причёска</span>
-                            <span class="r gold labels">1 500.-</span>
-                            <a href=""><img src="/img/webinarGridItem.jpg" /></a>
-                            <ul class="date clearfix">
-                                <li>21 мая, 18:00</li>
-                                <li><span class="fa fa-clock-o"></span> 2 часа 15 минут</li>
-                            </ul>
-                            <div class="title"><a href="">Двухчасовой вебинар "Основы химической завивки"</a></div>
-                            <div class="controls clearfix">
-                                <span>Все 15 мест заняты</span>
-                            </div>
-                        </div>
+                        @foreach($nextWebinars as $nextWebinar)
+                            @include('webinars.gridItem', ['webinar'=>$nextWebinar])
+                        @endforeach
                     </div>
                 </div>
+                @endif
                 <div class="more-grid-items">
-                    <a href="webinars.html" class="black big empty buttons">Все вебинары</a>
+                    <a href="{{ route('webinars') }}" class="black big empty buttons">Все вебинары</a>
                 </div>
             </div>
         </div>
 
-        <div class="lessons-grid section7 section">
-            <div class="wrapper">
-                <div class="inverted common-h2">
-                    <h2><span>Видеоуроки</span></h2>
-                </div>
-                <div class="no-margin grid">
-                    <div class="x2 row clearfix">
-                        <div class="items">
-                            <span class="l labels">вечерняя причёска</span>
-                            <span class="r red labels">Free</span>
-                            <a href="/lessons/1"><img src="/img/webinarGridItem.jpg" /></a>
-                            <div class="title"><a href="/lessons/1">Создание индивидуального образа</a></div>
-                            <div class="controls clearfix">
-                                <a href="" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> 2 часа 15 минут</span>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <span class="l labels">вечерняя причёска</span>
-                            <span class="r red labels">Free</span>
-                            <a href="/lessons/1"><img src="/img/webinarGridItem.jpg" /></a>
-                            <div class="title"><a href="/lessons/1">Создание индивидуального образа</a></div>
-                            <div class="controls clearfix">
-                                <a href="" class="empty red buttons">Смотреть</a><span><span class="fa fa-clock-o"></span> 2 часа 15 минут</span>
-                            </div>
+        @if(!empty($lessons) && $lessons->count())
+            <div class="lessons-grid section7 section">
+                <div class="wrapper">
+                    <div class="inverted common-h2">
+                        <h2><span>Видеоуроки</span></h2>
+                    </div>
+                    <div class="no-margin grid">
+                        <div class="x2 row clearfix">
+                            @foreach($lessons as $lesson)
+                                @include('lessons.gridItem')
+                            @endforeach
                         </div>
                     </div>
-                </div>
-                <div class="more-grid-items">
-                    <a href="/lessons" class="white big empty buttons">Все видеоуроки</a>
+                    <div class="more-grid-items">
+                        <a href="{{ route('lessons') }}" class="white big empty buttons">Все видеоуроки</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="footer section">
             <div class="wrapper clearfix">
@@ -203,7 +177,7 @@
                     <a href="">PROF fashion TIME</a>
                     <a href="">Магазин</a>
                     <a href="">Галерея</a>
-                    <a href="contacts.html">Контакты</a>
+                    <a href="/contacts">Контакты</a>
                 </nav>
                 <div class="contacts grid">
                     <div class="x3 row">

@@ -41,7 +41,7 @@
                     <div class="x2 row clearfix">
                         <div class="items">
                             <ul class="gallery">
-                                <li><img src="{{ $imagesPath }}/big/{{ $product->thumbnail() }}.jpg" /></li>
+                                <li><img src="{{ $imagesPath }}/big/{{ $product->getThumbnail() }}.jpg" /></li>
                             </ul>
                         </div>
                         <div class="items">
@@ -127,7 +127,7 @@
                     <a href="">PROF fashion TIME</a>
                     <a href="">Магазин</a>
                     <a href="">Галерея</a>
-                    <a href="contacts.html">Контакты</a>
+                    <a href="/contacts">Контакты</a>
                 </nav>
                 <div class="contacts grid">
                     <div class="x3 row">

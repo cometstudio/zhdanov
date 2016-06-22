@@ -28,6 +28,10 @@
         </div>
     @endif
     <div class="row">
+        <dl>Дата начала</dl>
+        <input name="start_date" value="{{ $item->start_date }}" type="text" class="x4 datepicker" autocomplete="off" />
+    </div>
+    <div class="row">
         <dl>Длительность, часов, минут</dl>
         <select name="length_hr">
             @for($i=0;$i<6;$i++)

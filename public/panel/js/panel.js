@@ -23,6 +23,13 @@ $(document).ready(function(){
             console.log(ui.item.attr('id'));
         }
     });
+
+    $( ".datepicker" ).datepicker({
+        dateFormat: "dd.mm.yy",
+        beforeShow: function ( input, inst ) {
+            //console.log(this);
+        }
+    });
 });
 
 function imageadd(el)

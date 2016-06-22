@@ -35,7 +35,9 @@
                             @endif
                         </div>
                         <div class="countdown items">
-                            <p>Начало через 10 {{ \Dictionary::get('time.days', 10) }}, 10 {{ \Dictionary::get('time.hours', 10) }} и 35 {{ \Dictionary::get('time.min', 35) }}</p>
+                            @if(!empty($interval))
+                                <p>Начало через {{ $interval[0] }} {{ \Dictionary::get('time.days', $interval[0]) }}, {{ $interval[1] }} {{ \Dictionary::get('time.hours', $interval[1]) }} и {{ $interval[2] }} {{ \Dictionary::get('time.min', $interval[2]) }}</p>
+                            @endif
                             @if(!empty($webinar->price))
                                 <a href="" class="big buttons">Принять участие за {{ number_format($webinar->price, 0, '', ' ') }}.-</a>
                             @endif

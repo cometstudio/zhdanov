@@ -37,23 +37,27 @@
         </div>
     </div>
 
-    <div class="section4 section">
-        <div class="wrapper">
-            <div class="grid">
-                <div class="x2 row clearfix">
-                    @for($i=0;$i<10;$i++)
-                        <div class="items clearfix">
-                            <a href="http://youtube.com" target="_blank"><img src="img/eventTeaser1.jpg" /></a>
-                            <div>
-                                <h3><a href="http://youtube.com" target="_blank">#themetag</a></h3>
-                                Обзоры инструмента
+    @if(!empty($tags))
+        <div class="section4 section">
+            <div class="wrapper">
+                <div class="grid">
+                    <div class="x2 row clearfix">
+                        @foreach($tags as $tag)
+                            <div class="items clearfix">
+                                <a href="{{ $tag->url }}" target="_blank"><img src="{{ $imagesPath }}/small1/{{ $tag->getThumbnail() }}.jpg" /></a>
+                                <div>
+                                    <h3><a href="{{ $tag->url }}" target="_blank">{{ $tag->name }}</a></h3>
+                                    @if(!empty($tag->teaser))
+                                        {{ $tag->teaser }}
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    @endfor
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <div class="footer section">
         <div class="wrapper clearfix">

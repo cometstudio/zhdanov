@@ -69,6 +69,10 @@ class WebinarsController extends Controller
     public function item($id)
     {
         $webinar = Webinar::where('id', '=', $id)->firstOrFail();
+        
+        $interval = \Date::getInterval($webinar->start_date);
+
+        //dd($webinar->start_date);
 
         $nextWebinars = Webinar::where('id', '!=', $webinar->id)
             ->limit(2)
@@ -81,6 +85,7 @@ class WebinarsController extends Controller
         return view('webinars.item', [
             'css'=>$this->css,
             'webinar'=>$webinar,
+            'interval'=>$interval,
             'options'=>$webinar->getOptions(),
             'nextWebinars'=>$nextWebinars,
             'lessons'=>$lessons,

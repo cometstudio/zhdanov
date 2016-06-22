@@ -165,6 +165,8 @@ return [
         App\Providers\Resizer\ServiceProvider::class,
         // Dictionary
         App\Providers\Dictionary\ServiceProvider::class,
+        // Date
+        App\Providers\Date\ServiceProvider::class,
 
     ],
 
@@ -219,6 +221,8 @@ return [
         'Resizer'      => App\Providers\Resizer\Facade::class,
         // Dictionary
         'Dictionary'      => App\Providers\Dictionary\Facade::class,
+        // Date
+        'Date'      => App\Providers\Date\Facade::class,
 
     ],
 

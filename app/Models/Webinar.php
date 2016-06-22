@@ -16,7 +16,8 @@ class Webinar extends BaseModel
         'text', 
         'vacancies', 
         'participants',
-        'gallery'
+        'gallery',
+        'start_date'
     ];
 
     public function author()
@@ -39,5 +40,26 @@ class Webinar extends BaseModel
             'authors',
             'themes'
         );
+    }
+
+    protected function beforeSave($attributes = [])
+    {
+        if(empty($attributes)) $attributes = $this->getAttributes();
+
+        return $attributes;
+    }
+
+    public static function create_(array $attributes = [])
+    {
+        $attributes = self::beforeSave($attributes);
+
+        return parent::create($attributes);
+    }
+
+    public function update_(array $attributes = [], array $options = [])
+    {
+        $attributes = $this->beforeSave($attributes);
+
+        return parent::update($attributes, $options);
     }
 }

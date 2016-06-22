@@ -17,60 +17,47 @@
         <div class="section9 section">
             <div class="wrapper">
                 <div class="filter clearfix">
-                    <form action="/courses" method="get">
-                        <select name="">
-                            <option value="">все ведущие</option>
-                            <option value="">Юрий Жданов</option>
-                            <option value="">Ирина Агрба</option>
-                        </select>
+                    <form action="{{ route('courses', [], false) }}" method="get">
+                        @if(!empty($options['authors']))
+                            <select name="aid">
+                                <option value="0">все авторы</option>
+                                @foreach($options['authors'] as $user)
+                                    <option value="{{ $user->id }}"{{ $user->id == request('aid') ? ' selected' : '' }}>{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
+                        @if(!empty($options['themes']))
+                            <select name="tid">
+                                <option value="0">все тематики</option>
+                                @foreach($options['themes'] as $theme)
+                                    <option value="{{ $theme->id }}"{{ $theme->id == request('tid') ? ' selected' : '' }}>{{ $theme->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
+                        <select name="length">
+                            <option value="0">любая длительность</option>
+                            @for($i=1;$i<8;$i++)
+                                <option value="{{ $i }}">{{ $i }} {{ \Dictionary::get('time.days', $i) }}</option>
+                            @endfor
 
-                        <select name="">
-                            <option value="">любая длительность</option>
-                            <option value="">1 день</option>
-                            <option value="">2 дня</option>
-                            <option value="">3 дня</option>
-                            <option value="">4 дня</option>
-                            <option value="">5 дней</option>
-                            <option value="">6 дней</option>
-                            <option value="">7 дней</option>
                         </select>
 
                         <button class="empty buttons">Показать</button>
                     </form>
                 </div>
 
-                <div class="courses-grid clearfix">
-                    <div class="items">
-                        <div><a href="/courses/1"><img src="img/coursesGridItem.jpg" /></a></div>
-                        <div>
-                            <p class="title"><a href="/courses/1">Защита ушей клиента при выполнении стрижки</a></p>
-                            <p class="length"><span class="red labels">Юрий Жданов</span> <span class="labels">3 дня</span></p>
-                            <p>Программа направлена на подготовку мужских мастеров. Цикл занятий раскрывает тему классических стрижек и укладок, а также владение опасной бритвой. <a href="/courses/1">Подробности</a></p>
-                        </div>
-                        <div><a href="/timetable/1" class="buttons">Записаться</a></div>
+                @if(!empty($courses))
+                    <div class="courses-grid clearfix">
+                        @foreach($courses as $course)
+                            @include('courses.gridItem')
+                        @endforeach
                     </div>
-                    <div class="items">
-                        <div><a href="/courses/1"><img src="img/coursesGridItem.jpg" /></a></div>
-                        <div>
-                            <p class="title"><a href="/courses/1">Работа со сложными изгибами черепа</a></p>
-                            <p class="length"><span class="gold labels">Ирина Агрба</span> <span class="labels">1 день</span></p>
-                            <p>Программа направлена на подготовку мужских мастеров. Цикл занятий раскрывает тему классических стрижек и укладок, а также владение опасной бритвой. <a href="/courses/1">Подробности</a></p>
-                        </div>
-                        <div><a href="/timetable/1" class="buttons">Записаться</a></div>
+                    <!--
+                    <div class="more-grid-items">
+                        <a href="" class="black big empty buttons">Показать больше</a>
                     </div>
-                    <div class="items">
-                        <div><a href="/courses/1"><img src="img/coursesGridItem.jpg" /></a></div>
-                        <div>
-                            <p class="title"><a href="/courses/1">Искусство не отрезать лишнего</a></p>
-                            <p class="length"><span class="red labels">Юрий Жданов</span> <span class="labels">2 дня</span></p>
-                            <p>Программа направлена на подготовку мужских мастеров. Цикл занятий раскрывает тему классических стрижек и укладок, а также владение опасной бритвой. <a href="/courses/1">Подробности</a></p>
-                        </div>
-                        <div><a href="/timetable/1" class="buttons">Записаться</a></div>
-                    </div>
-                </div>
-                <div class="more-grid-items">
-                    <a href="" class="black big empty buttons">Показать больше</a>
-                </div>
+                    -->
+                @endif
             </div>
         </div>
 

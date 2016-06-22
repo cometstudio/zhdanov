@@ -22,13 +22,21 @@ class Dictionary
 
             // 1
             if($lastDigit == 1){
-                $index = 0;
+                if(($value > 10) && ($value < 20)){
+                    $index = 2;
+                }else{
+                    $index = 0;
+                }
             // 2-4
             }elseif(($lastDigit >= 2) && ($lastDigit <= 4)){
-                $index = 1;
+                if(($value > 10) && ($value < 20)){
+                    $index = 2;
+                }else{
+                    $index = 1;
+                }
             }
-            // 0, 5-20
-            elseif(empty($lastDigit) || (($lastDigit >= 5) && ($lastDigit <= 20))) {
+            // 0, 5-9
+            elseif(empty($lastDigit) || (($lastDigit >= 5) && ($lastDigit <= 9))) {
                 $index = 2;
             }else throw new \Exception;
 

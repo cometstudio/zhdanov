@@ -17,9 +17,9 @@ Route::get('/login', 'UsersController@login');
 Route::get('/signup', 'UsersController@signup');
 
 // Courses
-Route::get('/courses', 'CoursesController@index');
+Route::get('/courses', 'CoursesController@index')->name('courses');
 // Item
-Route::get('/courses/{id}', 'CoursesController@item')->where('id', '[0-9]+');
+Route::get('/courses/{id}', 'CoursesController@item')->where('id', '[0-9]+')->name('course');
 
 // Lessons
 Route::get('/lessons', 'LessonsController@index')->name('lessons');

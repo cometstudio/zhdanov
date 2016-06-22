@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-class TimetableModel extends BaseModel
+class Course extends BaseModel
 {
-    protected $table = 'timetable';
-
     protected $fillable = [
         'name',
         'author_id',
         'theme_id',
+        'length',
         'teaser',
         'text',
         'gallery'
@@ -23,5 +22,17 @@ class TimetableModel extends BaseModel
     public function theme()
     {
         return $this->hasOne('App\Models\Theme', 'id', 'theme_id');
+    }
+
+    public function getOptions()
+    {
+        $authors = User::where('is_author', '=', 1)->orderBy('name', 'ASC')->get();
+
+        $themes = Theme::all();
+
+        return compact(
+            'authors',
+            'themes'
+        );
     }
 }

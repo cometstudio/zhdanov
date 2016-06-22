@@ -258,15 +258,15 @@
                 <div class="shop-teaser grid">
                     <div class="x3 row">
                         <div class="items">
-                            <a href="/courses"><img src="/img/productsTeaser1.jpg" /></a>
+                            <a href="/courses"><img src="/img/eventTeaser1.jpg" /></a>
                             <h3><a href="/courses">Для салонов</a></h3>
                         </div>
                         <div class="items">
-                            <a href="/courses"><img src="/img/productsTeaser2.jpg" /></a>
+                            <a href="/courses"><img src="/img/eventTeaser2.jpg" /></a>
                             <h3><a href="/courses">Для мужчин</a></h3>
                         </div>
                         <div class="items">
-                            <a href="/courses"><img src="/img/productsTeaser3.jpg" /></a>
+                            <a href="/courses"><img src="/img/eventTeaser3.jpg" /></a>
                             <h3><a href="/courses">Для женщин</a></h3>
                         </div>
                     </div>

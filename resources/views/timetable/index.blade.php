@@ -13,25 +13,18 @@
         <div class="timeline-container">
             <div class="timeline">
                 <nav>
-                    <a href="">Январь</a>
-                    <a href="">Февраль</a>
-                    <a href="">Март</a>
-                    <a href="" class="active">Апрель</a>
-                    <a href="">Май</a>
-                    <a href="">Июнь</a>
-                    <a href="">Июль</a>
-                    <a href="">Август</a>
-                    <a href="">Сентябрь</a>
-                    <a href="">Октябрь</a>
-                    <a href="">Ноябрь</a>
-                    <a href="">Декабрь</a>
+                    @foreach(config('dictionary.months', []) as $index=>$month)
+                        @if(!empty($month))
+                            <a href="{{ route('timetable', ['m'=>$index, 'y'=>$activeYear]) }}"{!! ($activeMonth == $index) ? ' class="active"' : '' !!}>{{ $month[0] }}</a>
+                        @endif
+                    @endforeach
                 </nav>
                 <div class="chosen">
                     <i></i>
                     <div>
-                        <a href="" class="fa fa-angle-left"></a>
-                        <span>2016</span>
-                        <a href="" class="fa fa-angle-right"></a>
+                        <a href="{{ route('timetable', ['m'=>$activeMonth, 'y'=>($activeYear - 1)]) }}" class="fa fa-angle-left"></a>
+                        <span>{{ $activeYear }}</span>
+                        <a href="{{ route('timetable', ['m'=>$activeMonth, 'y'=>($activeYear + 1)]) }}" class="fa fa-angle-right"></a>
                     </div>
                     <i></i>
                 </div>
@@ -42,38 +35,46 @@
     <div class="timetable section">
         <div class="wrapper">
             <div class="filter clearfix">
-                <form action="/timetable" method="get">
-                    <select name="">
+                <form action="{{ route('timetable', [], false) }}" method="get">
+
+                    <input name="m" value="{{ request('m', 0) }}" type="hidden" />
+                    <input name="y" value="{{ request('y', 0) }}" type="hidden" />
+
+                    <select name="tid">
                         <option value="">все события</option>
-                        <option value="">мероприятия</option>
                         <option value="">вебинары</option>
-                        <option value="">запись в салоне</option>
                         <option value="">семинары и мастер-классы</option>
                     </select>
 
-                    <select name="">
-                        <option value="">выберите мастера...</option>
-                        <option value="">Юрий Жданов</option>
-                        <option value="">Ирина Агрба</option>
-                    </select>
+                    @if(!empty($authors))
+                        <select name="aid">
+                            <option value="0">все авторы</option>
+                            @foreach($authors as $user)
+                                <option value="{{ $user->id }}"{{ $user->id == request('aid') ? ' selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
 
-                    <select name="">
-                        <option value="">выберите город...</option>
-                        <option value="">Москва</option>
-                        <option value="">Сочи</option>
-                    </select>
+                    @if(!empty($cities))
+                        <select name="cid">
+                            <option value="0">все авторы</option>
+                            @foreach($cities as $city)
+                                <option value="{{ $user->id }}"{{ $user->id == request('cid') ? ' selected' : '' }}>{{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
 
                     <button class="empty buttons">Показать</button>
                 </form>
             </div>
             <div class="grid">
                     <div class="x7 row clearfix">
-                        @for($i=1;$i<=31;$i++)
-                            @if($i==5)
+                        @for($i=(2 - $activeMonthStartDay);$i<=$activeMonthLength;$i++)
+                            @if(($i > 0) && ($i==3))
                                 <div class="items">
                                     <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
                                     <div class="date clearfix">
-                                        <div class="l">{{ $i }}/06, Пт</div>
+                                        <div class="l">{{ $i }}/{{ $activeMonth }}, {{ $daysOfWeek[date('N', \Date::getTimeFromDate($i.'.'.$activeMonth.'.'.$activeYear))][1] }}</div>
                                         <div class="r">11:00</div>
                                     </div>
                                     <a href="/timetable/1" class="title">
@@ -84,14 +85,16 @@
                                         <p>Ирина Агрба</p>
                                     </div>
                                 </div>
-                            @else
+                            @elseif($i > 0)
                                 <div class="empty items">
                                     <div class="empty-date">
                                         <span>{{ $i }}</span>
-                                        июня
+                                        {{ $activeMonthData[1] }}
                                     </div>
                                     <div class="title">В этот день событий нет</div>
                                 </div>
+                            @else
+                                <div class="empty items"></div>
                             @endif
                         @endfor
                     </div>

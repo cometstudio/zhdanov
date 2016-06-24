@@ -43,4 +43,44 @@ class Date
             return time();
         }
     }
+    
+    public function getMonthLength($month = 0, $year = 0)
+    {
+        try{
+            if(empty($month) || !is_numeric($month)) $month = date('n');
+            if(empty($year) || !is_numeric($year)) $year = date('Y');
+
+            $time = mktime(0, 0, 1, $month, 1, $year);
+
+            if(empty($time)) throw new \Exception;
+
+            $length = date('t', $time);
+
+            if(empty($length)) throw new \Exception;
+
+            return $length;
+        }catch (\Exception $e){
+            return 0;
+        }
+    }
+
+    public function getMonthStartDay($month = 0, $year = 0)
+    {
+        try{
+            if(empty($month) || !is_numeric($month)) $month = date('n');
+            if(empty($year) || !is_numeric($year)) $year = date('Y');
+
+            $time = mktime(0, 0, 1, $month, 1, $year);
+
+            if(empty($time)) throw new \Exception;
+
+            $startDay = date('N', $time);
+
+            if(empty($startDay)) throw new \Exception;
+
+            return $startDay;
+        }catch (\Exception $e){
+            return 0;
+        }
+    }
 }

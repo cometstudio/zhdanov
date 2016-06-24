@@ -37,7 +37,7 @@ Route::get('/products', 'ProductsController@index')->name('products');
 Route::get('/products/{id}', 'ProductsController@item')->where('id', '[0-9]+')->name('product');
 
 // Timetable
-Route::get('/timetable', 'TimetableController@index');
+Route::get('/timetable', 'TimetableController@index')->name('timetable');
 // Item
 Route::get('/timetable/{id}', 'TimetableController@item')->where('id', '[0-9]+');
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.39 on 2016-06-22.
+ * Generated for Laravel 5.2.39 on 2016-06-24.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11935,6 +11935,24 @@ namespace {
          */
         public static function getTimeFromDate($date = '', $hour = 0, $min = 0, $sec = 0){
             return \App\Providers\Date\Date::getTimeFromDate($date, $hour, $min, $sec);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getMonthLength($month = 0, $year = 0){
+            return \App\Providers\Date\Date::getMonthLength($month, $year);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getMonthStartDay($month = 0, $year = 0){
+            return \App\Providers\Date\Date::getMonthStartDay($month, $year);
         }
         
     }

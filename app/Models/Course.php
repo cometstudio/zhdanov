@@ -24,6 +24,11 @@ class Course extends BaseModel
         return $this->hasOne('App\Models\Theme', 'id', 'theme_id');
     }
 
+    public function schedule()
+    {
+        return $this->hasMany('App\Models\Schedule', 'course_id', 'id');
+    }
+
     public function getOptions()
     {
         $authors = User::where('is_author', '=', 1)->orderBy('name', 'ASC')->get();

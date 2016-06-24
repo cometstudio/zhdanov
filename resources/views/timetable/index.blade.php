@@ -57,7 +57,7 @@
 
                     @if(!empty($cities))
                         <select name="cid">
-                            <option value="0">все авторы</option>
+                            <option value="0">все города</option>
                             @foreach($cities as $city)
                                 <option value="{{ $user->id }}"{{ $user->id == request('cid') ? ' selected' : '' }}>{{ $city->name }}</option>
                             @endforeach

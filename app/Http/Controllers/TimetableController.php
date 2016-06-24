@@ -16,8 +16,8 @@ class TimetableController extends Controller
     {
         $input = $request->all();
 
-        $activeYear = $request->get('y', date('Y'));
-        $activeMonth = $request->get('m', date('n'));
+        $activeYear = !empty($input['y']) ? $request->get('y') : date('Y');
+        $activeMonth = !empty($input['m']) ? $request->get('m') : date('n');
         $activeMonthStartDay = \Date::getMonthStartDay($activeMonth, $activeYear);
         $activeMonthLength = \Date::getMonthLength($activeMonth, $activeYear);
 

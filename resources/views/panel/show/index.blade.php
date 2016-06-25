@@ -6,7 +6,7 @@
     @if(!empty($items))
         <div class="sortable common-grid">
             @foreach($items as $item)
-                @include('panel.show.gridItem')
+                @include('panel.show.'.(!empty($currentPanelModel->grid_item_view) ? $currentPanelModel->grid_item_view : 'gridItem'))
             @endforeach
         </div>
     @endif

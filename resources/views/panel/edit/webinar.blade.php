@@ -29,7 +29,17 @@
     @endif
     <div class="row">
         <dl>Дата начала</dl>
-        <input name="start_date" value="{{ $item->start_date }}" type="text" class="x4 datepicker" autocomplete="off" />
+        <input name="_start_date" value="{{ $item->getStartDate() }}" type="text" class="x4 datepicker" autocomplete="off" /> в
+        <select name="_hrs">
+            @for($i=0;$i<24;$i++)
+                <option value="{{ $i }}"{{ date('G', $item->start_time) == $i ? ' selected' : '' }}>{{ $i }}</option>
+            @endfor
+        </select> :
+        <select name="_mins">
+            @for($i=0;$i<60;$i=$i+5)
+                <option value="{{ $i }}"{{ date('i', $item->start_time) == $i ? ' selected' : '' }}>{{ $i }}</option>
+            @endfor
+        </select>
     </div>
     <div class="row">
         <dl>Длительность, часов, минут</dl>
@@ -50,7 +60,7 @@
     </div>
     <div class="row">
         <dl>Количество мест и участников</dl>
-        <input class="x4" name="vacancies" value="{{ $item->vacancies }}" type="text" /> <input class="x4" name="participants" value="{{ $item->participants }}" type="text" />
+        <input class="x10" name="vacancies" value="{{ $item->vacancies }}" type="text" maxlength="4" /> <input class="x10" name="participants" value="{{ $item->participants }}" type="text" maxlength="4" />
     </div>
     <div class="row">
         <dl>Краткое описание</dl>

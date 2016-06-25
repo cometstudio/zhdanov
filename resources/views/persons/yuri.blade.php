@@ -13,7 +13,7 @@
                     <img src="/img/yuriHead.jpg" />
                 </div>
                 <ul>
-                    <li><a href="/yuri#timetable">Ближайшие <span>мероприятия</span></a></li>
+                    <li><a href="/yuri#schedule">Ближайшие <span>мероприятия</span></a></li>
                     <li><a href="/yuri#section3"><span>Online-</span>обучение</a></li>
                     <li><a href="/yuri#gallery">Галерея</a></li>
                     <li><a href="/courses"><span>Программы</span> обучения</a></li>
@@ -51,115 +51,22 @@
         </div>
         -->
 
-        <div id="timetable" class="timetable section">
-            <div class="wrapper">
-                <div class="common-h2">
-                    <h2><span>Ближайшие мероприятия</span></h2>
-                </div>
-                <div class="grid">
-                    <div class="x7 row clearfix">
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
-                        </div>
-                        <div class="items">
-                            <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                            <div class="date clearfix">
-                                <div class="l">02-05/06</div>
-                                <div class="r">11:00</div>
-                            </div>
-                            <a href="/timetable/1" class="title">
-                                Курс "Barber expert"
-                            </a>
-                            <div class="performer">
-                                <p>Сочи</p>
-                                <p>Ирина Агрба</p>
-                            </div>
+        @if(!empty($recentEvents))
+            <div id="section2" class="section2 schedule section">
+                <div class="wrapper">
+                    <div class="common-h2">
+                        <h2><span>Ближайшие мероприятия</span></h2>
+                    </div>
+                    <div class="grid">
+                        <div class="x7 row clearfix">
+                            @foreach($recentEvents as $event)
+                                @include('schedule.'.$event->type.'sGridItem')
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div id="section3" class="section3 section">
             <div class="wrapper">

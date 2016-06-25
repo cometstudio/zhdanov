@@ -18,7 +18,7 @@
             <div class="wrapper">
                 <div class="common-h2">
                     <h1>{{ $webinar->name }}</h1>
-                    <div class="details">10 мая 2016 в 18:00, {{ $webinar->author->name }} <a href="{{ route('lessons', ['tid'=>$webinar->theme_id], false) }}" class="labels">{{ $webinar->theme->name }}</a></div>
+                    <div class="details">{{ \Date::getDateFromTime($webinar->start_time) }} в 18:00 <a href="{{ route('webinars', ['aid'=>$webinar->author_id], false) }}" class="red labels">{{ $webinar->author->name }}</a> <a href="{{ route('lessons', ['tid'=>$webinar->theme_id], false) }}" class="labels">{{ $webinar->theme->name }}</a></div>
                 </div>
             </div>
         </div>

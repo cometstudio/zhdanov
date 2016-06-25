@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="timetable section">
+    <div class="schedule section">
         <div class="wrapper">
             <div class="common-h2">
                 <h2><span>Ближайшие мероприятия</span></h2>
@@ -58,12 +58,12 @@
             <div class="grid">
                 <div class="x7 row clearfix">
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">
@@ -72,12 +72,12 @@
                         </div>
                     </div>
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">
@@ -86,12 +86,12 @@
                         </div>
                     </div>
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">
@@ -100,12 +100,12 @@
                         </div>
                     </div>
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">
@@ -114,12 +114,12 @@
                         </div>
                     </div>
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">
@@ -128,12 +128,12 @@
                         </div>
                     </div>
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">
@@ -142,12 +142,12 @@
                         </div>
                     </div>
                     <div class="items">
-                        <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
+                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
                         <div class="date clearfix">
                             <div class="l">02-05/06</div>
                             <div class="r">11:00</div>
                         </div>
-                        <a href="/timetable/1" class="title">
+                        <a href="/schedule/1" class="title">
                             Курс "Barber expert"
                         </a>
                         <div class="performer">

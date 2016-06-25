@@ -284,6 +284,8 @@ b, strong, .bold, .panel-model-name {
   width: 33.33%; }
 .form .x4 {
   width: 25%; }
+.form .x10 {
+  width: 10%; }
 
 .common-grid .items {
   transition: 0.5s;

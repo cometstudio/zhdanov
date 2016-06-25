@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="timetable-page fc page-bg">
+<div class="schedule-page fc page-bg">
     <div class="fixed menu-container">
         @include('common.menu')
     </div>
@@ -15,16 +15,16 @@
                 <nav>
                     @foreach(config('dictionary.months', []) as $index=>$month)
                         @if(!empty($month))
-                            <a href="{{ route('timetable', ['m'=>$index, 'y'=>$activeYear]) }}"{!! ($activeMonth == $index) ? ' class="active"' : '' !!}>{{ $month[0] }}</a>
+                            <a href="{{ route('schedule', ['m'=>$index, 'y'=>$activeYear]) }}"{!! ($activeMonth == $index) ? ' class="active"' : '' !!}>{{ $month[0] }}</a>
                         @endif
                     @endforeach
                 </nav>
                 <div class="chosen">
                     <i></i>
                     <div>
-                        <a href="{{ route('timetable', ['m'=>$activeMonth, 'y'=>($activeYear - 1)]) }}" class="fa fa-angle-left"></a>
+                        <a href="{{ route('schedule', ['m'=>$activeMonth, 'y'=>($activeYear - 1)]) }}" class="fa fa-angle-left"></a>
                         <span>{{ $activeYear }}</span>
-                        <a href="{{ route('timetable', ['m'=>$activeMonth, 'y'=>($activeYear + 1)]) }}" class="fa fa-angle-right"></a>
+                        <a href="{{ route('schedule', ['m'=>$activeMonth, 'y'=>($activeYear + 1)]) }}" class="fa fa-angle-right"></a>
                     </div>
                     <i></i>
                 </div>
@@ -32,34 +32,43 @@
         </div>
     </div>
 
-    <div class="timetable section">
+    <div class="schedule section">
         <div class="wrapper">
             <div class="filter clearfix">
-                <form action="{{ route('timetable', [], false) }}" method="get">
+                <form action="{{ route('schedule', [], false) }}" method="get">
 
                     <input name="m" value="{{ request('m', 0) }}" type="hidden" />
                     <input name="y" value="{{ request('y', 0) }}" type="hidden" />
 
-                    <select name="tid">
-                        <option value="">все события</option>
-                        <option value="">вебинары</option>
-                        <option value="">семинары и мастер-классы</option>
+                    <select name="type">
+                        <option value="0">все события</option>
+                        <option value="1"{{ request('type', 0) == 1 ? ' selected' : '' }}>вебинары</option>
+                        <option value="2"{{ request('type', 0) == 2 ? ' selected' : '' }}>семинары и мастер-классы</option>
                     </select>
 
-                    @if(!empty($authors))
+                    @if(!empty($options['authors']))
                         <select name="aid">
                             <option value="0">все авторы</option>
-                            @foreach($authors as $user)
+                            @foreach($options['authors'] as $user)
                                 <option value="{{ $user->id }}"{{ $user->id == request('aid') ? ' selected' : '' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>
                     @endif
 
-                    @if(!empty($cities))
+                    @if(!empty($options['themes']))
+                        <select name="tid">
+                            <option value="0">все тематики</option>
+                            @foreach($options['themes'] as $theme)
+                                <option value="{{ $theme->id }}"{{ $theme->id == request('tid') ? ' selected' : '' }}>{{ $theme->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
+
+                    @if(!empty($options['cities']))
                         <select name="cid">
                             <option value="0">все города</option>
-                            @foreach($cities as $city)
-                                <option value="{{ $user->id }}"{{ $user->id == request('cid') ? ' selected' : '' }}>{{ $city->name }}</option>
+                            @foreach($options['cities'] as $city)
+                                <option value="{{ $city->id }}"{{ $city->id == request('cid') ? ' selected' : '' }}>{{ $city->name }}</option>
                             @endforeach
                         </select>
                     @endif
@@ -70,21 +79,10 @@
             <div class="grid">
                     <div class="x7 row clearfix">
                         @for($i=(2 - $activeMonthStartDay);$i<=$activeMonthLength;$i++)
-                            @if(($i > 0) && ($i==3))
-                                <div class="items">
-                                    <a href="/timetable/1"><img src="/img/timatableItem1.jpg" /></a>
-                                    <div class="date clearfix">
-                                        <div class="l">{{ $i }}/{{ $activeMonth }}, {{ $daysOfWeek[date('N', \Date::getTimeFromDate($i.'.'.$activeMonth.'.'.$activeYear))][1] }}</div>
-                                        <div class="r">11:00</div>
-                                    </div>
-                                    <a href="/timetable/1" class="title">
-                                        Курс "Barber expert"
-                                    </a>
-                                    <div class="performer">
-                                        <p>Сочи</p>
-                                        <p>Ирина Агрба</p>
-                                    </div>
-                                </div>
+                            @if(($i > 0) && ($event = $webinarModel->getByDate($webinars, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                                @include('schedule.webinarsGridItem')
+                            @elseif(($i > 0) && ($event = $courseModel->getByDate($courses, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                                @include('schedule.coursesGridItem')
                             @elseif($i > 0)
                                 <div class="empty items">
                                     <div class="empty-date">
@@ -94,7 +92,7 @@
                                     <div class="title">В этот день событий нет</div>
                                 </div>
                             @else
-                                <div class="empty items"></div>
+                                <div class="hidden items"></div>
                             @endif
                         @endfor
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Lesson;
@@ -32,7 +33,8 @@ class PersonsController extends Controller
         $webinar = Webinar::where('author_id', '=', $authorId)->orderBy('id', 'DESC')->first();
         // Get products
         $products = Product::orderBy('id', 'DESC')->get();
-
+        // Get recent events
+        $recentEvents = (new Schedule())->getRecentEvents($authorId);
 
         return view('persons.'.$alias, [
             'css'=>$this->css,
@@ -40,6 +42,8 @@ class PersonsController extends Controller
             'lesson'=>$lesson,
             'webinar'=>$webinar,
             'products'=>$products,
+            'recentEvents'=>$recentEvents,
+            'daysOfWeek'=>config('dictionary.daysOfWeek', []),
         ]);
     }
 }

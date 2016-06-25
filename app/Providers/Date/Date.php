@@ -31,10 +31,10 @@ class Date
         }
     }
 
-    public function getTimeFromDate($date = '', $hour = 0, $min = 0, $sec = 0)
+    public function getTimeFromDate($date = null, $hour = 0, $min = 0, $sec = 0)
     {
         try{
-            $date = explode('.', $date);
+            if(is_string($date)) $date = explode('.', $date);
 
             $time = mktime($hour, $min, $sec, $date[1], $date[0], $date[2]);
 
@@ -42,6 +42,44 @@ class Date
         }catch (\Exception $e){
             return time();
         }
+    }
+
+    public function getDateFromTime($time = 0, $type = 0)
+    {
+        try{
+            $date = [];
+            
+            switch($type){
+                default:
+                    $months = config('dictionary.months', []);
+
+                    $date[] = date('d', $time);
+                    $date[] = $months[date('n', $time)][1];
+                    $date[] = date('Y', $time);
+
+                    $date = implode(' ', $date); 
+                break;
+                case 1:
+                    $date[] = date('d', $time);
+                    $date[] = date('m', $time);
+                    $date[] = date('Y', $time);
+
+                    $date = implode('.', $date);
+                break;
+            }
+
+
+            return $date;
+        }catch (\Exception $e){
+            return time();
+        }
+    }
+
+    public function constructDate(array $data)
+    {
+        $date = implode('.', $data);
+        
+        return $date;
     }
     
     public function getMonthLength($month = 0, $year = 0)

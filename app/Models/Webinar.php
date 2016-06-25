@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
 
 class Webinar extends BaseModel
 {
@@ -10,14 +11,14 @@ class Webinar extends BaseModel
         'author_id', 
         'theme_id', 
         'teaser', 
-        'price', 
+        'price',
+        'start_time',
         'length_hr', 
         'length_min', 
         'text', 
         'vacancies', 
         'participants',
         'gallery',
-        'start_date'
     ];
 
     public function author()
@@ -45,21 +46,45 @@ class Webinar extends BaseModel
     protected function beforeSave($attributes = [])
     {
         if(empty($attributes)) $attributes = $this->getAttributes();
+        
+        $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
 
         return $attributes;
     }
 
-    public static function create_(array $attributes = [])
+    public static function create(array $attributes = [])
     {
         $attributes = self::beforeSave($attributes);
 
         return parent::create($attributes);
     }
 
-    public function update_(array $attributes = [], array $options = [])
+    public function update(array $attributes = [], array $options = [])
     {
         $attributes = $this->beforeSave($attributes);
 
         return parent::update($attributes, $options);
+    }
+
+    /**
+     * @param Collection $webinars
+     * @param array|string $date
+     * @return Collection
+     */
+    public function getByDate(Collection $webinars = null, $date = null)
+    {
+        try{
+            if(empty($webinars) || !$webinars->count()) throw new \Exception;
+            if(empty($date)) throw new \Exception;
+
+            return $webinars->filter(function ($webinar) use ($date) {
+                $timeFrom = \Date::getTimeFromDate($date);
+                $timeTo = \Date::getTimeFromDate($date, 23, 59, 59);
+
+                return (($webinar->start_time >= $timeFrom) && ($webinar->start_time <= $timeTo)) ? true : false;
+            });
+        }catch (\Exception $e){
+            return new Collection();
+        }
     }
 }

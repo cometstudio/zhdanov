@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
+
 class Course extends BaseModel
 {
     protected $fillable = [
@@ -39,5 +41,24 @@ class Course extends BaseModel
             'authors',
             'themes'
         );
+    }
+
+    public function getByDate(Collection $courses = null, $date = null)
+    {
+        try{
+            if(empty($courses) || !$courses->count()) throw new \Exception;
+            if(empty($date)) throw new \Exception;
+
+            return $courses->filter(function ($course) use ($date) {
+
+                $time = \Date::getTimeFromDate($date);
+                $timeFrom = \Date::getTimeFromDate(\Date::getDateFromTime($course->start_time, 1));
+                $timeTo = $timeFrom + ($course->length * 86400);
+
+                return (($time >= $timeFrom) && ($time < $timeTo)) ? true : false;
+            });
+        }catch (\Exception $e){
+            return new Collection();
+        }
     }
 }

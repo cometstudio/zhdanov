@@ -84,13 +84,13 @@ input::-moz-focus-inner {
 .font.classic, body, input, select, textarea, .buttons {
   font-size: 15px;
   line-height: 1.5em; }
-.font.medium, .pop-label, .timetable .grid {
+.font.medium, .pop-label, .schedule .grid {
   font-size: 14px;
   line-height: 1.5em; }
-.font.small, .common-date, .timetable .grid .items .date, .section2 .grid .x2 .items:last-child .date, .shop-teaser h3 a sup, .shop-teaser h3 span sup, .labels, .lessons-grid .items .date, .lessons-grid .items .controls, .section9 .courses-grid .items > div:nth-child(2) p.length {
+.font.small, .common-date, .schedule .grid .items .date, .section2 .grid .x2 .items:last-child .date, .shop-teaser h3 a sup, .shop-teaser h3 span sup, .labels, .lessons-grid .items .date, .lessons-grid .items .controls, .section9 .courses-grid .items > div:nth-child(2) p.length {
   font-size: 13px;
   line-height: 1.5em; }
-.font.extra-small, .timetable .grid .items .performer {
+.font.extra-small, .schedule .grid .items .performer {
   font-size: 11px;
   line-height: 1.5em; }
 
@@ -117,6 +117,10 @@ a {
     color: #dc3232; }
     a.red:hover {
       color: #000; }
+  a.labels {
+    color: #fff; }
+    a.labels:hover {
+      color: #fff; }
   a:hover {
     text-decoration: none;
     color: #dc3232; }
@@ -320,13 +324,13 @@ input[type=file] {
   .inverted-section.mini, .mini.section4, .mini.section6 {
     padding: 35px 0; }
 
-.common-section, .timetable, .section3, .section5, .section7, .section8, .map {
+.common-section, .schedule, .section3, .section5, .section7, .section8, .map {
   padding-top: 88px; }
-  .common-section.top, .top.timetable, .section1, .top.section3, .top.section5, .top.section7, .top.section8, .top.map {
+  .common-section.top, .top.schedule, .section1, .top.section3, .top.section5, .top.section7, .top.section8, .top.map {
     padding-top: 73px; }
-  .common-section.mini, .timetable, .section2, .mini.section3, .mini.section5, .section5 .apply, .section5 .add, .mini.section7, .mini.section8, .section9 .courses-grid, .section9 .more-grid-items, .mini.map {
+  .common-section.mini, .schedule, .section2, .mini.section3, .mini.section5, .section5 .apply, .section5 .add, .mini.section7, .mini.section8, .section9 .courses-grid, .section9 .more-grid-items, .mini.map {
     padding-top: 44px; }
-  .common-section.micro, .micro.timetable, .micro.section3, .micro.section5, .micro.section7, .micro.section8, .micro.map {
+  .common-section.micro, .micro.schedule, .micro.section3, .micro.section5, .micro.section7, .micro.section8, .micro.map {
     padding-top: 22px; }
 
 .grid .items {
@@ -773,45 +777,48 @@ input[type=file] {
     width: 33.33333%;
     height: 33.33333%; }
 
-.timetable .grid .row {
+.schedule .grid .row {
   margin-bottom: 15px; }
-  .timetable .grid .row:last-child {
+  .schedule .grid .row:last-child {
     margin-bottom: 0; }
-.timetable .grid .items {
+.schedule .grid .items {
   opacity: 0.6;
   transition: 0.2s;
-  background: #f5f5f5; }
-  .timetable .grid .items img {
+  background: #f5f5f5;
+  min-height: 300px; }
+  .schedule .grid .items img {
     max-width: 100%; }
-  .timetable .grid .items .date {
+  .schedule .grid .items .date {
     padding: 3px 5px;
     background: #464646;
     color: #fff; }
-    .timetable .grid .items .date .l {
+    .schedule .grid .items .date .l {
       float: left; }
-    .timetable .grid .items .date .r {
+    .schedule .grid .items .date .r {
       float: right; }
-  .timetable .grid .items .title {
+  .schedule .grid .items .title {
     display: block;
     padding: 5px;
-    min-height: 5.6em;
+    min-height: 6em;
     text-decoration: none;
     color: #000; }
-  .timetable .grid .items .performer {
+  .schedule .grid .items .performer {
     color: #959595;
     min-height: 3em;
     padding: 5px;
     border-top: 1px #cfcfcf solid; }
-  .timetable .grid .items.empty {
-    min-height: 299px;
+  .schedule .grid .items.empty {
+    min-height: 300px;
     text-align: center; }
-    .timetable .grid .items.empty .empty-date {
+    .schedule .grid .items.empty .empty-date {
       padding-top: 55px;
       height: 111px; }
-      .timetable .grid .items.empty .empty-date span {
+      .schedule .grid .items.empty .empty-date span {
         display: block;
         font-size: 30px; }
-  .timetable .grid .items:hover {
+  .schedule .grid .items.hidden {
+    background: none; }
+  .schedule .grid .items:hover {
     opacity: 1; }
 
 .player {
@@ -882,9 +889,9 @@ input[type=file] {
     top: 0;
     width: 100%; }
 
-.timetable .grid {
+.schedule .grid {
   margin-top: 2.5%; }
-  .timetable .grid .items {
+  .schedule .grid .items {
     margin-top: 2.5%; }
 
 .section2 .grid .x2 .items {
@@ -981,4 +988,4 @@ input[type=file] {
   min-height: 450px;
   background: url("../img/preloader.gif") 50% 50% no-repeat #000; }
 
-/*# sourceMappingURL=timetable.css.map */
+/*# sourceMappingURL=schedule.css.map */

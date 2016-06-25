@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="timetable-page fc page-bg">
+<div class="schedule-page fc page-bg">
     <div class="fixed menu-container">
         @include('common.menu')
     </div>
@@ -39,10 +39,10 @@
         </div>
     </div>
 
-    <div class="timetable section">
+    <div class="schedule section">
         <div class="wrapper">
             <div class="filter clearfix">
-                <form action="/timetable" method="get">
+                <form action="/schedule" method="get">
                     <select name="">
                         <option value="">все события</option>
                         <option value="">мероприятия</option>
@@ -131,7 +131,7 @@
                             <span>Поделиться:</span><a href="" class="vk"></a><a href="" class="tw"></a><a href="" class="ig"></a><a href="" class="fb"></a>
                         </div>
                     </div>
-                    <img src="/img/timetableItemInner.jpg" />
+                    <img src="/img/scheduleItemInner.jpg" />
                 </div>
             </div>
         </div>
@@ -252,7 +252,7 @@
                     <div class="items">
                         Описание условий бронирования (предоплата и т.д.).
                     </div>
-                    <div class="items"><a href="/timetable" class="big empty red buttons">Записаться</a></div>
+                    <div class="items"><a href="/schedule" class="big empty red buttons">Записаться</a></div>
                 </div>
             </div>
             <div class="add">
@@ -392,7 +392,7 @@
                     <div class="items">
                         Описание условий бронирования (предоплата и т.д.).
                     </div>
-                    <div class="items"><a href="/timetable" class="big buttons">Записаться</a></div>
+                    <div class="items"><a href="/schedule" class="big buttons">Записаться</a></div>
                 </div>
             </div>
         </div>

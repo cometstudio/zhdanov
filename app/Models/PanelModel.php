@@ -5,7 +5,10 @@ namespace App\Models;
 class PanelModel extends BaseModel
 {
     protected $fillable = [
-        'name', 'public_model_name', 'sortable',
+        'name',
+        'public_model_name',
+        'grid_item_view',
+        'sortable',
     ];
 
     public function getValidationRules()

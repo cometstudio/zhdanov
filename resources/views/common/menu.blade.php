@@ -26,7 +26,7 @@
                 <!--<li><a href="/yuri#section4">Пресса</a></li>-->
             </ul>
         </li>
-        <li><a href="/timetable">Расписание</a></li>
+        <li><a href="/schedule">Расписание</a></li>
         <li class="index-logo"><span></span></li>
         <li class="second-col"><a href="/proffashiontime">PROF fashion TIME</a></li>
         <li><a href="/products">Магазин</a></li>

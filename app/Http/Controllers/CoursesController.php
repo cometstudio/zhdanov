@@ -67,6 +67,12 @@ class CoursesController extends Controller
 
     public function item($id)
     {
-        return view('courses.item', ['css'=>$this->css]);
+        $course = Course::where('id', '=', $id)->firstOrFail();
+        
+        return view('courses.item', [
+            'css'=>$this->css,
+            'course'=>$course,
+            
+        ]);
     }
 }

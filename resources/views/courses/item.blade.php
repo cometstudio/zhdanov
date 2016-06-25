@@ -17,8 +17,8 @@
         <div class="section2 section">
             <div class="wrapper">
                 <div class="common-h2">
-                    <h1>Защита ушей клиента при выполнении стрижки</h1>
-                    <div class="details"><span class="red labels">Юрий Жданов</span> <span class="labels">3 дня</span></div>
+                    <h1>{{ $course->name }}</h1>
+                    <div class="details"><a href="{{ route('courses', ['aid'=>$course->author_id], false) }}" class="red labels">{{ $course->author->name }}</a> <span class="labels">{{ $course->length }} {{ \Dictionary::get('time.days', $course->length) }}</span> <a href="{{ route('courses', ['tid'=>$course->theme_id], false) }}" class="labels">{{ $course->theme->name }}</a></div>
                 </div>
             </div>
         </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="apply ">
-                    <a href="/timetable" class="big empty red buttons">Записаться</a>
+                    <a href="/schedule" class="big empty red buttons">Записаться</a>
                 </div>
                 <div class="add">
                     <a href="#section7-2" class="big empty red buttons">Добавить в портфель</a>
@@ -269,7 +269,7 @@
                     <h2><span>НЕ ЗАБУДЬ ЗАПИСАТЬСЯ, МЕСТА В ГРУППЕ ОГРАНИЧЕНЫ</span></h2>
                 </div>
                 <div class="centered">
-                    <a href="/timetable" class="big buttons">Записаться</a>
+                    <a href="/schedule" class="big buttons">Записаться</a>
                 </div>
             </div>
         </div>

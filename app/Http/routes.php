@@ -36,10 +36,10 @@ Route::get('/products', 'ProductsController@index')->name('products');
 // Item
 Route::get('/products/{id}', 'ProductsController@item')->where('id', '[0-9]+')->name('product');
 
-// Timetable
-Route::get('/timetable', 'TimetableController@index')->name('timetable');
+// Schedule
+Route::get('/schedule', 'ScheduleController@index')->name('schedule');
 // Item
-Route::get('/timetable/{id}', 'TimetableController@item')->where('id', '[0-9]+');
+Route::get('/schedule/{id}', 'ScheduleController@item')->where('id', '[0-9]+');
 
 // ProfFashionTime
 Route::get('/proffashiontime', 'ProftimeController@index');

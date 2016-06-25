@@ -84,13 +84,13 @@ input::-moz-focus-inner {
 .font.classic, body, input, select, textarea, .buttons {
   font-size: 15px;
   line-height: 1.5em; }
-.font.medium, .pop-label, .timetable .grid {
+.font.medium, .pop-label, .schedule .grid {
   font-size: 14px;
   line-height: 1.5em; }
-.font.small, .common-date, .timetable .grid .items .date, .shop-teaser h3 a sup, .shop-teaser h3 span sup, .labels, .lessons-grid .items .date, .lessons-grid .items .controls {
+.font.small, .common-date, .schedule .grid .items .date, .shop-teaser h3 a sup, .shop-teaser h3 span sup, .labels, .lessons-grid .items .date, .lessons-grid .items .controls {
   font-size: 13px;
   line-height: 1.5em; }
-.font.extra-small, .timetable .grid .items .performer {
+.font.extra-small, .schedule .grid .items .performer {
   font-size: 11px;
   line-height: 1.5em; }
 
@@ -117,6 +117,10 @@ a {
     color: #dc3232; }
     a.red:hover {
       color: #000; }
+  a.labels {
+    color: #fff; }
+    a.labels:hover {
+      color: #fff; }
   a:hover {
     text-decoration: none;
     color: #dc3232; }
@@ -320,13 +324,13 @@ input[type=file] {
   .inverted-section.mini {
     padding: 35px 0; }
 
-.common-section, .timetable {
+.common-section, .schedule {
   padding-top: 88px; }
-  .common-section.top, .top.timetable, .section1 {
+  .common-section.top, .top.schedule, .section1 {
     padding-top: 73px; }
-  .common-section.mini, .mini.timetable {
+  .common-section.mini, .mini.schedule {
     padding-top: 44px; }
-  .common-section.micro, .micro.timetable {
+  .common-section.micro, .micro.schedule {
     padding-top: 22px; }
 
 .grid .items {
@@ -773,45 +777,48 @@ input[type=file] {
     width: 33.33333%;
     height: 33.33333%; }
 
-.timetable .grid .row {
+.schedule .grid .row {
   margin-bottom: 15px; }
-  .timetable .grid .row:last-child {
+  .schedule .grid .row:last-child {
     margin-bottom: 0; }
-.timetable .grid .items {
+.schedule .grid .items {
   opacity: 0.6;
   transition: 0.2s;
-  background: #f5f5f5; }
-  .timetable .grid .items img {
+  background: #f5f5f5;
+  min-height: 300px; }
+  .schedule .grid .items img {
     max-width: 100%; }
-  .timetable .grid .items .date {
+  .schedule .grid .items .date {
     padding: 3px 5px;
     background: #464646;
     color: #fff; }
-    .timetable .grid .items .date .l {
+    .schedule .grid .items .date .l {
       float: left; }
-    .timetable .grid .items .date .r {
+    .schedule .grid .items .date .r {
       float: right; }
-  .timetable .grid .items .title {
+  .schedule .grid .items .title {
     display: block;
     padding: 5px;
-    min-height: 5.6em;
+    min-height: 6em;
     text-decoration: none;
     color: #000; }
-  .timetable .grid .items .performer {
+  .schedule .grid .items .performer {
     color: #959595;
     min-height: 3em;
     padding: 5px;
     border-top: 1px #cfcfcf solid; }
-  .timetable .grid .items.empty {
-    min-height: 299px;
+  .schedule .grid .items.empty {
+    min-height: 300px;
     text-align: center; }
-    .timetable .grid .items.empty .empty-date {
+    .schedule .grid .items.empty .empty-date {
       padding-top: 55px;
       height: 111px; }
-      .timetable .grid .items.empty .empty-date span {
+      .schedule .grid .items.empty .empty-date span {
         display: block;
         font-size: 30px; }
-  .timetable .grid .items:hover {
+  .schedule .grid .items.hidden {
+    background: none; }
+  .schedule .grid .items:hover {
     opacity: 1; }
 
 .player {

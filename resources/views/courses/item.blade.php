@@ -38,24 +38,16 @@
                 </div>
                 <div class="grid">
                     <div class="x2 row">
-                        <div class="items">
-                            <p><strong>Программа обучения "Защита ушей клиента при выполнении стрижки"</strong> направлена на подготовку мужских мастеров. Цикл занятий раскрывает тему классических стрижек и укладок, а также владение опасной бритвой.</p>
-                            <p>&nbsp;</p>
-                            <p>Интенсив позволит вам ознакомиться и отработать на практике бритьё опасным лезвием, 4 стрижки и 4 укладки в классическом стиле.</p>
-                        </div>
-                        <div class="items">
-                        <span style="color: #d0b76c;">
-                            <p><strong>Пройдя обучение вы научитесь:</strong></p>
-                            <p>&nbsp;</p>
-                            <ul>
-                                <li>технике работы машинкой, ножницами и бритвой</li>
-                                <li>филировке волос с использованием всех видов инструмента</li>
-                                <li>создавать линии окантовок и нюансы в работе мужского мастера</li>
-                                <li>правилам безопасности и гигиены</li>
-                                <li>уходу за инструментом</li>
-                            </ul>
-                        </span>
-                        </div>
+                        @if(!empty($course->text_left))
+                            <div class="items">
+                                {!! $course->text_left !!}
+                            </div>
+                        @endif
+                        @if(!empty($course->text_right))
+                            <div class="items">
+                                {!! $course->text_right !!}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -142,101 +134,30 @@
             </div>
         </div>
 
-        <div class="section6 section">
-            <div class="wrapper">
-                <div class="inverted common-h2">
-                    <h2><span>Необходимый инструмент</span></h2>
-                </div>
-                <div class="common-h2">Фен, прямые ножницы желательно 7.0, пульверизатор, расческа для стрижки, маленький брашниг.</div>
-                <div class="inverted common-h2">
-                    <h2><span>Рекомендуем</span></h2>
-                </div>
-                <div class="small shop-grid grid">
-                    <div class="x5 row clearfix">
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
+        @if(!empty($course->tools) || (empty($products) && $products->count()))
+            <div class="section6 section">
+                <div class="wrapper">
+                    @if(!empty($course->tools))
+                        <div class="inverted common-h2">
+                            <h2><span>Необходимый инструмент</span></h2>
                         </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
+                        <div class="common-h2">{!! $course->tools !!}</div>
+                    @endif
+                    @if(!empty($products) && $products->count())
+                        <div class="inverted common-h2">
+                            <h2><span>Рекомендуем</span></h2>
                         </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
+                        <div class="small shop-grid grid">
+                            <div class="x5 row clearfix">
+                                @foreach($products as $product)
+                                    @include('products.gridItem')
+                                @endforeach
                             </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
                         </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <div class="title">
-                                <a href="">Фен PARLUX 385</a>
-                            </div>
-                            <a href="shop-item.html" class="image">
-                                <div class="overlay">
-                                    <i></i>
-                                    <div>Набор препаратов для защиты, восстановления, укрепления волос и придания им восхитительного здорового блеска. Шампунь, маска и эликсир на основе кератина и масла арганы обеспечивают великолепное увлажнение, питание и непревзойденную защиту волос от повреждения.</div>
-                                </div>
-                                <img src="/img/shopGridItem.jpg" />
-                            </a>
-                            <ul class="info clearfix">
-                                <li>1 290 руб.</li>
-                                <li><a href="" class="red empty buttons">Купить</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="section8 section">
             <div class="wrapper">
@@ -303,15 +224,9 @@
 
         <div class="footer section">
             <div class="wrapper clearfix">
-                <nav>
-                    <a href="">Ирина Агрба</a>
-                    <a href="">Юрий Жданов</a>
-                    <a href="">Расписание</a>
-                    <a href="">PROF fashion TIME</a>
-                    <a href="">Магазин</a>
-                    <a href="">Галерея</a>
-                    <a href="/contacts">Контакты</a>
-                </nav>
+
+                @include('common.footerMenu')
+
                 <div class="contacts grid">
                     <div class="x3 row">
                         <div class="items">

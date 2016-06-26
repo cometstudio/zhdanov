@@ -12,7 +12,9 @@ class Course extends BaseModel
         'theme_id',
         'length',
         'teaser',
-        'text',
+        'text_left',
+        'text_right',
+        'tools',
         'gallery'
     ];
 

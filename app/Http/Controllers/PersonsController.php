@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Lesson;
 use App\Models\Webinar;
 use App\Models\Product;
+use App\Models\Schedule;
 
 class PersonsController extends Controller
 {

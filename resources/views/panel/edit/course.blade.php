@@ -36,8 +36,16 @@
         <textarea name="teaser">{{ $item->teaser }}</textarea>
     </div>
     <div class="row">
-        <dl>Описание</dl>
-        <textarea name="text" class="ck">{{ $item->text }}</textarea>
+        <dl>О программе, левая колонка</dl>
+        <textarea name="text_left" class="ck">{{ $item->text_left }}</textarea>
+    </div>
+    <div class="row">
+        <dl>О программе, правая колонка</dl>
+        <textarea name="text_right" class="ck">{{ $item->text_right }}</textarea>
+    </div>
+    <div class="row">
+        <dl>Необходимый инструмент</dl>
+        <textarea name="tools" class="ck">{{ $item->tools }}</textarea>
     </div>
     <div class="row">
         @include('panel.edit.gallery')

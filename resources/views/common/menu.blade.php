@@ -26,11 +26,11 @@
                 <!--<li><a href="/yuri#section4">Пресса</a></li>-->
             </ul>
         </li>
-        <li><a href="/schedule">Расписание</a></li>
+        <li><a href="{{ route('schedule', [], false) }}">Расписание</a></li>
         <li class="index-logo"><span></span></li>
-        <li class="second-col"><a href="/proffashiontime">PROF fashion TIME</a></li>
-        <li><a href="/products">Магазин</a></li>
-        <li><a href="/gallery">Галерея</a></li>
-        <li><a href="/contacts">Контакты</a></li>
+        <li class="second-col"><a href="{{ route('videochannel', [], false) }}">PROF fashion TIME</a></li>
+        <li><a href="{{ route('products', [], false) }}">Магазин</a></li>
+        <li><a href="{{ route('gallery', [], false) }}">Галерея</a></li>
+        <li><a href="{{ route('contacts', [], false) }}">Контакты</a></li>
     </ul>
 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Course;
+use App\Models\Product;
 
 class CoursesController extends Controller
 {
@@ -68,11 +69,17 @@ class CoursesController extends Controller
     public function item($id)
     {
         $course = Course::where('id', '=', $id)->firstOrFail();
+
+        $this->title = $course->name;
+
+        // Get products
+        $products = Product::orderBy('id', 'DESC')->get();
         
         return view('courses.item', [
             'css'=>$this->css,
             'course'=>$course,
-            
+            'products'=>$products,
+            'title'=>$this->title,
         ]);
     }
 }

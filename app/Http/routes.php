@@ -42,13 +42,13 @@ Route::get('/schedule', 'ScheduleController@index')->name('schedule');
 Route::get('/schedule/{id}', 'ScheduleController@item')->where('id', '[0-9]+');
 
 // ProfFashionTime
-Route::get('/proffashiontime', 'ProftimeController@index');
+Route::get('/proffashiontime', 'ProftimeController@index')->name('videochannel');
 
 // Gallery
-Route::get('/gallery', 'GalleryController@index');
+Route::get('/gallery', 'GalleryController@index')->name('gallery');
 
 // Contacts
-Route::get('/contacts', 'ContactsController@index');
+Route::get('/contacts', 'ContactsController@index')->name('contacts');
 
 // Cart
 Route::get('/cart', 'CartController@index');

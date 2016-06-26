@@ -108,15 +108,9 @@
 
     <div class="footer section">
         <div class="wrapper clearfix">
-            <nav>
-                <a href="">Ирина Агрба</a>
-                <a href="">Юрий Жданов</a>
-                <a href="">Расписание</a>
-                <a href="">PROF fashion TIME</a>
-                <a href="">Магазин</a>
-                <a href="">Галерея</a>
-                <a href="/contacts">Контакты</a>
-            </nav>
+
+            @include('common.footerMenu')
+
             <div class="contacts grid">
                 <div class="x3 row">
                     <div class="items">

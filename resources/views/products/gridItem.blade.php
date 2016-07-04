@@ -1,6 +1,6 @@
 <div class="items">
     <div class="title">
-        <a href="{{ route('product', ['id'=>$product->id], false) }}">{{ $product->name }}</a>
+        <a href="{{ route('product', ['id'=>$product->id], false) }}">{{ str_limit($product->name, !empty($small) ? 55 : 1000) }}</a>
     </div>
     <a href="{{ route('product', ['id'=>$product->id], false) }}" class="image">
         @if(!empty($product->teaser ))

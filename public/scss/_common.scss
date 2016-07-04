@@ -839,6 +839,9 @@ input[type=file]{
       .overlay{
         display: none;
       }
+      .title{
+        min-height: 3 * 1.5em;
+      }
     }
     .info{
       li{
@@ -1064,6 +1067,7 @@ input[type=file]{
       }
       .title{
         display: block;
+        overflow: hidden;
         padding: 5px;
         min-height: 1.5em * 4;
         text-decoration: none;

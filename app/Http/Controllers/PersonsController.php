@@ -32,7 +32,7 @@ class PersonsController extends Controller
         // Get user's last webinar
         $webinar = Webinar::where('author_id', '=', $authorId)->orderBy('id', 'DESC')->first();
         // Get products
-        $products = Product::orderBy('id', 'DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->limit(5)->get();
         // Get recent events
         $recentEvents = (new Schedule())->getRecentEvents($authorId);
 

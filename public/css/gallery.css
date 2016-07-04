@@ -651,6 +651,8 @@ input[type=file] {
         text-align: right; }
 .shop-grid.small .items .overlay {
   display: none; }
+.shop-grid.small .items .title {
+  min-height: 4.5em; }
 .shop-grid.small .info li {
   display: block;
   width: 100%;
@@ -799,6 +801,7 @@ input[type=file] {
       float: right; }
   .schedule .grid .items .title {
     display: block;
+    overflow: hidden;
     padding: 5px;
     min-height: 6em;
     text-decoration: none;

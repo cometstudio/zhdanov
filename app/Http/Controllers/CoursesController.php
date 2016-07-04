@@ -73,7 +73,7 @@ class CoursesController extends Controller
         $this->title = $course->name;
 
         // Get products
-        $products = Product::orderBy('id', 'DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->limit(5)->get();
         
         return view('courses.item', [
             'css'=>$this->css,

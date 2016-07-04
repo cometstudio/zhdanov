@@ -184,7 +184,7 @@
                     <div class="small shop-grid grid">
                         <div class="x5 row clearfix">
                             @foreach($products as $product)
-                                @include('products.gridItem')
+                                @include('products.gridItem', ['small'=>true])
                             @endforeach
                         </div>
                     </div>

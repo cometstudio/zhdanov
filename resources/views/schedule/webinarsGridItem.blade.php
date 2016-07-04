@@ -4,7 +4,7 @@
         <div class="l">{{ date('d', $event->start_time) }}/{{ date('m', $event->start_time) }}, {{ $daysOfWeek[date('N', $event->start_time)][1] }}</div>
         <div class="r">{{ date('H', $event->start_time) }}:{{ date('i', $event->start_time) }}</div>
     </div>
-    <a href="{{ route('webinar', ['id'=>$event->id], false) }}" class="title">{{ $event->name }}</a>
+    <a href="{{ route('webinar', ['id'=>$event->id], false) }}" class="title">{{ str_limit($event->name, 45) }}</a>
     <div class="performer">
         <p>{{ $event->author_name }}</p>
     </div>

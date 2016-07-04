@@ -7,8 +7,8 @@
 Route::get('/', 'IndexController@index')->name('index');
 
 // Person
-Route::get('/yuri', 'PersonsController@yuri');
-Route::get('/irina', 'PersonsController@irina');
+Route::get('/yuri', 'PersonsController@yuri')->name('yuri');
+Route::get('/irina', 'PersonsController@irina')->name('irina');
 
 // Users
 // Login

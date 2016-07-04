@@ -8,23 +8,11 @@
     <ul>
         <li>
             <a href="/irina">Ирина Агрба</a>
-            <ul>
-                <li><a href="/irina#section2">Расписание мероприятий</a></li>
-                <li><a href="/irina#section3">Online-обучение</a></li>
-                <li><a href="/irina#gallery">Галерея</a></li>
-                <li><a href="/login">Программы обучения</a></li>
-                <!--<li><a href="/irina#section4">Пресса</a></li>-->
-            </ul>
+            @include('persons.menu', ['authorAlias'=>'irina'])
         </li>
         <li>
             <a href="/yuri">Юрий Жданов</a>
-            <ul>
-                <li><a href="/yuri#section2">Расписание мероприятий</a></li>
-                <li><a href="/yuri#section3">Online-обучение</a></li>
-                <li><a href="/yuri#gallery">Галерея</a></li>
-                <li><a href="/login">Программы обучения</a></li>
-                <!--<li><a href="/yuri#section4">Пресса</a></li>-->
-            </ul>
+            @include('persons.menu', ['authorAlias'=>'yuri'])
         </li>
         <li><a href="{{ route('schedule', [], false) }}">Расписание</a></li>
         <li class="index-logo"><span></span></li>

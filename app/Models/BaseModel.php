@@ -41,7 +41,9 @@ class BaseModel extends Model
 
     public function getStartDate()
     {
-        return \Date::getDateFromTime($this->start_time, 1);
+        $time = !empty($this->start_time) ? $this->start_time : time();
+
+        return \Date::getDateFromTime($time, 1);
     }
 
     /**

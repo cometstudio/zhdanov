@@ -35,7 +35,7 @@
     </div>
     <div class="row">
         <dl>Краткое описание</dl>
-        <textarea name="teaser">{{ $item->teaser }}</textarea>
+        <textarea name="teaser" class="input-teaser">{{ $item->teaser }}</textarea>
     </div>
     <div class="row">
         <dl>Описание</dl>

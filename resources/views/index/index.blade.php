@@ -26,22 +26,10 @@
                     <div class="col"><img src="/img/irinaSmallLogo.png" /></div>
                     <div class="col">Ирина <span>Агрба</span></div>
                 </div>
-                <ul>
-                    <li><a href="irina.html#section2">Расписание <span>мероприятий</span></a></li>
-                    <li><a href="irina.html#section3"><span>Online-</span>обучение</a></li>
-                    <li><a href="irina.html#gallery">Галерея</a></li>
-                    <li><a href="courses.html"><span>Программы</span> обучения</a></li>
-                    <!--<li><a href="irina.html#section4">Пресса</a></li>-->
-                </ul>
+                @include('persons.menu', ['authorAlias'=>'irina'])
             </div>
             <div class="right-col">
-                <ul>
-                    <li><a href="yuri.html#section2">Расписание <span>мероприятий</span></a></li>
-                    <li><a href="yuri.html#section3"><span>Online-</span>обучение</a></li>
-                    <li><a href="yuri.html#gallery">Галерея</a></li>
-                    <li><a href="courses.html"><span>Программы</span> обучения</a></li>
-                    <!--<li><a href="yuri.html#section4">Пресса</a></li>-->
-                </ul>
+                @include('persons.menu', ['authorAlias'=>'yuri'])
                 <div class="title">
                     <div class="col">Юрий <span>Жданов</span></div>
                     <div class="col"><img src="/img/yuriSmallLogo.png" /></div>
@@ -50,115 +38,22 @@
         </div>
     </div>
 
-    <div class="schedule section">
-        <div class="wrapper">
-            <div class="common-h2">
-                <h2><span>Ближайшие мероприятия</span></h2>
-            </div>
-            <div class="grid">
-                <div class="x7 row clearfix">
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
-                    </div>
-                    <div class="items">
-                        <a href="/schedule/1"><img src="/img/timatableItem1.jpg" /></a>
-                        <div class="date clearfix">
-                            <div class="l">02-05/06</div>
-                            <div class="r">11:00</div>
-                        </div>
-                        <a href="/schedule/1" class="title">
-                            Курс "Barber expert"
-                        </a>
-                        <div class="performer">
-                            <p>Сочи</p>
-                            <p>Ирина Агрба</p>
-                        </div>
+    @if(!empty($recentEvents))
+        <div class="schedule section">
+            <div class="wrapper">
+                <div class="common-h2">
+                    <h2><span>Ближайшие мероприятия</span></h2>
+                </div>
+                <div class="grid">
+                    <div class="x7 row clearfix">
+                        @foreach($recentEvents as $event)
+                            @include('schedule.'.$event->type.'sGridItem')
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <!--
     <div class="section3 section">
@@ -305,26 +200,30 @@
     </div>
     -->
 
-    <div class="section6 section">
-        <div class="wrapper">
-            <div class="common-h2">
-                <h2><span>Видеоканал PROF fashion TIME</span></h2>
-            </div>
-            <div class="grid">
-                <div class="x2 row clearfix">
-                    @for($i=0;$i<10;$i++)
-                        <div class="items clearfix">
-                            <a href="http://youtube.com" target="_blank"><img src="img/eventTeaser1.jpg" /></a>
-                            <div>
-                                <h3><a href="http://youtube.com" target="_blank">#themetag</a></h3>
-                                Обзоры инструмента
+    @if(!empty($videochannelTags))
+        <div class="section6 section">
+            <div class="wrapper">
+                <div class="common-h2">
+                    <h2><span>Видеоканал PROF fashion TIME</span></h2>
+                </div>
+                <div class="grid">
+                    <div class="x2 row clearfix">
+                        @foreach($videochannelTags as $tag)
+                            <div class="items clearfix">
+                                <a href="{{ $tag->url }}" target="_blank"><img src="{{ $imagesPath }}/small1/{{ $tag->getThumbnail() }}.jpg" /></a>
+                                <div>
+                                    <h3><a href="{{ $tag->url }}" target="_blank">{{ $tag->name }}</a></h3>
+                                    @if(!empty($tag->teaser))
+                                        {{ $tag->teaser }}
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    @endfor
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <div class="footer section">
         <div class="wrapper clearfix">

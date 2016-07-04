@@ -601,6 +601,7 @@ input[type=file] {
     .shop-grid .items a:hover {
       color: #dc3232; }
   .shop-grid .items .title {
+    min-height: 3em;
     margin-bottom: 0.5em;
     text-align: center; }
   .shop-grid .items .image {

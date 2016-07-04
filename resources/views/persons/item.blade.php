@@ -6,19 +6,13 @@
             @include('common.menu')
         </div>
 
-        <div class="yuri section1 section">
+        <div class="{{ $authorAlias }} section1 section">
             <div class="wrapper">
                 <div class="head-image">
                     <span></span>
-                    <img src="/img/yuriHead.jpg" />
+                    <img src="/img/{{ $authorAlias }}Head.jpg" />
                 </div>
-                <ul>
-                    <li><a href="/yuri#schedule">Ближайшие <span>мероприятия</span></a></li>
-                    <li><a href="/yuri#section3"><span>Online-</span>обучение</a></li>
-                    <li><a href="/yuri#gallery">Галерея</a></li>
-                    <li><a href="/courses"><span>Программы</span> обучения</a></li>
-                    <!--<li><a href="/yuri#section4">Пресса</a></li>-->
-                </ul>
+                @include('persons.menu')
             </div>
         </div>
 

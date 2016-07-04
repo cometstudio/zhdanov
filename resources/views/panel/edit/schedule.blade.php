@@ -32,12 +32,12 @@
         <input name="_start_date" value="{{ $item->getStartDate() }}" type="text" class="x4 datepicker" autocomplete="off" /> в
         <select name="_hrs">
             @for($i=0;$i<24;$i++)
-                <option value="{{ $i }}"{{ date('G', $item->start_time) == $i ? ' selected' : '' }}>{{ $i }}</option>
+                <option value="{{ $i }}"{{ date('G', $item->start_time) == $i ? ' selected' : '' }}>{{ ($i < 10) ? '0'.$i : $i }}</option>
             @endfor
         </select> :
         <select name="_mins">
             @for($i=0;$i<60;$i=$i+5)
-                <option value="{{ $i }}"{{ date('i', $item->start_time) == $i ? ' selected' : '' }}>{{ $i }}</option>
+                <option value="{{ $i }}"{{ date('i', $item->start_time) == $i ? ' selected' : '' }}>{{ ($i < 10) ? '0'.$i : $i }}</option>
             @endfor
         </select>
     </div>

@@ -29,6 +29,7 @@
 <script src="/panel/js/ckeditor/ckeditor.js"></script>
 <script src="/panel/js/ckeditor/adapters/jquery.js"></script>
 <script src="/panel/js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+<script src="/panel/js/ui.datepicker-ru.js"></script>
 <script src="/panel/js/panel.js"></script>
 
 </body>

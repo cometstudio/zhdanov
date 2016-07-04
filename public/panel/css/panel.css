@@ -112,6 +112,9 @@ input[type="text"], input[type="email"], input[type="password"], select, input[t
 .input, input[type="text"], input[type="email"], input[type="password"], textarea {
   width: 100%; }
 
+.input-teaser {
+  min-height: 7em; }
+
 select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #000; }
@@ -306,6 +309,11 @@ b, strong, .bold, .panel-model-name {
       min-width: 80px;
       background: #f8f8f8;
       text-align: center; }
+    .common-grid .items .col.thumb {
+      width: 41px;
+      padding: 0; }
+      .common-grid .items .col.thumb img {
+        max-width: 100%; }
   .common-grid .items:last-child {
     margin-bottom: 0; }
   .common-grid .items:hover {

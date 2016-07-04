@@ -9,6 +9,7 @@ class PanelModel extends BaseModel
         'public_model_name',
         'grid_item_view',
         'sortable',
+        'has_gallery',
     ];
 
     public function getValidationRules()

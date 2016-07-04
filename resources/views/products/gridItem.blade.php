@@ -1,8 +1,8 @@
 <div class="items">
     <div class="title">
-        <a href="{{ route('product', ['id'=>$product->id]) }}">{{ $product->name }}</a>
+        <a href="{{ route('product', ['id'=>$product->id], false) }}">{{ $product->name }}</a>
     </div>
-    <a href="{{ route('product', ['id'=>$product->id]) }}" class="image">
+    <a href="{{ route('product', ['id'=>$product->id], false) }}" class="image">
         @if(!empty($product->teaser ))
             <div class="overlay">
                 <i></i>
@@ -14,7 +14,7 @@
     @if(!empty($product->price))
         <ul class="info clearfix">
             <li>{{ number_format($product->price, 0, '', ' ') }}.-</li>
-            <li><a href="" class="red empty buttons">Купить</a></li>
+            <li><a href="{{ route('product', ['id'=>$product->id], false) }}" class="red empty buttons">Купить</a></li>
         </ul>
     @endif
 </div>

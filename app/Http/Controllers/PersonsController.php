@@ -26,7 +26,7 @@ class PersonsController extends Controller
     private function person($alias = '')
     {
         // Get user id from config
-        $authorId = config('persons.'.$alias);
+        $authorId = config('persons.'.$alias, 0);
         // Get user's last lesson
         $lesson = Lesson::where('author_id', '=', $authorId)->orderBy('id', 'DESC')->first();
         // Get user's last webinar
@@ -36,8 +36,9 @@ class PersonsController extends Controller
         // Get recent events
         $recentEvents = (new Schedule())->getRecentEvents($authorId);
 
-        return view('persons.'.$alias, [
+        return view('persons.item', [
             'css'=>$this->css,
+            'authorAlias'=>$alias,
             'authorId'=>$authorId,
             'lesson'=>$lesson,
             'webinar'=>$webinar,

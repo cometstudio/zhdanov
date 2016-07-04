@@ -42,25 +42,24 @@ class Schedule extends BaseModel
     public function getRecentEvents($authorId = 0, $quantity = 7)
     {
         try{
-            if(empty($authorId)) throw new \Exception;
-            
-            $webinars = Webinar::join('users', 'webinars.author_id', '=', 'users.id')
-                ->where('webinars.author_id', '=', $authorId)
+            $builder = Webinar::join('users', 'webinars.author_id', '=', 'users.id')
                 ->select(
                     'webinars.*',
                     \DB::raw('"webinar" AS type'),
                     \DB::raw('users.name AS author_name')
                 )
                 ->orderBy('webinars.start_time', 'DESC')
-                ->limit(7)
-                ->get()
-                ->keyBy('start_time')
-                ->toArray();
+                ->limit($quantity);
 
-            $courses = Course::join('schedule', 'schedule.course_id', '=', 'courses.id')
+                if(!empty($authorId))  $builder = $builder->where('webinars.author_id', '=', $authorId);
+
+            $webinars = $builder->get()
+                    ->keyBy('start_time')
+                    ->toArray();
+
+            $builder = Course::join('schedule', 'schedule.course_id', '=', 'courses.id')
                 ->join('users', 'courses.author_id', '=', 'users.id')
                 ->join('cities', 'schedule.city_id', '=', 'cities.id')
-                ->where('courses.author_id', '=', $authorId)
                 ->select(
                     'courses.*',
                     'schedule.start_time',
@@ -69,15 +68,20 @@ class Schedule extends BaseModel
                     \DB::raw('cities.name AS city_name')
                 )
                 ->orderBy('schedule.start_time', 'DESC')
-                ->limit(7)
-                ->get()
+                ->limit($quantity);
+
+                if(!empty($authorId))  $builder = $builder->where('courses.author_id', '=', $authorId);
+
+            $courses = $builder->get()
                 ->keyBy('start_time')
                 ->toArray();
+
+
 
             $semiResult = $webinars + $courses;
 
             asort($semiResult);
-
+            
             $result = [];
 
             foreach ($semiResult as $item){
@@ -87,15 +91,17 @@ class Schedule extends BaseModel
                 $result[] = $model;
             }
 
+            $result = array_slice($result, 0, $quantity);
+
             return $result;
         }catch (\Exception $e){
             return new Collection();
         }
     }
 
-    protected function beforeSave($attributes = [])
+    protected static function beforeSave($attributes = [])
     {
-        if(empty($attributes)) $attributes = $this->getAttributes();
+        if(empty($attributes)) $attributes = self::getAttributes();
 
         $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
 
@@ -111,7 +117,7 @@ class Schedule extends BaseModel
 
     public function update(array $attributes = [], array $options = [])
     {
-        $attributes = $this->beforeSave($attributes);
+        $attributes = self::beforeSave($attributes);
 
         return parent::update($attributes, $options);
     }

@@ -8,7 +8,7 @@ return [
         'small'=>[300, 300, true],
         'small1'=>[456, 256, true],
         'big'=>[1024, 1024, false],
-        //'source'=>[1920, 1920, false],
+        'source'=>[1920, 1920, false],
     ],
     'settings'=>[
         'quality'=>65,

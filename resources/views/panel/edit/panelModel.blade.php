@@ -17,4 +17,8 @@
         <input name="sortable" value="0" type="hidden" />
         <input name="sortable" value="1" type="checkbox"{{ !empty($item->sortable) ? ' checked' : '' }} /> <label>sortable</label>
     </div>
+    <div class="row">
+        <input name="has_gallery" value="0" type="hidden" />
+        <input name="has_gallery" value="1" type="checkbox"{{ !empty($item->has_gallery) ? ' checked' : '' }} /> <label>has gallery</label>
+    </div>
 @endsection

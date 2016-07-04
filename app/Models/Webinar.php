@@ -43,9 +43,9 @@ class Webinar extends BaseModel
         );
     }
 
-    protected function beforeSave($attributes = [])
+    protected static function beforeSave($attributes = [])
     {
-        if(empty($attributes)) $attributes = $this->getAttributes();
+        if(empty($attributes)) $attributes = self::getAttributes();
         
         $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
 
@@ -61,7 +61,7 @@ class Webinar extends BaseModel
 
     public function update(array $attributes = [], array $options = [])
     {
-        $attributes = $this->beforeSave($attributes);
+        $attributes = self::beforeSave($attributes);
 
         return parent::update($attributes, $options);
     }

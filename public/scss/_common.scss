@@ -423,7 +423,7 @@ input[type=file]{
     @include gridRow(5, 2%);
   }
   .x7 {
-    @include gridRow(7, 2%);
+    @include gridRow(7, 1.5%);
   }
 
 }
@@ -1084,6 +1084,7 @@ input[type=file]{
       &.empty{
         min-height: $minHeight;
         text-align: center;
+        background: #ececec;
         .empty-date{
           padding-top: 55px;
           height: 166px - 55px;

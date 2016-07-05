@@ -43,7 +43,7 @@
                     <select name="type">
                         <option value="0">все события</option>
                         <option value="1"{{ request('type', 0) == 1 ? ' selected' : '' }}>вебинары</option>
-                        <option value="2"{{ request('type', 0) == 2 ? ' selected' : '' }}>семинары и мастер-классы</option>
+                        <option value="2"{{ request('type', 0) == 2 ? ' selected' : '' }}>семинары</option>
                     </select>
 
                     @if(!empty($options['authors']))
@@ -84,13 +84,7 @@
                             @elseif(($i > 0) && ($event = $courseModel->getByDate($courses, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
                                 @include('schedule.coursesGridItem')
                             @elseif($i > 0)
-                                <div class="empty items">
-                                    <div class="empty-date">
-                                        <span>{{ $i }}</span>
-                                        {{ $activeMonthData[1] }}
-                                    </div>
-                                    <div class="title">В этот день событий нет</div>
-                                </div>
+                                @include('schedule.emptyGridItem')
                             @else
                                 <div class="hidden items"></div>
                             @endif

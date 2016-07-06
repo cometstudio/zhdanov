@@ -101,7 +101,7 @@ class Schedule extends BaseModel
 
     protected static function beforeSave($attributes = [])
     {
-        if(empty($attributes)) $attributes = self::getAttributes();
+        if(empty($attributes)) $attributes = [];
 
         $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
 

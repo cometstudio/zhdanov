@@ -148,9 +148,17 @@ class ActionsController extends Controller
 
             array_push($gallery, $name);
 
-            $item->setAttribute('gallery', Resizer::galleryString($gallery));
+            $data = $request->all();
 
-            if (!empty($this->id)) $item->update();
+            $data['gallery'] = Resizer::galleryString($gallery);
+
+            $item->fill($data);
+
+            $item->touch();
+
+            if (!empty($this->id)) $item->update($data);
+
+
         }
 
         $data = [
@@ -192,10 +200,15 @@ class ActionsController extends Controller
             unset($gallery[$index]);
         }
 
-        // Set item gallery value
-        $item->setAttribute('gallery', Resizer::galleryString($gallery));
+        $data = $request->all();
 
-        if(!empty($this->id)) $item->update();
+        $data['gallery'] = Resizer::galleryString($gallery);
+
+        $item->fill($data);
+
+        $item->touch();
+
+        if (!empty($this->id)) $item->update($data);
 
         $data = [
             'item'=>$item,
@@ -242,7 +255,10 @@ class ActionsController extends Controller
 
             if($this->hasOptions($item)) $item->setOptions($data);
 
+            $item->fill($data);
+
             $item->touch();
+
             $item->update($data);
         }
 

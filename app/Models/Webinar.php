@@ -43,10 +43,32 @@ class Webinar extends BaseModel
         );
     }
 
-    protected static function beforeSave($attributes = [])
+    /**
+     * @param Collection $webinars
+     * @param array|string $date
+     * @return Collection
+     */
+    public function getByDate(Collection $webinars = null, $date = '')
     {
-        if(empty($attributes)) $attributes = self::getAttributes();
-        
+        try{
+            if(empty($webinars) || !$webinars->count()) throw new \Exception;
+            if(empty($date)) throw new \Exception;
+
+            return $webinars->filter(function ($webinar) use ($date) {
+                $timeFrom = \Date::getTimeFromDate($date);
+                $timeTo = \Date::getTimeFromDate($date, 23, 59, 59);
+
+                return (($webinar->start_time >= $timeFrom) && ($webinar->start_time <= $timeTo)) ? true : false;
+            });
+        }catch (\Exception $e){
+            return new Collection();
+        }
+    }
+
+    protected static function beforeSave(array $attributes = [])
+    {
+        if(empty($attributes)) $attributes = [];
+
         $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
 
         return $attributes;
@@ -64,27 +86,5 @@ class Webinar extends BaseModel
         $attributes = self::beforeSave($attributes);
 
         return parent::update($attributes, $options);
-    }
-
-    /**
-     * @param Collection $webinars
-     * @param array|string $date
-     * @return Collection
-     */
-    public function getByDate(Collection $webinars = null, $date = null)
-    {
-        try{
-            if(empty($webinars) || !$webinars->count()) throw new \Exception;
-            if(empty($date)) throw new \Exception;
-
-            return $webinars->filter(function ($webinar) use ($date) {
-                $timeFrom = \Date::getTimeFromDate($date);
-                $timeTo = \Date::getTimeFromDate($date, 23, 59, 59);
-
-                return (($webinar->start_time >= $timeFrom) && ($webinar->start_time <= $timeTo)) ? true : false;
-            });
-        }catch (\Exception $e){
-            return new Collection();
-        }
     }
 }

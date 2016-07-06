@@ -63,11 +63,11 @@ function imagedrop(el, index)
 {
     var control = $(el);
     var form = $('.edit form');
-    var action = control.attr('href');
+    var action = form.find('input[name=_imagedrop]').val();
     var galleryInput = form.find('input[name=gallery]');
     var galleryContainer = form.find('.gallery');
 
-    ajax(action, function(response){
+    ajaxSubmit(form, function(response){
         if(response.location){
             document.location.assign(response.location);
         }else {
@@ -75,9 +75,8 @@ function imagedrop(el, index)
             galleryContainer.html(response.part);
         }
     }, null, {
-        gallery: galleryInput.val(),
         index: index
-    });
+    }, action);
 
     return false;
 }

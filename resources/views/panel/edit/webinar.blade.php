@@ -37,7 +37,7 @@
         </select> :
         <select name="_mins">
             @for($i=0;$i<60;$i=$i+5)
-                <option value="{{ $i }}"{{ date('i', $item->start_time) == $i ? ' selected' : '' }}>{{ $i }}</option>
+                <option value="{{ $i }}"{{ date('i', $item->start_time) == $i ? ' selected' : '' }}>{{ ($i < 10) ? 0 : '' }}{{ $i  }}</option>
             @endfor
         </select>
     </div>
@@ -50,7 +50,7 @@
         </select>
         <select name="length_min">
             @for($i=0;$i<60;$i=$i+5)
-                <option value="{{ $i }}"{{ $item->length_min == $i ? ' selected' : '' }}>{{ $i }}</option>
+                <option value="{{ $i }}"{{ $item->length_min == $i ? ' selected' : '' }}>{{ ($i < 10) ? 0 : '' }}{{ $i }}</option>
             @endfor
         </select>
     </div>

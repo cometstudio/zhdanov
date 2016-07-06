@@ -25,7 +25,7 @@
         </select>
         <select name="length_min">
             @for($i=0;$i<60;$i=$i+5)
-                <option value="{{ $i }}"{{ $item->length_min == $i ? ' selected' : '' }}>{{ $i }}</option>
+                <option value="{{ $i }}"{{ $item->length_min == $i ? ' selected' : '' }}>{{ ($i < 10) ? 0 : '' }}{{ $i  }}</option>
             @endfor
         </select>
     </div>

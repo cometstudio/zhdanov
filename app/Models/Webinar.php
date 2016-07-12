@@ -65,7 +65,14 @@ class Webinar extends BaseModel
         }
     }
 
-    protected static function beforeSave(array $attributes = [])
+    public function beforeSave($attrubutes = [])
+    {
+        $this->setStartTime($attrubutes);
+        
+        return $this;
+    }
+
+    protected static function _beforeSave(array $attributes = [])
     {
         if(empty($attributes)) $attributes = [];
 
@@ -74,14 +81,14 @@ class Webinar extends BaseModel
         return $attributes;
     }
 
-    public static function create(array $attributes = [])
+    public static function _create(array $attributes = [])
     {
         $attributes = self::beforeSave($attributes);
 
         return parent::create($attributes);
     }
 
-    public function update(array $attributes = [], array $options = [])
+    public function _update(array $attributes = [], array $options = [])
     {
         $attributes = self::beforeSave($attributes);
 

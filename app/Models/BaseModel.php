@@ -39,6 +39,13 @@ class BaseModel extends Model
         return reset($gallery);
     }
 
+    public function setStartTime($attrubutes = [])
+    {
+        $this->start_time = \Date::getTimeFromDate($attrubutes['_start_date'], $attrubutes['_hrs'], $attrubutes['_mins']);
+
+        return $this->start_time ;
+    }
+
     public function getStartDate()
     {
         $time = !empty($this->start_time) ? $this->start_time : time();

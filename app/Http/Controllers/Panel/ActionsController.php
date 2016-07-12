@@ -244,23 +244,21 @@ class ActionsController extends Controller
         $data = $request->all();
 
         if(empty($this->id)) {
-            $model->id = $model->create($data)->id;
-            
-            if($this->hasOptions($model)) $model->setOptions($data);
+            $item = (new $model);
 
             // Move gallery images from temporary to the permanent location
             if(array_key_exists('gallery', $data)) Resizer::moveToPermanentLocation($request->input('gallery'));
         }else{
             $item = $model::findOrFail($this->id);
-
-            if($this->hasOptions($item)) $item->setOptions($data);
-
-            $item->fill($data);
-
-            $item->touch();
-
-            $item->update($data);
         }
+
+        $item->fill($data);
+
+        if(method_exists($item, 'beforeSave')) $item->beforeSave($data);
+        
+        $item->touch();
+        
+        $item->save();
 
         return response()->json([ 'location'=>url()->route('admin::act', ['action'=>'show', 'modelName'=>$this->modelName], false) ]);
     }

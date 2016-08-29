@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Webinar;
+use Auth;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,30 +13,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Guard $auth)
     {
-        view()->share('imagesPath', '/'.config('resizer.dir', ''));
+        view()->composer('master', function($view) use ($auth){
+            $view->with('currentUser', $auth->user());
+        });
 
-//        Webinar::creating(function($webinar)
-//        {
-//            $webinar->setStartTime();
-//
-//            return true;
-//        });
-//
-//        Webinar::saving(function($webinar)
-//        {
-//            $webinar->setStartTime();
-//
-//            return true;
-//        });
-//
-//        Webinar::updating(function($webinar)
-//        {
-//            $webinar->setStartTime();
-//
-//            return true;
-//        });
+        view()->share('imagesPath', '/'.config('resizer.dir', ''));
     }
 
     /**

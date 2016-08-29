@@ -8,7 +8,7 @@
 
     <div class="section1 section">
         <div class="wrapper fc common-h2">
-            <h2><span>PROF fashion TIME</span></h2>
+            <h2><span>{{ $misc->name }}</span></h2>
         </div>
     </div>
 
@@ -17,25 +17,28 @@
             <div class="grid">
                 <div class="x2 row clearfix">
                     <div class="items">
-                        PROF fashion TIME &mdash; видеоканал для новичков и профессионалов в сфере создания стиля. Обзоры, тесты, советы.
+                        {!! $misc->text !!}
                     </div>
                     <div class="items">
-                        <a href="" class="black buttons">Подписаться на канал Юрия Жданова</a>
-                        <a href="" class="gold buttons">Подписаться на канал Ирины Агрба</a>
-                        <a href="" class="buttons">Подписаться на канал PROF fashion TIME</a>
+                        <a href="{{ config('social.youtube.yuri', '') }}" class="black buttons" target="_blank">Подписаться на канал Юрия Жданова</a>
+                        <a href="{{ config('social.youtube.irina', '') }}" class="gold buttons" target="_blank">Подписаться на канал Ирины Агрба</a>
+                        <a href="{{ config('social.youtube.proftime', '') }}" class="buttons" target="_blank">Подписаться на канал PROF fashion TIME</a>
+                        <a href="mailto:{{ config('social.emails.proftime', '') }}" class="empty black buttons">Написать письмо</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="section3 section">
-        <div class="wrapper">
-            <div class="player">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/pYArFgu20bQ" frameborder="0" allowfullscreen></iframe>
+    @if(!empty($misc->raw))
+        <div class="section3 section">
+            <div class="wrapper">
+                <div class="player">
+                    {!! $misc->raw !!}
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     @if(!empty($tags))
         <div class="section4 section">

@@ -14,7 +14,7 @@
             <a href="/yuri">Юрий Жданов</a>
             @include('persons.menu', ['authorAlias'=>'yuri'])
         </li>
-        <li><a href="{{ route('schedule', [], false) }}">Расписание</a></li>
+        <li><a href="{{ route('courses', [], false) }}">Обучение</a></li>
         <li class="index-logo"><span></span></li>
         <li class="second-col"><a href="{{ route('videochannel', [], false) }}">PROF fashion TIME</a></li>
         <li><a href="{{ route('products', [], false) }}">Магазин</a></li>

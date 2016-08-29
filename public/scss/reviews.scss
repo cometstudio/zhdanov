@@ -1,0 +1,68 @@
+@import "common";
+
+.gallery{
+  @extend .common-section;
+}
+
+.section1 {
+  @extend .top.common-section;
+
+}
+
+.section2{
+  text-align: center;
+  h1{
+    font-size: 60px;
+    line-height: 1.2em;
+    margin-bottom: 22px;
+    color: $gold;
+  }
+  .details{
+    margin-top: $gutter / 2;
+  }
+}
+
+.section3{
+  @extend .common-section;
+
+  .info{
+    $leftColWidth: 239px;
+    .lc{
+      float: left;
+      width: $leftColWidth;
+      .person{
+        background: #f9f9f9;
+        padding: 30px;
+        img{
+          max-width: 100%;
+        }
+        .control{
+          margin: 20px 0 0;
+          text-align: center;
+        }
+      }
+    }
+    .rc{
+      float: right;
+      width: $contentWidth - $leftColWidth - 35;
+
+      .controls{
+        margin-top: 30px;
+      }
+    }
+  }
+}
+
+.section5{
+  @extend .common-section;
+
+  .filter {
+    text-align: center;
+    select, .buttons {
+      float: none;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

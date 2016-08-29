@@ -1,0 +1,203 @@
+@import "common";
+
+.gallery{
+  @extend .common-section;
+}
+
+.section1 {
+  @extend .top.common-section;
+
+}
+
+.section2{
+  text-align: center;
+  h1{
+    font-size: 60px;
+    line-height: 1.2em;
+    margin-bottom: 22px;
+    color: $gold;
+  }
+  .details{
+    margin-top: $gutter / 2;
+  }
+}
+
+.section3{
+  @extend .common-section;
+}
+
+.section4{
+  @extend .common-section;
+
+  img{
+    display: inline-block;
+  }
+  .grid{
+    @extend .manually-formatted-text;
+
+    font-size: 16px;
+    line-height: 1.5em;
+    .items{
+      &:last-child{
+        .controls{
+          text-align: left;
+        }
+      }
+    }
+  }
+  .controls{
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+.section5{
+  @extend .common-section;
+
+  h3{
+    margin-bottom: $gutter;
+    color: $gold;
+  }
+  .timeline{
+    background: url("../img/coursesTimeline.png") 50% 0 repeat-y;
+    .day{
+      margin-bottom: 50px;
+      background: url("../img/coursesTimelineDot.png") 50% 0 no-repeat;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+    .items{
+      &:first-child{
+        text-align: right;
+      }
+    }
+  }
+}
+
+.section6{
+  @extend .inverted-section;
+
+  background: url("../img/shopTeaser.jpg");
+  .shop-grid{
+    .title{
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.section7{
+  @extend .common-section;
+
+  h3{
+    margin-bottom: $gutter / 2;
+  }
+  .price{
+    @extend .big.font;
+
+    margin-bottom: $gutter;
+  }
+  .calendar{
+    img{
+      max-width: 100%;
+    }
+  }
+  .controls{
+    margin-top: 31px;
+  }
+}
+
+.section8{
+  @extend .common-section;
+}
+
+.section9{
+  h2{
+    margin-bottom: 20px;
+    text-align: center;
+    color: $gold;
+  }
+  .filter{
+    text-align: center;
+    select, .buttons{
+      float: none;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+  .person-courses{
+    @extend .mini.common-section;
+
+    $leftColWidth: 239px;
+    .lc{
+      float: left;
+      width: $leftColWidth;
+      .person{
+        background: #f9f9f9;
+        padding: 30px;
+        img{
+          max-width: 100%;
+        }
+        .control{
+          margin: 20px 0;
+          text-align: center;
+        }
+      }
+    }
+    .rc{
+      float: right;
+      width: $contentWidth - $leftColWidth - 35;
+    }
+  }
+  .courses-grid{
+    .items{
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      margin-bottom: $gutter * 2;
+      > div{
+        display: table-cell;
+        vertical-align: top;
+        &:first-child{
+          width: 90px;
+          padding-top: 8px;
+          img{
+            max-width: 100%;
+          }
+        }
+        &:nth-child(2){
+          padding: 0 $gutter;
+          p{
+            margin-top: 10px;
+            &.title{
+              @extend .big.font;
+
+              a{
+                color: $black;
+                text-decoration: none;
+                &:hover{
+                  color: $red;
+                }
+              }
+            }
+            &.length{
+              @extend .small.font;
+            }
+            &:first-child, &:last-child{
+              margin-top: 0;
+            }
+          }
+        }
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+  .more-grid-items{
+    @extend .mini.common-section;
+  }
+}

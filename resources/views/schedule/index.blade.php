@@ -48,7 +48,6 @@
 
                     @if(!empty($options['authors']))
                         <select name="aid">
-                            <option value="0">все авторы</option>
                             @foreach($options['authors'] as $user)
                                 <option value="{{ $user->id }}"{{ $user->id == request('aid') ? ' selected' : '' }}>{{ $user->name }}</option>
                             @endforeach
@@ -76,29 +75,56 @@
                     <button class="empty buttons">Показать</button>
                 </form>
             </div>
-            <div class="grid">
-                    <div class="x7 row clearfix">
-                        @for($i=(2 - $activeMonthStartDay);$i<=$activeMonthLength;$i++)
-                            @if(($i > 0) && ($event = $webinarModel->getByDate($webinars, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
-                                @include('schedule.webinarsGridItem')
-                            @elseif(($i > 0) && ($event = $courseModel->getByDate($courses, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
-                                @include('schedule.coursesGridItem')
-                            @elseif($i > 0)
-                                @include('schedule.emptyGridItem')
-                            @else
-                                <div class="hidden items"></div>
-                            @endif
-                        @endfor
-                    </div>
+
+            <div class="schedule-calendar-grid grid">
+                <div class="x7 th row clearfix">
+                    @for($i=1;$i<=7;$i++)
+                        <div class="items">{{ config('dictionary.daysOfWeek')[$i][1] }}</div>
+                    @endfor
+                </div>
+                <div class="x7 row clearfix">
+                    
+                    @for($i=(2 - $activeMonthStartDay);$i<=$activeMonthLength;$i++)
+                        @if(($i > 0) && ($event = $webinarModel->getByDate($webinars, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                            @include('schedule.webinarsCalendarGridItem')
+                        @elseif(($i > 0) && ($event = $courseModel->getByDate($courses, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                            @include('schedule.coursesCalendarGridItem')
+                        @elseif($i > 0)
+                            @include('schedule.emptyCalendarGridItem')
+                        @else
+                            <div class="hidden items"></div>
+                        @endif
+                    @endfor
+                </div>
             </div>
+
+            <!--
+            <div class="events grid">
+                <div class="x7 row clearfix">
+                    @for($i=(2 - $activeMonthStartDay);$i<=$activeMonthLength;$i++)
+                        @if(($i > 0) && ($event = $webinarModel->getByDate($webinars, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                            @include('schedule.webinarsGridItem')
+                        @elseif(($i > 0) && ($event = $courseModel->getByDate($courses, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                            @include('schedule.coursesGridItem')
+                        @elseif($i > 0)
+                            @include('schedule.emptyGridItem')
+                        @else
+                            <div class="hidden items"></div>
+                        @endif
+                    @endfor
+                </div>
+            </div>
+            -->
         </div>
     </div>
 
-    <div class="map">
-        <div class="container">
-            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=bGMbhwYSFqyXLKqgXdTrPz5Awp8kCRzR&width=100%&height=450&lang=ru_RU&sourceType=constructor&scroll=false"></script>
+    @if(false)
+        <div class="map">
+            <div class="container">
+                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=bGMbhwYSFqyXLKqgXdTrPz5Awp8kCRzR&width=100%&height=450&lang=ru_RU&sourceType=constructor&scroll=false"></script>
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="footer section">
         <div class="wrapper clearfix">

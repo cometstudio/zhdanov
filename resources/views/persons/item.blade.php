@@ -10,10 +10,17 @@
             <div class="wrapper">
                 <div class="head-image">
                     <span></span>
-                    <img src="/img/{{ $authorAlias }}Head.jpg" />
+                    @if(!empty($headMisc->gallery))
+                        <img src="{{ $imagesPath }}/small1/{{ $headMisc->getThumbnail() }}.jpg" />
+                    @endif
                 </div>
                 @include('persons.menu')
             </div>
+            <script language="javascript">
+                $(document).ready( function() {
+                    setTimeout(function(){ $('.head-image img').css('display', 'block')}, (effectsSpeed * 1.5));
+                });
+            </script>
         </div>
 
         <!--
@@ -51,7 +58,7 @@
                     <div class="common-h2">
                         <h2><span>Ближайшие мероприятия</span></h2>
                     </div>
-                    <div class="grid">
+                    <div class="events grid">
                         <div class="x7 row clearfix">
                             @foreach($recentEvents as $event)
                                 @include('schedule.'.$event->type.'sGridItem')
@@ -69,8 +76,20 @@
                 </div>
                 <div class="grid">
                     <div class="x2 row clearfix">
-                        <div class="tar items"><a href="{{ route('lessons', ['aid'=>$authorId], false) }}" class="empty white big buttons">Все видеоуроки</a></div>
-                        <div class="items"><a href="{{ route('webinars', ['aid'=>$authorId], false) }}" class="empty white big buttons">Все вебинары</a></div>
+                        <div class="tar items">
+                            @if(!empty($lesson))
+                            <a href="{{ route('lessons', ['aid'=>$authorId], false) }}" class="empty white big buttons">Все видеоуроки</a>
+                            @else
+                                &nbsp;
+                            @endif
+                        </div>
+                        <div class="items">
+                            @if(!empty($webinar))
+                                <a href="{{ route('webinars', ['aid'=>$authorId], false) }}" class="empty white big buttons">Все вебинары</a>
+                            @else
+                                &nbsp;
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="lessons-grid">
@@ -128,7 +147,7 @@
             <div class="inverted common-h2">
                 <h2><span>Галерея</span></h2>
             </div>
-            @include('common.galleryGrid')
+            @include('common.galleryGrid', ['gallery'=>$person->getGallery()])
         </div>
 
         <!--
@@ -154,21 +173,21 @@
         <div id="section6" class="section6 section">
             <div class="wrapper clearfix">
                 <div class="common-h2">
-                    <h2><span>Программа обучения</span></h2>
+                    <h2><span>Программы обучения</span></h2>
                 </div>
                 <div class="shop-teaser grid">
                     <div class="x3 row">
                         <div class="items">
-                            <a href="/courses"><img src="/img/eventTeaser1.jpg" /></a>
-                            <h3><a href="/courses">Для салонов</a></h3>
+                            <a href="{{ route('courses', [], false) }}"><img src="/img/eventTeaser1.jpg" /></a>
+                            <h3><a href="{{ route('courses', [], false) }}">Для салонов</a></h3>
                         </div>
                         <div class="items">
-                            <a href="/courses"><img src="/img/eventTeaser2.jpg" /></a>
-                            <h3><a href="/courses">Для мужчин</a></h3>
+                            <a href="{{ route('courses', ['aid'=>config('persons.yuri', 0)], false) }}"><img src="/img/eventTeaser2.jpg" /></a>
+                            <h3><a href="{{ route('courses', ['aid'=>config('persons.yuri', 0)], false) }}">Для мужчин</a></h3>
                         </div>
                         <div class="items">
-                            <a href="/courses"><img src="/img/eventTeaser3.jpg" /></a>
-                            <h3><a href="/courses">Для женщин</a></h3>
+                            <a href="{{ route('courses', ['aid'=>config('persons.irina', 0)], false) }}"><img src="/img/eventTeaser3.jpg" /></a>
+                            <h3><a href="{{ route('courses', ['aid'=>config('persons.irina', 0)], false) }}">Для женщин</a></h3>
                         </div>
                     </div>
                 </div>

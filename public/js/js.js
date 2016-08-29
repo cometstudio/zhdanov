@@ -1,6 +1,12 @@
 var effectsSpeed = 200;
 var menuScrollYLimit = 0;
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $(document).ready(function(){
     $('body').fadeIn(effectsSpeed);
 
@@ -11,6 +17,8 @@ $(document).ready(function(){
     initGallery(1);
 
     initPopLabels();
+
+    initActivityLabel();
 
     smoothScroll();
 
@@ -27,9 +35,25 @@ $(document).ready(function(){
 
         toggleScrollHint();
     });
-
-
 });
+
+function login()
+{
+    var form = $('.login form');
+
+    ajaxSubmit(form);
+
+    return false;
+}
+
+function signup()
+{
+    var form = $('.signup form');
+
+    ajaxSubmit(form);
+
+    return false;
+}
 
 function adjustIndexFirstSectionHeight()
 {
@@ -72,7 +96,7 @@ function fixMenu()
 
 function fixTimeline()
 {
-    var section = $('.timetable-page .section1');
+    var section = $('.schedule-page .section1');
 
     if(section.length){
         var navContainer = section.find('.timeline-container');
@@ -116,7 +140,7 @@ function toggleScrollHint()
 function initGallery(preloadColoredAlternatives)
 {
     var container = $('.section.gallery');
-    var img, url, double, height;
+    var img, url, src, double, height;
 
     if(container.length){
         double = container.find('.double');
@@ -130,19 +154,23 @@ function initGallery(preloadColoredAlternatives)
         if(preloadColoredAlternatives){
             img = container.find('.has-alternative img');
             img.each(function(){
-                url = $(this).attr('src');
-                preloadImg(getColoredAlternativeUrl(url));
+                url = $(this).attr('rel');
+                preloadImg(url);
             });
 
             img.mouseover(function(){
                 // Show colored alternative on mouseover
-                url = $(this).attr('src');
-                $(this).attr('src', getColoredAlternativeUrl(url));
+                url = $(this).attr('rel');
+                src = $(this).attr('src');
+                $(this).attr('src', url);
+                $(this).attr('rel', src);
             });
             img.mouseout(function(){
                 // Show normal image on mouseout
+                src = $(this).attr('rel');
                 url = $(this).attr('src');
-                $(this).attr('src', getBWUrl(url));
+                $(this).attr('src', src);
+                $(this).attr('rel', url);
             });
         }
     }
@@ -161,6 +189,37 @@ function initPopLabels()
     }
 }
 
+function getRandomDelay()
+{
+    var delay = Math.random() * 240000;
+    if(delay < 40000) delay = 40000;
+
+    return delay;
+}
+
+function initActivityLabel()
+{
+    window.setTimeout('showActivityLabel()', getRandomDelay());
+}
+
+function showActivityLabel()
+{
+    var label = $('.activity-label');
+    var url = label.attr('rel');
+
+    ajax(url, function(response){
+        console.log(response);
+
+        label.text(response.text);
+    }, null, {}, 'post', true);
+
+    label.fadeIn(3000, function(){
+        label.fadeOut(12000);
+    });
+
+    window.setTimeout('showActivityLabel()', getRandomDelay());
+}
+
 function movePopLabel(el, show)
 {
     var label = $(el);
@@ -168,7 +227,14 @@ function movePopLabel(el, show)
 
     if(label.length){
         offset = show ? 0 : -260;
-        label.css('right', offset);
+
+        if(show) {
+            label.show(function(){
+                label.css('right', offset);
+            });
+        }else{
+            label.css('right', offset);
+        }
     }
 }
 
@@ -274,6 +340,52 @@ function formatPrice(integer)
     return formatted;
 }
 
+function pack(el)
+{
+    var url = $(el).attr('href');
+    var label = $('.pack-data');
+
+    ajax(url, function(response){
+        if(response.location){
+            document.location.assign(response.location);
+        }else{
+            label.find('.total').text(response.total);
+            label.find('.dictionary').text(response.dictionary);
+
+            movePopLabel(label, 1);
+
+            if(response.action == 'del') $('.courses-grid #i'+response.courseId).slideUp();
+        }
+    });
+
+    return false;
+}
+
+function scheduleAddUser(el)
+{
+    var url = $(el).attr('href');
+    var controls = $(el).parent().find('a');
+
+    ajax(url, function(response){
+        if(response.location){
+            document.location.assign(response.location);
+        }else{
+            controls.hide();
+
+            switch (response.action){
+                case 'add':
+                    $('.schedule-user-del').show();
+                break;
+                case 'del':
+                    $('.schedule-user-add').show();
+                break;
+            }
+        }
+    });
+
+    return false;
+}
+
 function getColoredAlternativeUrl(url)
 {
     url = url.split('/');
@@ -310,4 +422,123 @@ function preloadImg(url)
 {
     var img = new Image();
     img.src = url;
+}
+
+function toggleWait()
+{
+    var container = $('body > .wait');
+
+    if(container.css('display') == 'none'){
+        container.fadeIn('fast');
+    }else{
+        container.fadeOut('fast');
+    }
+}
+
+function ajaxSubmit(form, callback, errorCallback, data, url, dontShowIndicator)
+{
+    if(form.length) {
+
+        if(!dontShowIndicator) toggleWait();
+
+        var options = {
+            data: data,
+            success: function (response, status, xhr, form) {
+
+                toggleWait();
+
+                if (typeof(callback) == 'function') {
+                    callback(response, status, xhr, form);
+                } else {
+                    if (response.message) {
+                        alert(response.message);
+                    } else if (response.location) {
+                        document.location.assign(response.location);
+                    }
+                }
+            },
+            error: function (response, status, xhr, form) {
+
+                if(!dontShowIndicator) toggleWait();
+
+                if (typeof(errorCallback) == 'function') errorCallback(response, status, xhr, form);
+
+                var errors = response.responseJSON;
+
+                if (typeof(errors) != 'undefined') {
+
+                    for (first in errors) break;
+
+                    var errorInput = $('#' + first);
+
+                    if (errorInput.length) {
+                        errorInput.addClass('error').on('focus', function () {
+                            $(this).removeClass('error');
+                        });
+                    }
+
+                    alert(errors[first]);
+                }
+            },
+            dataType: 'json'
+        };
+
+        if (typeof(url) == 'string') options.url = url;
+
+        form.ajaxSubmit(options);
+    }
+}
+
+function ajax(url, callback, errorCallback, data, method, dontShowIndicator)
+{
+    if(!dontShowIndicator) toggleWait();
+
+    method = typeof (method) == 'undefined' ? 'POST' : method;
+
+    $.ajax(url, {
+        dataType: 'json',
+        data: data,
+        method: method,
+        success: function(response, status, jqXHR){
+
+            if(!dontShowIndicator) toggleWait();
+
+            if(typeof(callback) == 'function'){
+                callback(response, status, jqXHR);
+            }else{
+                if (response.message) {
+                    alert(response.message);
+                } else if (response.location) {
+                    document.location.assign(response.location);
+                }
+            }
+        },
+        error: function(response, status, jqXHR){
+            if(!dontShowIndicator) toggleWait();
+
+            if(typeof(errorCallback) == 'function') errorCallback(response, status, jqXHR);
+
+            var errors = response.responseJSON;
+
+            if(typeof(errors) != 'undefined') {
+
+                for (first in errors) break;
+
+                alert(errors[first]);
+            }
+        }
+    });
+}
+
+function cookie(name, value)
+{
+    var type = typeof(value);
+
+    if(type == 'undefined'){
+        return Cookies.get('name');
+    }else if(type === null){
+        return Cookies.remove('name');
+    }else{
+        return Cookies.set('name', 'value', { expires: 7, path: '/' });
+    }
 }

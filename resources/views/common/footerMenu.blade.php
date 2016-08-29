@@ -1,7 +1,7 @@
 <nav>
-    <a href="/irina">Ирина Агрба</a>
-    <a href="/yuri">Юрий Жданов</a>
-    <a href="{{ route('schedule', [], false) }}">Расписание</a>
+    <a href="{{ route('irina', [], false) }}">Ирина Агрба</a>
+    <a href="{{ route('yuri', [], false) }}">Юрий Жданов</a>
+    <a href="{{ route('courses', [], false) }}">Обучение</a>
     <a href="{{ route('videochannel', [], false) }}">PROF fashion TIME</a>
     <a href="{{ route('products', [], false) }}">Магазин</a>
     <a href="{{ route('gallery', [], false) }}">Галерея</a>

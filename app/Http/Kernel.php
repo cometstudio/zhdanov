@@ -47,7 +47,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \App\Http\Middleware\RedirectAuthenticatedUser::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         // Panel
         'redirectUnauthenticatedPanelUser'=>\App\Http\Middleware\Panel\RedirectUnauthenticatedUser::class,

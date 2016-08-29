@@ -81,6 +81,8 @@ $red: #dc3232;
 
 @mixin gridRow($n, $gutter){
   .items{
+    @extend .box;
+
     width: (100% - ($gutter * ($n - 1))) / $n;
     margin-right: $gutter;
     &:nth-child(#{$n}n){
@@ -136,6 +138,16 @@ body{
 
   display: none;
   max-height: 100%;
+
+  > .wait{
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: $black url("../img/preloader.gif") 50% 50% no-repeat;
+    opacity: 0.7;
+    display: none;
+  }
 }
 
 a{
@@ -257,7 +269,7 @@ input[type=file]{
   display: inline-block;
   height: $inputHeight;
   font-size: 22px;
-  line-height: 1.25em;
+  line-height: 1.3em;
   padding: 0 35px;
   text-transform: uppercase;
   text-decoration: none;
@@ -343,27 +355,48 @@ input[type=file]{
     }
   }
   > span {
-    @include round(30px);
-    @extend .ristretto.font;
-    @extend .big.font;
+    &:first-child{
+      @include round(30px);
+      @extend .ristretto.font;
+      @extend .big.font;
 
-    display: block;
-    position: absolute;
-    top: 0;
-    left: -20px;
-    background: $red;
-    a {
-      display: table-cell;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: -20px;
+      background: $red;
+      a {
+        display: table-cell;
 
-      width: 40px;
-      height: 40px;
-      vertical-align: middle;
-      text-align: center;
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+        text-align: center;
       }
+    }
   }
-  &.courses-data{
+  &.hidden{
+    display: none;
+  }
+  &.pack-data{
     top: $headerHeight + 43px + 20px;
   }
+}
+
+.activity-label{
+  position: fixed;
+  display: none;
+  z-index: 50;
+  right: 0;
+  top: $headerHeight + 118px;
+  width: 245px;
+  padding: 20px;
+  background: $black;
+  color: #fff;
+}
+
+.centered{
+  text-align: center;
 }
 
 .section{
@@ -425,7 +458,6 @@ input[type=file]{
   .x7 {
     @include gridRow(7, 1.5%);
   }
-
 }
 
 .common-h2{
@@ -862,10 +894,73 @@ input[type=file]{
 }
 
 .filter{
+  text-align: center;
   select, .buttons{
     display: inline-block;
-    float: left;
+    float: none;
     margin-right: $gutter;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+
+.calendar-picker{
+  .calendar-picker-grid{
+    .title{
+      @extend .ristretto.font;
+
+      position: relative;
+      padding: 10px;
+      font-size: 22px;
+      line-height: 1em;
+      background: $black;
+      color: $red;
+      text-align: center;
+      > a{
+        display: block;
+        position: absolute;
+        top: 9px;
+        text-decoration: none;
+        &:first-child{
+          left: 10px;
+        }
+        &:last-child{
+          right: 10px;
+          background-position: -11px 0;
+        }
+      }
+    }
+    .picker{
+      li, a, span{
+        @extend .box;
+
+        display: inline-block;
+        float: left;
+        width: (100% / 7);
+        padding: 0.7em 0;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        text-decoration: none;
+        &.today{
+          background-color: $red;
+          color: #fff;
+        }
+        &.active{
+          background-color: $gold;
+          color: #fff;
+        }
+        &:nth-child(7n){
+          border-right: none;
+        }
+      }
+      span{
+        &.empty{
+          background: #eee;
+        }
+      }
+    }
   }
 }
 
@@ -983,7 +1078,7 @@ input[type=file]{
 
 .gallery{
   .grid{
-    background: #242424;
+    //background: #242424;
     color: #fff;
   }
   ul{
@@ -1038,67 +1133,69 @@ input[type=file]{
   @extend .common-section;
 
   .grid{
-    @extend .medium.font;
+    &.events{
+      @extend .medium.font;
 
-    .row{
-      margin-bottom: 15px;
-      &:last-child{
-        margin-bottom: 0;
-      }
-    }
-    .items{
-      $minHeight: 300px;
-
-      opacity: 0.6;
-      transition: 0.2s;
-      background: #f5f5f5;
-      min-height: $minHeight;
-      img{
-        max-width: 100%;
-      }
-      .date{
-        @extend .common-date;
-
-        padding: 3px 5px;
-        background: #464646;
-        color: #fff;
-        .l{ float: left; }
-        .r{ float: right; }
-      }
-      .title{
-        display: block;
-        overflow: hidden;
-        padding: 5px;
-        min-height: 1.5em * 4;
-        text-decoration: none;
-        color: $black;
-      }
-      .performer{
-        @extend .extra-small.font;
-
-        color: $gray;
-        min-height: 1.5em * 2;
-        padding: 5px;
-        border-top: 1px #cfcfcf solid;
-      }
-      &.empty{
-        min-height: $minHeight;
-        text-align: center;
-        background: #ececec;
-        .empty-date{
-          padding-top: 55px;
-          height: 166px - 55px;
-          span{
-            display: block;
-            font-size: 30px;
-          }
+      .row{
+        margin-bottom: 15px;
+        &:last-child{
+          margin-bottom: 0;
         }
       }
-      &.hidden{
-        background: none;
-      }
-      &:hover{
-        opacity: 1;
+      .items{
+        $minHeight: 300px;
+
+        opacity: 0.6;
+        transition: 0.2s;
+        background: #f5f5f5;
+        min-height: $minHeight;
+        img{
+          max-width: 100%;
+        }
+        .date{
+          @extend .common-date;
+
+          padding: 3px 5px;
+          background: #464646;
+          color: #fff;
+          .l{ float: left; }
+          .r{ float: right; }
+        }
+        .title{
+          display: block;
+          overflow: hidden;
+          padding: 5px;
+          min-height: 1.5em * 4;
+          text-decoration: none;
+          color: $black;
+        }
+        .performer{
+          @extend .extra-small.font;
+
+          color: $gray;
+          min-height: 1.5em * 2;
+          padding: 5px;
+          border-top: 1px #cfcfcf solid;
+        }
+        &.empty{
+          min-height: $minHeight;
+          text-align: center;
+          background: #ececec;
+          .empty-date{
+            padding-top: 55px;
+            height: 166px - 55px;
+            span{
+              display: block;
+              font-size: 30px;
+            }
+          }
+        }
+        &.hidden{
+          background: none;
+        }
+        &:hover{
+          opacity: 1;
+        }
       }
     }
   }

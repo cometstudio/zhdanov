@@ -24,6 +24,12 @@ class Schedule extends BaseModel
         return $this->hasOne('App\Models\City', 'id', 'city_id');
     }
 
+    public function users()
+    {
+        return $this->hasManyThrough('App\Models\User', 'App\Models\UserSchedule', 'schedule_id', 'id');
+    }
+
+
     public function getOptions()
     {
         $courses = Course::all();
@@ -99,26 +105,10 @@ class Schedule extends BaseModel
         }
     }
 
-    protected static function beforeSave($attributes = [])
+    public function beforeSave($attrubutes = [])
     {
-        if(empty($attributes)) $attributes = [];
+        $this->setStartTime($attrubutes);
 
-        $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
-
-        return $attributes;
-    }
-
-    public static function create(array $attributes = [])
-    {
-        $attributes = self::beforeSave($attributes);
-
-        return parent::create($attributes);
-    }
-
-    public function update(array $attributes = [], array $options = [])
-    {
-        $attributes = self::beforeSave($attributes);
-
-        return parent::update($attributes, $options);
+        return $this;
     }
 }

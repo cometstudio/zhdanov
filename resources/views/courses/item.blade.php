@@ -16,24 +16,14 @@
 
         <div class="section2 section">
             <div class="wrapper">
-                <div class="common-h2">
-                    <h1>{{ $course->name }}</h1>
-                    <div class="details"><a href="{{ route('courses', ['aid'=>$course->author_id], false) }}" class="red labels">{{ $course->author->name }}</a> <span class="labels">{{ $course->length }} {{ \Dictionary::get('time.days', $course->length) }}</span> <a href="{{ route('courses', ['tid'=>$course->theme_id], false) }}" class="labels">{{ $course->theme->name }}</a></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section3 section">
-            <div class="wrapper">
-                <div class="player">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/5JTxy7DL2hw" frameborder="0" allowfullscreen></iframe>
-                </div>
+                <h1>{{ $course->name }}</h1>
+                <div class="details"><a href="{{ route('courses', ['aid'=>$course->author_id], false) }}" class="{{ $course->author->sex == 1 ? 'red' : ' gold' }} labels">{{ $course->author->name }}</a> <span class="labels">{{ $course->length }} {{ \Dictionary::get('time.days', $course->length) }}</span> <a href="{{ route('courses', ['tid'=>$course->theme_id], false) }}" class="labels">{{ $course->theme->name }}</a></div>
             </div>
         </div>
 
         <div class="section4 section">
             <div class="wrapper clearfix">
-                <div class="inverted common-h2">
+                <div class="common-h2">
                     <h2><span>О программе</span></h2>
                 </div>
                 <div class="grid">
@@ -46,6 +36,52 @@
                         @if(!empty($course->text_right))
                             <div class="items">
                                 {!! $course->text_right !!}
+                                @if(!empty($interval))
+                                    <div class="countdown">
+                                        До окончания записи {{ $interval[0] }} {{ \Dictionary::get('time.days',  $interval[0]) }}, {{ $interval[1] }} {{ \Dictionary::get('time.hours',  $interval[1]) }} и {{ $interval[2] }} {{ \Dictionary::get('time.min',  $interval[2]) }}
+                                    </div>
+                                @endif
+                                <div class="controls">
+                                    @if(!Auth::check())
+                                        <p><a href="/login" class="red empty big buttons">Записаться</a></p>
+                                        <p>&nbsp;</p>
+                                        <p><a href="/login" class="red empty big buttons">Добавить в портфель</a></p>
+                                    @else
+                                        @if(!empty($scheduleItem))
+                                            <p>
+                                                <a style="{{ !empty($userScheduleItem) ? '' : 'display:none;' }}" href="{{ route('scheduleAddUser', ['action'=>'del', 'id'=>$scheduleItem->id], false) }}" onclick="return scheduleAddUser(this);" opt="Записаться на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}" class="schedule-user-del red empty big buttons">Вы записаны на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}</a>
+                                                <a style="{{ empty($userScheduleItem) ? '' : 'display:none;' }}" href="{{ route('scheduleAddUser', ['action'=>'add', 'id'=>$scheduleItem->id], false) }}" onclick="return scheduleAddUser(this);" opt="Вы записаны на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}" class="schedule-user-add red empty big buttons">Записаться на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}</a>
+                                            </p>
+                                        @else
+                                            <p><a href="{{ route('schedule', ['aid'=>$course->author_id], false) }}" class="red empty big buttons">Записаться</a></p>
+                                        @endif
+                                        @if(Auth::user()->type == 2)
+                                            <p>&nbsp;</p>
+                                            <p><a href="{{ route('packAction', ['action'=>'add', 'courseId'=>$course->id], false) }}" onclick="return pack(this);" class="red empty big buttons">Добавить в портфель</a></p>
+                                        @endif
+                                    @endif
+                                </div>
+                                <div class="controls">
+                                    <h3>Поделитесь этой страницей:</h3>
+
+                                    <script type="text/javascript">(function(w,doc) {
+                                            if (!w.__utlWdgt ) {
+                                                w.__utlWdgt = true;
+                                                var d = doc, s = d.createElement('script'), g = 'getElementsByTagName';
+                                                s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                                                s.src = ('https:' == w.location.protocol ? 'https' : 'http')  + '://w.uptolike.com/widgets/v1/uptolike.js';
+                                                var h=d[g]('body')[0];
+                                                h.appendChild(s);
+                                            }})(window,document);
+                                    </script>
+                                    <div data-background-alpha="0.0" data-buttons-color="#ffffff" data-counter-background-color="#ffffff" data-share-counter-size="12" data-top-button="false" data-share-counter-type="disable" data-share-style="6" data-mode="share" data-like-text-enable="false" data-mobile-view="false" data-icon-color="#ffffff" data-orientation="horizontal" data-text-color="#000000" data-share-shape="round-rectangle" data-sn-ids="fb.vk.tw.ok." data-share-size="30" data-background-color="#ffffff" data-preview-mobile="false" data-mobile-sn-ids="fb.vk.tw.wh.ok.vb." data-pid="1560094" data-counter-background-alpha="1.0" data-following-enable="false" data-exclude-show-more="true" data-selection-enable="false" class="uptolike-buttons" ></div>
+
+                                    <!--
+                                    <div class="ltr social-icons">
+                                        <a class="vk" href=""></a><a class="tw" href=""></a><a class="ig" href=""></a><a class="fb" href=""></a>
+                                    </div>
+                                    -->
+                                </div>
                             </div>
                         @endif
                     </div>
@@ -53,96 +89,153 @@
             </div>
         </div>
 
-        <div class="gallery section">
-            <div class="grid">
-                <ul class="x6 clearfix">
-                    <li class="has-alternative">
-                        <a href=""><img src="/img/gallery.jpg" /></a>
-                        <a href=""><img src="/img/gallery.jpg" /></a>
-                    </li>
-                    <li class="double has-alternative">
-                        <a href=""><img src="/img/gallery.jpg" /></a>
-                    </li>
-                    <li class="has-alternative">
-                        <a href=""><img src="/img/gallery.jpg" /></a>
-                        <a href=""><img src="/img/gallery.jpg" /></a>
-                    </li>
-                    <li class="double has-alternative">
-                        <a href=""><img src="/img/gallery.jpg" /></a>
-                    </li>
-                    <li class="has-alternative"><a href=""><img src="/img/gallery.jpg" /></a></li>
-                    <li class="has-alternative"><a href=""><img src="/img/gallery.jpg" /></a></li>
-                </ul>
+        @if(!empty($course->video))
+            <div class="section3 section">
+                <div class="wrapper">
+                    <div class="player">
+                        {!! $course->video !!}
+                        <!--<iframe width="100%" height="100%" src="https://www.youtube.com/embed/5JTxy7DL2hw" frameborder="0" allowfullscreen></iframe>-->
+                    </div>
+                </div>
             </div>
-        </div>
+        @endif
 
-        <div class="section5 section">
-            <div class="wrapper clearfix">
-                <div class="common-h2">
-                    <h2><span>Расписание занятий</span></h2>
+        @if($course->getGallery(false, true))
+            <div class="gallery section">
+                    @if(!empty($galleryTitle))
+                        <div class="common-h2">
+                            <h2><span>{{ $galleryTitle->name }}</span></h2>
+                        </div>
+                    @endif
+                    @include('common.galleryGrid', ['gallery'=>$course->getGallery(false, true)])
+                </div>
+            </div>
+        @endif
+
+        @if(!empty($course->day_1))
+            <div class="section5 section">
+                <div class="wrapper clearfix">
+                    <div class="common-h2">
+                        <h2><span>Расписание занятий</span></h2>
+                    </div>
+
+                    <div class="timeline grid">
+                        @for($i=1;$i<=7;$i++)
+                            @if(!empty($course->getAttribute('day_'.$i)))
+                            <div class="{{ $i > 3 ? 'hidden ' : '' }}day">
+                                @if(!($i%2))
+                                    <div class="x2 inverted row clearfix">
+                                        <div class="items">
+                                            {!! $course->getAttribute('day_'.$i) !!}
+                                        </div>
+                                        <div class="items"><h3>День {{ $i }}</h3></div>
+                                    </div>
+                                @else
+                                    <div class="x2 row clearfix">
+                                        <div class="items"><h3>День {{ $i }}</h3></div>
+                                        <div class="items">
+                                            {!! $course->getAttribute('day_'.$i) !!}
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            @endif
+                        @endfor
+                    </div>
+                    @if($i > 1)
+                        <div class="control">
+                            <a onclick="$(this).parent().parent().find('.hidden').show(); $(this).hide();" href="javascript:void(0);" class="empty buttons" style="margin-left: 112px;">Ещё дни</a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
+
+        @if($course->getGallery(false, true))
+            <div class="gallery section">
+                <div class="wrapper clearfix">
+                    <div class="common-h2">
+                        <h2><span>Отчёты с прошлых курсов</span></h2>
+                    </div>
                 </div>
 
-                <div class="grid">
-                    <div class="x3 row clearfix">
-                        <div class="items">
-                            <h3>День 1</h3>
-                            <ul>
-                                <li>10:30 - 11:00 Регистрация</li>
-                                <li>11:00 - 11:10 Знакомство</li>
-                                <li>11:10 - 12:00 Демонстрация</li>
-                                <li>12:00 - 14:00 Отработка без лезвия</li>
-                                <li>14:00 - 15:00 Обед</li>
-                                <li>15:00 - 16:00 Отработка бритья</li>
-                                <li>16:00 - 17:00 Отработка бритья</li>
-                                <li>17:00 - 17:30 Вопросы по теме</li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <h3>День 2</h3>
-                            <ul>
-                                <li>10:30 - 11:00 Регистрация</li>
-                                <li>11:00 - 11:10 Знакомство</li>
-                                <li>11:10 - 12:00 Демонстрация</li>
-                                <li>12:00 - 14:00 Отработка без лезвия</li>
-                                <li>14:00 - 15:00 Обед</li>
-                                <li>15:00 - 16:00 Отработка бритья</li>
-                                <li>16:00 - 17:00 Отработка бритья</li>
-                                <li>17:00 - 17:30 Вопросы по теме</li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <h3>День 3</h3>
-                            <ul>
-                                <li>10:30 - 11:00 Регистрация</li>
-                                <li>11:00 - 11:10 Знакомство</li>
-                                <li>11:10 - 12:00 Демонстрация</li>
-                                <li>12:00 - 14:00 Отработка без лезвия</li>
-                                <li>14:00 - 15:00 Обед</li>
-                                <li>15:00 - 16:00 Отработка бритья</li>
-                                <li>16:00 - 17:00 Отработка бритья</li>
-                                <li>17:00 - 17:30 Вопросы по теме</li>
-                            </ul>
+                @include('common.galleryGrid', ['gallery'=>$course->getGallery(false, true)])
+            </div>
+        @endif
+
+        @if(!Auth::check() || (Auth::user()->type == 1))
+            <div id="section7-1" class="section7 section">
+                <div class="wrapper">
+                    <div class="common-h2">
+                        <h2><span>НЕ ЗАБУДЬ ЗАПИСАТЬСЯ, МЕСТА В ГРУППЕ ОГРАНИЧЕНЫ</span></h2>
+                    </div>
+                    <div class="grid">
+                        <div class="x2 row clearfix">
+                            <div class="items">
+                                <div class="calendar">
+                                    <div class="calendar-picker">
+                                        <div class="calendar-picker-grid">
+                                            <div class="title">
+                                                <a href="" class="fa fa-arrow-left l"></a>
+                                                <a href="" class="fa fa-arrow-right r"></a>
+                                                Июль
+                                            </div>
+                                            <div class="picker">
+                                                <ul class="clearfix">
+                                                    @for($i=1;$i<=7;$i++)
+                                                        <li>{{ config('dictionary.daysOfWeek')[$i][1] }}</li>
+                                                    @endfor
+                                                </ul>
+                                                <nav class="clearfix">
+                                                    @for($i=(2 - $activeMonthStartDay);$i<=$activeMonthLength;$i++)
+                                                        @if(($i > 0) && ($event = $webinarModel->getByDate($webinars, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                                                            <a href="">{{ $i }}</a>
+                                                        @elseif(($i > 0) && ($event = $courseModel->getByDate($courses, \Date::constructDate([$i, $activeMonth , $activeYear]))->first()))
+                                                            <a href="">{{ $i }}</a>
+                                                        @elseif($i > 0)
+                                                            <span>&nbsp;</span>
+                                                        @else
+                                                            <span>&nbsp;</span>
+                                                        @endif
+                                                    @endfor
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="centered controls">
+                                    <a href="{{ route('schedule', [], false) }}" class="big buttons">Записаться</a>
+                                </div>
+                                -->
+                            </div>
+                            <div class="items">
+                                <h3>Следите за новостями в соцсетях</h3>
+                                <p>ВКонтакте: <a href="{{ config('social.vk', '') }}" target="_blank">{{ config('social.vk', '') }}</a></p>
+                                <p>Facebook: <a href="{{ config('social.fb', '') }}" target="_blank">{{ config('social.fb', '') }}</a></p>
+                                <p>Одноклассники: <a href="{{ config('social.ok', '') }}" target="_blank">{{ config('social.ok', '') }}</a></p>
+                                <p>Instagram: <a href="{{ config('social.ig', '') }}" target="_blank">{{ config('social.ig', '') }}</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="apply ">
-                    <a href="/schedule" class="big empty red buttons">Записаться</a>
-                </div>
-                <div class="add">
-                    <a href="#section7-2" class="big empty red buttons">Добавить в портфель</a>
+            </div>
+        @endif
+
+        @if(!empty($course->tools))
+            <div class="section8 section">
+                <div class="wrapper clearfix">
+                    <div class="common-h2">
+                        <h2><span>Необходимый инструмент</span></h2>
+                    </div>
+                    <div class="centered_">{!! $course->tools !!}</div>
                 </div>
             </div>
-        </div>
+        @endif
 
-        @if(!empty($course->tools) || (empty($products) && $products->count()))
+        @if(!empty($products) && $products->count())
             <div class="section6 section">
                 <div class="wrapper">
-                    @if(!empty($course->tools))
-                        <div class="inverted common-h2">
-                            <h2><span>Необходимый инструмент</span></h2>
-                        </div>
-                        <div class="common-h2">{!! $course->tools !!}</div>
-                    @endif
                     @if(!empty($products) && $products->count())
                         <div class="inverted common-h2">
                             <h2><span>Рекомендуем</span></h2>
@@ -159,68 +252,34 @@
             </div>
         @endif
 
-        <div class="section8 section">
-            <div class="wrapper">
-                <div class="common-h2">
-                    <h2><span>Следите за новостями в соцсетях</span></h2>
-                </div>
-                <div class="grid">
-                    <div class="x2 row clearfix">
-                        <div class="items">
-                            <h3>Присоединяйтесь</h3>
-                            <p>ВКонтакте: <a href="http://vk.com/id134876924" target="_blank">vk.com/id134876924</a></p>
-                            <p>Facebook: <a href="http://facebook.com" target="_blank">facebook.com</a></p>
-                            <p>Одноклассники: <a href="http://ok.ru" target="_blank">ok.ru</a></p>
-                            <p>Instagram: <a href="http://instagram.com" target="_blank">instagram.com</a></p>
-                        </div>
-                        <div class="items">
-                            <h3>Поделитесь этой страницей</h3>
-                            <div class="ltr social-icons">
-                                <a class="vk" href=""></a><a class="tw" href=""></a><a class="ig" href=""></a><a class="fb" href=""></a>
+        @if(!Auth::check() || (Auth::user()->type == 2))
+            <div id="section7-2" class="section7 section">
+                <div class="wrapper">
+                    <div class="common-h2">
+                        <h2><span>СФОРМИРУЙТЕ ОБУЧАЮЩИЙ КУРС</span></h2>
+                    </div>
+                    <div class="grid">
+                        <div class="x2 row clearfix">
+                            <div class="items">
+                                <ul>
+                                    <li>- Создайте портфель из одной или более программ</li>
+                                    <li>- Подайте заявку на проведение цикла занятий</li>
+                                    <li>- Ожидайте, с вами свяжется координатор</li>
+                                </ul>
+                            </div>
+                            <div class="items">
+                                <!--<div class="price">10.000 руб.</div>-->
+                                <a href="{{ route('packAction', ['action'=>'add', 'courseId'=>$course->id], false) }}" onclick="return pack(this);" class="big buttons">Добавить в портфель</a>
+                                <p>&nbsp;</p>
+                                Дополните свой портфель другими программами:
+                                <p>&nbsp;</p>
+                                <a href="{{ route('courses', [], false) }}" class="empty black buttons">Все программы</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="section7-1" class="section7 section">
-            <div class="wrapper">
-                <div class="common-h2">
-                    <h2><span>НЕ ЗАБУДЬ ЗАПИСАТЬСЯ, МЕСТА В ГРУППЕ ОГРАНИЧЕНЫ</span></h2>
-                </div>
-                <div class="centered">
-                    <a href="/schedule" class="big buttons">Записаться</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="section7-2" class="section7 section">
-            <div class="wrapper">
-                <div class="common-h2">
-                    <h2><span>СФОРМИРУЙТЕ ОБУЧАЮЩИЙ КУРС</span></h2>
-                </div>
-                <div class="grid">
-                    <div class="x2 row clearfix">
-                        <div class="items">
-                            <ul>
-                                <li>- Создайте портфель из одной или более программ</li>
-                                <li>- Подайте заявку на проведение цикла занятий</li>
-                                <li>- Ожидайте, с вами свяжется координатор</li>
-                            </ul>
-                        </div>
-                        <div class="items">
-                            <!--<div class="price">10.000 руб.</div>-->
-                            <a href="" class="big buttons">Добавить в портфель</a>
-                            <p>&nbsp;</p>
-                            Дополните свой портфель другими программами:
-                            <p>&nbsp;</p>
-                            <a href="courses.html" class="empty black buttons">Все программы</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
 
         <div class="footer section">
             <div class="wrapper clearfix">
@@ -237,7 +296,7 @@
                             <span>+ 7 (050) 555 77 75</span>
                         </div>
                         <div class="items">
-                            <span class="social-icons"><a href="" class="vk"></a><a href="" class="tw"></a><a href="" class="ig"></a><a href="" class="fb"></a></span>
+                            <span class="social-icons"><a href="{{ config('social.vk', '') }}" class="vk" target="_blank"></a><a href="{{ config('social.tw', '') }}" class="tw" target="_blank"></a><a href="{{ config('social.ig', '') }}" class="ig" target="_blank"></a><a href="{{ config('social.fb', '') }}" class="fb" target="_blank"></a></span>
                         </div>
                     </div>
                 </div>

@@ -104,7 +104,7 @@ input[type="text"], input[type="email"], input[type="password"], select, textare
   background: #fff; }
   input[type="text"].error, input[type="email"].error, input[type="password"].error, select.error, textarea.error, input[type="submit"].error, .button.error {
     border-color: red;
-    background: #ffe5e5; }
+    background: #ffe6e6; }
 
 input[type="text"], input[type="email"], input[type="password"], select, input[type="submit"], .button {
   height: 50px; }
@@ -177,7 +177,7 @@ input[type=file] {
 .font.medium, .aside li, .content > .controls {
   font-size: 14px;
   line-height: 1.4em; }
-.font.small, .panel-model-name, .edit .date-info, .form .row dl, .common-grid .items .col.grab, .common-grid .items .col.id, .gallery .items .el {
+.font.small, .per-page, .panel-model-name, .edit .date-info, .form .row dl, .common-grid .items .col.grab, .common-grid .items .col.id, .gallery .items .el {
   font-size: 12px;
   line-height: 1.4em; }
 
@@ -222,6 +222,32 @@ b, strong, .bold, .panel-model-name {
     margin-right: 0; }
 .grid .row.hidden {
   display: none; }
+
+ul.pagination {
+  display: inline-block;
+  margin-top: 30px; }
+  ul.pagination li {
+    display: inline-block;
+    margin-right: 1px;
+    background: #fff; }
+    ul.pagination li a, ul.pagination li span {
+      display: block;
+      width: 3em;
+      padding: 1em 0;
+      text-align: center;
+      text-decoration: none; }
+    ul.pagination li.active {
+      background: #723bae; }
+      ul.pagination li.active a, ul.pagination li.active span {
+        color: #fff; }
+    ul.pagination li:last-child {
+      margin-right: 0; }
+
+.per-page {
+  margin-bottom: 30px; }
+  .per-page a {
+    display: inline-block;
+    margin-left: 5px; }
 
 .aside {
   float: left;
@@ -270,7 +296,7 @@ b, strong, .bold, .panel-model-name {
   margin-bottom: 20px; }
 
 .form .row {
-  margin-bottom: 10px; }
+  margin-bottom: 15px; }
   .form .row dl {
     margin-bottom: 5px; }
 .form.login {

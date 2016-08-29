@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
+use App\Models\UserSchedule;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Course;
+use App\Models\Webinar;
 use App\Models\Product;
+use App\Models\Misc;
+use Illuminate\Database\Eloquent\Collection;
 
 class CoursesController extends Controller
 {
@@ -53,9 +57,13 @@ class CoursesController extends Controller
                 }
             }
 
-            $courses = $builder->get();
+            if($length = $request->get('length')){
+                $builder = $builder->where('length', '=', $length);
+            }
+
+            $courses = $builder->orderBy('ord', 'DESC')->get();
         }else{
-            $courses = Course::all();
+            $courses = Course::orderBy('ord', 'DESC')->get();
         }
 
         return view('courses.index', [
@@ -66,19 +74,52 @@ class CoursesController extends Controller
         ]);
     }
 
-    public function item($id)
+    public function item(Request $request, $id)
     {
         $course = Course::where('id', '=', $id)->firstOrFail();
+
+        if($request->has('schedule')){
+            $scheduleItem = Schedule::where('id', '=', $request->get('schedule'))->firstOrFail();
+            $userScheduleItem = UserSchedule::where('schedule_id', '=', $scheduleItem->id)->first();
+            $interval = \Date::getInterval($scheduleItem->start_time);
+        }
+
+
 
         $this->title = $course->name;
 
         // Get products
         $products = Product::orderBy('id', 'DESC')->limit(5)->get();
+
+        $webinarModel = new Webinar();
+        $courseModel = new Course();
+
+        // Get active period data
+        $activeYear = date('Y');
+        $activeMonth = date('n');
+        $activeMonthStartDay = \Date::getMonthStartDay($activeMonth, $activeYear);
+        $activeMonthLength = \Date::getMonthLength($activeMonth, $activeYear);
+
+        $galleryTitle = Misc::where('id', '=', 4)->first();
         
         return view('courses.item', [
             'css'=>$this->css,
             'course'=>$course,
+            'scheduleItem'=>(!empty($scheduleItem) ? $scheduleItem : null),
+            'userScheduleItem'=>(!empty($userScheduleItem) ? $userScheduleItem : null),
+            'interval'=>(!empty($interval) ? $interval : null),
             'products'=>$products,
+            'webinarModel'=>$webinarModel,
+            'webinars'=>!empty($webinars) ? $webinars : new Collection(),
+            'courseModel'=>$courseModel,
+            'courses'=>!empty($courses) ? $courses : new Collection(),
+            'activeMonth'=>$activeMonth,
+            'activeMonthStartDay'=>$activeMonthStartDay,
+            'activeMonthLength'=>$activeMonthLength,
+            'activeMonthData'=>config('dictionary.months', [])[$activeMonth],
+            'activeYear'=>$activeYear,
+            'daysOfWeek'=>config('dictionary.daysOfWeek', []),
+            'galleryTitle'=>$galleryTitle,
             'title'=>$this->title,
         ]);
     }

@@ -28,7 +28,7 @@ class RedirectUnauthenticatedUser
             }
         }
 
-        view()->share('currentUserPanelModels', Auth::user()->panelModels()->get());
+        view()->share('currentUserPanelModels', Auth::user()->panelModels()->orderBy('ord', 'DESC')->get());
 
         return $next($request);
     }

@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,12 +47,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if(!env('APP_DEBUG')) {
-            if ($e instanceof \ErrorException) {
-                if ($request->ajax()) {
-                    return response()->json(['message' => 'Internal server error'], 500);
-                }else{
-                    abort(500);
-                }
+            if ($request->ajax()) {
+                return response()->json(['message' => $e->getMessage()], 500);
+            }else{
+                abort(500);
             }
         }
 

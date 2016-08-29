@@ -10,15 +10,16 @@ class Webinar extends BaseModel
         'name', 
         'author_id', 
         'theme_id', 
-        'teaser', 
+        'teaser',
+        'text',
+        'video',
+        'gallery',
         'price',
         'start_time',
         'length_hr', 
-        'length_min', 
-        'text', 
+        'length_min',
         'vacancies', 
         'participants',
-        'gallery',
     ];
 
     public function author()
@@ -70,28 +71,5 @@ class Webinar extends BaseModel
         $this->setStartTime($attrubutes);
         
         return $this;
-    }
-
-    protected static function _beforeSave(array $attributes = [])
-    {
-        if(empty($attributes)) $attributes = [];
-
-        $attributes['start_time'] = \Date::getTimeFromDate($attributes['_start_date'], $attributes['_hrs'], $attributes['_mins']);
-
-        return $attributes;
-    }
-
-    public static function _create(array $attributes = [])
-    {
-        $attributes = self::beforeSave($attributes);
-
-        return parent::create($attributes);
-    }
-
-    public function _update(array $attributes = [], array $options = [])
-    {
-        $attributes = self::beforeSave($attributes);
-
-        return parent::update($attributes, $options);
     }
 }

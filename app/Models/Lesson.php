@@ -13,6 +13,7 @@ class Lesson extends BaseModel
         'length_hr', 
         'length_min', 
         'text',
+        'video',
         'gallery',
     ];
 

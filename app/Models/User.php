@@ -24,7 +24,15 @@ class User extends PanelUser implements
      * @var array
      */
     protected $fillable = [
-        'name', 'is_author', 'email', 'password',
+        'type',
+        'is_author',
+        'sex',
+        'name',
+        'city',
+        'teaser',
+        'email',
+        'password',
+        'gallery',
     ];
 
     /**
@@ -33,8 +41,11 @@ class User extends PanelUser implements
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    protected $configSet = 'dirs.user';
 
     protected static function boot()
     {
@@ -46,6 +57,21 @@ class User extends PanelUser implements
              */
             $model->setAttribute('password', self::encryptPassword($model->getAttribute('password')));
         });
+    }
+
+    public function courses()
+    {
+        return $this->hasMany('App\Models\Course', 'author_id', 'id');
+    }
+
+    public function packs()
+    {
+        return $this->hasMany('App\Models\Pack', 'user_id', 'id');
+    }
+
+    public function packedCourses()
+    {
+        return $this->hasManyThrough('App\Models\Pack', 'App\Models\Course', 'id', 'course_id', 'id');
     }
 
     protected static function encryptPassword($password = '')
@@ -64,6 +90,51 @@ class User extends PanelUser implements
         }catch (\Exception $e){
             return false;
         }
+    }
+
+    public function getValidationRules()
+    {
+        return [
+            'type' => 'required',
+            'name' => 'required',
+            'city' => 'required',
+            'email' => 'required',
+        ];
+    }
+
+    public function getValidationMessages()
+    {
+        return [
+            'type.required' => 'Укажите тип аккаунта',
+            'name.required' => 'Укажите имя',
+            'city.required' => 'Укажите город',
+            'email.required' => 'Укажите e-mail',
+            'email.email' => 'Укажите реальный e-mail'
+        ];
+    }
+
+    public function getSignupValidationRules()
+    {
+        return [
+            'type' => 'required',
+            'name' => 'required',
+            'city' => 'required',
+            'email' => 'required|email|unique:'. $this->getTable() . ',email',
+            'password' => 'required',
+        ];
+    }
+
+    public function getSignupValidationMessages()
+    {
+        return [
+            'type.required' => 'Укажите тип аккаунта',
+            'name.required' => 'Укажите имя',
+            'city.required' => 'Укажите город',
+            'email.required' => 'Укажите e-mail',
+            'email.email' => 'Укажите реальный e-mail',
+            'email.unique' => 'Пользователь с указанным e-mail уже зарегистрирован',
+            'password.required' => 'Укажите пароль',
+        ];
     }
 
     public function getLoginValidationRules()
@@ -87,12 +158,15 @@ class User extends PanelUser implements
     {
         $userPanelModels = $this->PanelModels()->get();
 
-        return compact('userPanelModels');
+        return compact(
+            'userPanelModels'
+        );
     }
 
-    public function setOptions($data = [])
+    public function beforeSave($attrubutes = [])
     {
-        $this->setPanelModelIds(!empty($data['_panel_model_ids']) ? $data['_panel_model_ids'] : [] );
+
+        $this->setPanelModelIds(!empty($attrubutes['_panel_model_ids']) ? $attrubutes['_panel_model_ids'] : [], !empty($attrubutes['_panel_model_crud']) ? $attrubutes['_panel_model_crud'] : [] );
 
         return $this;
     }

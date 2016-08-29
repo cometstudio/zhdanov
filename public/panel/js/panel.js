@@ -20,7 +20,11 @@ $(document).ready(function(){
         tolerance: "pointer",
         stop: function( event, ui ) {
             var ids = $('.sortable').sortable('toArray');
-            console.log(ui.item.attr('id'));
+            //console.log(ids, ui.item.attr('id'));
+            var url = $('input[name=_sort_action_url]').val();
+            url += '?ids=' + ids;
+
+            ajax(url, null, null, {}, 'GET');
         }
     });
 
@@ -30,7 +34,28 @@ $(document).ready(function(){
             //console.log(this);
         }
     });
+
+
+    $( ".gallery" ).sortable({
+        update: function( event, ui ) {
+            sortGallery(ui);
+        }
+    });
 });
+
+function sortGallery(ui)
+{
+    var url = $('input[name=_gallerysort]').val();
+    var galleryInput = $('input[name=gallery]');
+    var gallery = $('input[name=gallery]').val();
+
+    ajax(url, function(response){
+        galleryInput.val(response.gallery);
+    }, null, {
+        'indexes': $('.gallery').sortable('toArray'),
+        'gallery': galleryInput.val()
+    });
+}
 
 function imageadd(el)
 {
@@ -218,7 +243,6 @@ function toggleWait()
     }else{
         container.fadeOut('fast');
     }
-
 }
 
 function clickFileInput(target)
@@ -249,4 +273,33 @@ function cookie(name, value)
     }else{
         return Cookies.set('name', 'value', { expires: 7, path: '/' });
     }
+}
+
+/* Custom area */
+function courseProductAdd(el) {
+    var control = $(el);
+    var url = control.attr('href');
+    var productId = $('select[name=_product_id]').val();
+    var container = $('.course-products');
+
+    ajax(url, function(response){
+        container.html(response.view)
+    }, null, {
+        product_id: productId
+    });
+
+    return false;
+}
+
+function courseProductDel(el) {
+    var control = $(el);
+    var url = control.attr('href');
+
+    ajax(url, function(response){
+        container.html(response.view)
+    }, null, {
+        product_id: productId
+    });
+
+    return false;
 }

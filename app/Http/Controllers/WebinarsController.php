@@ -72,8 +72,6 @@ class WebinarsController extends Controller
         
         $interval = \Date::getInterval($webinar->start_date);
 
-        //dd($webinar->start_date);
-
         $nextWebinars = Webinar::where('id', '!=', $webinar->id)
             ->limit(2)
             ->get();

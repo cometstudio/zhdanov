@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Misc;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Videochannel;
 
 class ProftimeController extends Controller
@@ -12,12 +12,15 @@ class ProftimeController extends Controller
 
     public function index(Request $request)
     {
-        $tags = Videochannel::all();
+        $misc = Misc::where('id', '=', 1)->firstOrFail();
+
+        $tags = Videochannel::orderBy('ord', 'DESC')->get();
 
         return view('proftime.index', [
             'tags'=>$tags,
             'css'=>$this->css,
-            'title'=>'PROF fashion TIME',
+            'misc'=>$misc,
+            'title'=>(!empty($misc->title) ? $misc->title : 'PROF fashion TIME'),
         ]);
     }
 }

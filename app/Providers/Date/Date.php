@@ -4,14 +4,14 @@ namespace App\Providers\Date;
 
 class Date
 {
-    public function getInterval($date = null, $hour = 0, $min = 0, $sec = 0)
+    public function getInterval($dateTime = null, $hour = 0, $min = 0, $sec = 0)
     {
         try{
-            if(empty($date)) throw new \Exception;
+            if(empty($dateTime)) throw new \Exception;
 
-            if(is_string($date)) $date = $this->getTimeFromDate($date, $hour, $min, $sec);
+            if(!is_numeric($dateTime)) $dateTime = $this->getTimeFromDate($dateTime, $hour, $min, $sec);
 
-            $diff = $date - time();
+            $diff = $dateTime - time();
 
             if($diff < 0) throw new \Exception;
 
@@ -57,7 +57,7 @@ class Date
                     $date[] = $months[date('n', $time)][1];
                     $date[] = date('Y', $time);
 
-                    $date = implode(' ', $date); 
+                    $date = implode(' ', $date);
                 break;
                 case 1:
                     $date[] = date('d', $time);
@@ -65,6 +65,17 @@ class Date
                     $date[] = date('Y', $time);
 
                     $date = implode('.', $date);
+                break;
+                case 3:
+                    $months = config('dictionary.months', []);
+
+                    $date[] = date('d', $time);
+                    $date[] = $months[date('n', $time)][1];
+                    $date[] = date('Y', $time);
+                    $date[] = 'в';
+                    $date[] = date('H:i', $time);
+
+                    $date = implode(' ', $date);
                 break;
             }
 

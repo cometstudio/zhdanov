@@ -9,7 +9,7 @@
     @endif
     <a href="{{ route('webinar', ['id'=>$webinar->id], false) }}"><img src="{{ $imagesPath }}/small1/{{ $webinar->getThumbnail() }}.jpg" /></a>
     <ul class="date clearfix">
-        <li>{{ \Date::getDateFromTime($webinar->start_time) }}, 18:00</li>
+        <li>{{ \Date::getDateFromTime($webinar->start_time) }}, 00:00</li>
         @if($webinar->length_hr || $webinar->length_min)
             <li><span class="fa fa-clock-o"></span> {{ $webinar->length_hr }} {{ \Dictionary::get('time.hours', $webinar->length_hr ) }} {{ $webinar->length_min }} {{ \Dictionary::get('time.min', $webinar->length_min) }}</li>
         @endif

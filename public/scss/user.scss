@@ -2,9 +2,26 @@
 
 .section1 {
   @extend .top.common-section;
+
+  h3{
+    margin-bottom: $gutter;
+  }
+  .form{
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .items{
+    &:last-child{
+      text-align: left;
+    }
+  }
 }
 
-.section2, .section3 {
+.section2{
+  @extend .mini.common-section;
+
+  margin-top: $commonH2Margin;
   h3{
     margin-bottom: $gutter;
   }
@@ -13,13 +30,13 @@
     list-style-position: inside;
   }
 }
-.section2 {
-  .buttons{
-    margin-top: $gutter;
-  }
+
+.section3 {
+  @extend .mini.common-section;
+
+  padding-bottom: $commonH2Margin;
   .form{
-    padding-top: $gutter * 2;
-    margin-top: $gutter * 2;
-    border-top: 2px dotted #959595;
+    width: 30%;
+    margin: 0 auto;
   }
 }

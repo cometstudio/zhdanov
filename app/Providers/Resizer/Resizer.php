@@ -83,12 +83,16 @@ class Resizer {
         }
     }
 
-    public function gallery($gallery = null, $useEmptyImage = false)
+    public function gallery($gallery = null, $useEmptyImage = false, $skipFirst = false)
     {
         try{
             if(empty($gallery)) throw new \Exception;
 
             if(!is_array($gallery)) $gallery = explode(' ', $gallery);
+
+            if(!empty($skipFirst)) array_shift($gallery);
+
+            if(empty($gallery)) throw new \Exception;
 
             return $gallery;
         }catch (\Exception $e){
@@ -129,7 +133,7 @@ class Resizer {
         throw new \Exception("Invalid image extension for {$file}. Acceptable image types are jpg,jpeg,gif,png");
     }
 
-    public function resize($newWidth, $newHeight, $crop = false)
+    public function resize($newWidth, $newHeight, $crop = false, $addWatermark = false)
     {
         array_set($this->config, 'settings.resize', empty($crop) ? 'auto' : 'crop');
 
@@ -142,6 +146,22 @@ class Resizer {
         if (array_get($this->config, 'settings.resize') == 'crop'){
             $this->crop($width, $height, $newWidth, $newHeight);
         }
+
+        if($addWatermark) {
+            $watermarkFilepath = public_path() . '/'.$this->config['dir'].'/watermark.png';
+            $watermark = imagecreatefrompng($watermarkFilepath);
+            // bottom - right
+            //imagecopy($this->imageResized, $watermark, (imagesx($this->imageResized) - imagesx($watermark) - 30), (imagesy($this->imageResized) - imagesy($watermark) - 30), 0, 0, imagesx($watermark), imagesy($watermark));
+            // top - left
+            imagecopy($this->imageResized, $watermark, 20, 20, 0, 0, imagesx($watermark), imagesy($watermark));
+        }
+
+        return $this;
+    }
+
+    public function filter($filter = null)
+    {
+        if($filter !== null) imagefilter($this->imageResized, $filter);
 
         return $this;
     }
@@ -249,11 +269,13 @@ class Resizer {
 
         $dirs = array_get($config, $configSet);
 
-        if(empty($dirs)) throw new \Exception;
+        if(empty($dirs)) throw new \Exception('No config defined');
 
         if (is_array($dirs)) {
             foreach ($dirs as $dir => $options) {
-                $image->resize($options[0], $options[1], $options[2])->save($path . '/' . $dir . '/' . $name . '.jpg');
+                $image->resize($options[0], $options[1], $options[2], (!empty($options[4]) ? true : false))
+                    ->filter(!empty($options[3]) ? $options[3] : null)
+                    ->save($path . '/' . $dir . '/' . $name . '.jpg');
             }
         }
 

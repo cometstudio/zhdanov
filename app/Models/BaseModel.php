@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BaseModel extends Model
 {
     protected $dateFormat = 'U';
+    protected $configSet = 'dirs.default';
 
     public function getValidationRules()
     {
@@ -18,11 +19,16 @@ class BaseModel extends Model
     {
         return [];
     }
+
+    public function getConfigSet()
+    {
+        return $this->configSet;
+    }
     
-    public function getGallery($useEmptyImage = false)
+    public function getGallery($useEmptyImage = false, $skipFirst = false)
     {
         try{
-            $gallery = \Resizer::gallery($this->gallery, $useEmptyImage);
+            $gallery = \Resizer::gallery($this->gallery, $useEmptyImage, $skipFirst);
 
             if(empty($gallery)) throw  new \Exception;
             
@@ -31,17 +37,24 @@ class BaseModel extends Model
             return [];
         }
     }
+
+    public function setGallery(array $gallery = [])
+    {
+        $this->gallery = \Resizer::galleryString($gallery);
+
+        return $this->gallery;
+    }
     
     public function getThumbnail()
     {
-        $gallery = $this->getGallery(true);
+        $gallery = $this->getGallery(true, false);
     
         return reset($gallery);
     }
 
     public function setStartTime($attrubutes = [])
     {
-        $this->start_time = \Date::getTimeFromDate($attrubutes['_start_date'], $attrubutes['_hrs'], $attrubutes['_mins']);
+        $this->start_time = \Date::getTimeFromDate($attrubutes['_start_date'], !empty($attrubutes['_hrs']) ? $attrubutes['_hrs'] : 0, !empty($attrubutes['_hrs']) ? $attrubutes['_mins'] : 0);
 
         return $this->start_time ;
     }
@@ -70,5 +83,15 @@ class BaseModel extends Model
         $model = App::make($modelClassPath);
 
         return $model;
+    }
+
+    public function beforeSave($attrubutes = [])
+    {
+        return $this;
+    }
+
+    public function beforeUpdate($attrubutes = [])
+    {
+        return $this;
     }
 }

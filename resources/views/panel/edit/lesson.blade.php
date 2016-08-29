@@ -16,6 +16,17 @@
             </select>
         </div>
     @endif
+    @if(!empty($options['themes']))
+        <div class="row">
+            <dl>Тег</dl>
+            <select name="theme_id">
+                <option value="0"></option>
+                @foreach($options['themes'] as $theme)
+                    <option value="{{ $theme->id }}"{{ $item->theme_id == $theme->id ? ' selected' : '' }}>{{ $theme->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    @endif
     <div class="row">
         <dl>Длительность, часов, минут</dl>
         <select name="length_hr">
@@ -40,6 +51,10 @@
     <div class="row">
         <dl>Описание</dl>
         <textarea name="text" class="ck">{{ $item->text }}</textarea>
+    </div>
+    <div class="row">
+        <dl>Код видеоплеера (iframe-вариант, 100% ширина)</dl>
+        <input name="video" value="{{ $item->video }}" type="text" />
     </div>
     <div class="row">
         @include('panel.edit.gallery')

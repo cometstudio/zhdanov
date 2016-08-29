@@ -23,8 +23,11 @@ body
 
 .cke_editable
 {
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 1.4em;
+}
+.cke_editable p{
+	margin: 0;
 }
 
 blockquote

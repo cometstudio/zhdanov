@@ -3,14 +3,24 @@
 @section('content')
     <div class="edit form">
         <h4><a href="{{ route('admin::act', ['action'=>'show', 'modelName'=>$currentPanelModel->public_model_name], false) }}">{{ $currentPanelModel->name }}</a></h4>
-        <h1>{{ $item->name or 'Создать' }}</h1>
+        @if(!empty($item->name))
+            <h1>{{ $item->name or '' }}</h1>
+        @endif
         <form action="{{ route('admin::act', ['action'=>'save', 'modelName'=>$currentPanelModel->public_model_name, 'id'=>(!empty($item->id) ? $item->id : null)], false) }}" method="post">
 
             @yield('input')
 
+            @if(!empty($currentPanelModel->has_gallery))
+                <div class="row">
+                    @include('panel.edit.gallery')
+                </div>
+            @endif
+
             <div class="clearfix">
+                @if(!empty($canUpdate))
                 <button onclick="return save();" class="button" style="float: left;">Сохранить</button>
-                @if(!empty($item->id))
+                @endif
+                @if(!empty($item->id) && !empty($canDelete))
                     <a href="{{ route('admin::act', ['action'=>'drop', 'modelName'=>$currentPanelModel->public_model_name, 'id'=>$item->id], false) }}" onclick="return drop(this);" class="empty black button" style="float: right;">Удалить</a>
                 @endif
             </div>

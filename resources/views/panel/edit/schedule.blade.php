@@ -11,7 +11,7 @@
             <select name="course_id">
                 <option value="0"></option>
                 @foreach($options['courses'] as $course)
-                    <option value="{{ $course->id }}"{{ $item->course_id == $course->id ? ' selected' : '' }}>{{ $course->name }}</option>
+                    <option value="{{ $course->id }}"{{ (($item->course_id == $course->id) || ($course->id == request('cid'))) ? ' selected' : '' }}>{{ $course->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -41,4 +41,17 @@
             @endfor
         </select>
     </div>
+    <div class="row">
+        <a href="{{ route('admin::act', ['action'=>'create', 'modelName'=>'review', null, 'sid'=>$item->id], false) }}" class="empty button">Создать отчёт</a>
+    </div>
+    @if($item->users->count())
+    <div class="row" style="padding: 30px 0;">
+        <span style="font-size: 18px; line-height: 1.3em; margin-bottom: 5px;">Участники:</span>
+        <ul>
+            @foreach($item->users as $user)
+                <li><a href="{{ route('admin::act', ['action'=>'edit', 'modelName'=>'user', 'id'=>$user->id], false) }}">{{ $user->name }}</a></li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 @endsection

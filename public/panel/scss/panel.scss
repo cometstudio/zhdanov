@@ -245,6 +245,42 @@ b, strong, .bold{
   }
 }
 
+ul.pagination{
+  display: inline-block;
+  margin-top: 30px;
+  li{
+    display: inline-block;
+    margin-right: 1px;
+    background: #fff;
+    a, span{
+      display: block;
+      width: 3em;
+      padding: 1em 0;
+      text-align: center;
+      text-decoration: none;
+    }
+    &.active{
+      background: $accent;
+      a, span{
+        color: #fff;
+      }
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+
+.per-page{
+  @extend .small.font;
+
+  margin-bottom: 30px;
+  a{
+    display: inline-block;
+    margin-left: 5px;
+  }
+}
+
 .aside{
   float: left;
   width: $asideWidth;
@@ -320,7 +356,7 @@ b, strong, .bold{
 
 .form{
   .row{
-    margin-bottom: $gutter / 6;
+    margin-bottom: $gutter / 4;
     dl{
       @extend .small.font;
 

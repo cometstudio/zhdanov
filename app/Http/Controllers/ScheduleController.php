@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
+use Auth;
 use App\Models\Course;
 use App\Models\Schedule;
-use App\Models\User;
+use App\Models\UserSchedule;
 use App\Models\Webinar;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ScheduleController extends Controller
 {
@@ -42,7 +41,7 @@ class ScheduleController extends Controller
                     \DB::raw('users.name as author_name')
                 );
 
-            if(!empty($input['aid'])) $builder->where('webinars.author_id', '=', $input['aid']);
+            if(!empty($input['aid'])) $builder->where('webinars.author_id', '=', $input['aid']); else throw new NotFoundHttpException;
 
             if(!empty($input['tid'])) $builder->where('webinars.theme_id', '=', $input['tid']);
 
@@ -59,6 +58,7 @@ class ScheduleController extends Controller
                 ->join('cities', 'schedule.city_id', '=', 'cities.id')
                 ->select(
                     'courses.*',
+                    \DB::raw('schedule.id as schedule_id'),
                     'schedule.start_time',
                     \DB::raw('users.name as author_name'),
                     \DB::raw('cities.name as city_name')
@@ -91,6 +91,43 @@ class ScheduleController extends Controller
 
     public function item($id)
     {
-        return view('schedule.item', ['css'=>$this->css]);
+        return view('schedule.item', [
+            'css'=>$this->css
+        ]);
+    }
+
+    public function addUser(Request $request, $action = 'add', $id = 0)
+    {
+        $currentUser = Auth::user();
+
+        $location = '';
+
+        if(empty($currentUser)) $location = '/login';
+
+        if(empty($id)) throw new \Exception('Не выбрано мероприятие');
+
+        switch ($action){
+            case 'add':
+                if(!UserSchedule::where('user_id', '=', $currentUser->id)->where('schedule_id', '=', $id)->count()){
+                    $sid = UserSchedule::create([
+                        'user_id'=>$currentUser->id,
+                        'schedule_id'=>$id,
+                    ]);
+
+                    if(empty($sid)) throw new \Exception('Ошибка при бронировании участия');
+                }
+                break;
+            case 'del':
+                if($userSchedule = UserSchedule::where('user_id', '=', $currentUser->id)->where('schedule_id', '=', $id)->first()) {
+                    $userSchedule->delete();
+                }
+                break;
+        }
+
+        return response()->json([
+            'location'=>$location,
+            'action'=>$action,
+            'id'=>$id,
+        ]);
     }
 }

@@ -36,8 +36,6 @@
   .head-image{
     position: relative;
     height: 241px;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
     span{
       display: block;
       position: absolute;
@@ -45,8 +43,8 @@
       height: 100%;
     }
     img{
-      display: block;
-      margin:  0 auto;
+      display: none;
+      margin: 0 auto;
     }
   }
   &.irina{
@@ -209,7 +207,9 @@
 }
 
 .gallery{
-  @extend .common-section;
+  .common-h2{
+    @extend .common-section;
 
-  background: #131313;
+    background: #131313;
+  }
 }

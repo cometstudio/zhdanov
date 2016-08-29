@@ -27,13 +27,13 @@ Route::group(['as' => 'admin::', 'prefix' => 'admin', 'namespace'=>'Panel', 'mid
         Route::get('/', 'IndexController@index');
 
         Route::get('/{action}/{modelName}/{id?}', 'ActionsController@act')
-            ->where('action', 'show|create|edit')
+            ->where('action', 'show|sort|create|edit')
             ->where('modelName', '[a-z0-9_]+')
             ->where('id', '[0-9]+')
             ->name('act');
 
         Route::post('/{action}/{modelName}/{id?}', 'ActionsController@act')
-            ->where('action', 'imageadd|imagedrop|save|drop')
+            ->where('action', 'gallerysort|imageadd|imagedrop|save|drop|courseproductadd|courseproductdel')
             ->where('modelName', '[a-z0-9_]+')
             ->where('id', '[0-9]+');
     });

@@ -18,7 +18,7 @@
     @endif
     @if(!empty($options['themes']))
         <div class="row">
-            <dl>Тематика</dl>
+            <dl>Тег</dl>
             <select name="theme_id">
                 <option value="0"></option>
                 @foreach($options['themes'] as $theme)
@@ -59,7 +59,7 @@
         <input class="x4" name="price" value="{{ $item->price }}" type="text" />
     </div>
     <div class="row">
-        <dl>Количество мест и участников</dl>
+        <dl>Количество мест и записавшихся участников</dl>
         <input class="x10" name="vacancies" value="{{ $item->vacancies }}" type="text" maxlength="4" /> <input class="x10" name="participants" value="{{ $item->participants }}" type="text" maxlength="4" />
     </div>
     <div class="row">
@@ -71,6 +71,7 @@
         <textarea name="text" class="ck">{{ $item->text }}</textarea>
     </div>
     <div class="row">
-        @include('panel.edit.gallery')
+        <dl>Код видеоплеера (iframe-вариант, 100% ширина)</dl>
+        <input name="video" value="{{ $item->video }}" type="text" />
     </div>
 @endsection

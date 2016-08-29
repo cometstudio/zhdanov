@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Panel;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Auth;
 use DB;
 use Log;

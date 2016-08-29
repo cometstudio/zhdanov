@@ -73,10 +73,79 @@
 .schedule{
   @extend .mini.common-section;
 
+  .filter{
+    text-align: center;
+    select, .buttons{
+      float: none;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+
   .grid{
     margin-top: $gridGutter / 2;
-    .items {
-      margin-top: $gridGutter / 2;
+  }
+}
+
+.schedule-calendar-grid{
+  border-left: 1px solid #d7d7d6;
+  .x7 {
+    @include gridRow(7, 0);
+
+    &.th{
+      background: $black;
+      color: #fff;
+      .items{
+        border: none;
+        min-height: auto;
+        padding-top: 40px;
+      }
+    }
+  }
+  .items{
+    min-height: 250px;
+    padding: 10px 12px;
+    border-right: 1px solid #d7d7d6;
+    border-bottom: 1px solid #d7d7d6;
+    text-align: right;
+    &.active{
+      background-color: $red;
+      color: #fff;
+      a, .date, .location{
+        color: inherit;
+      }
+    }
+    &:hover{
+      .info{
+        opacity: 1;
+      }
+    }
+  }
+  .date{
+    @extend .ristretto.font;
+    @extend .big.font;
+
+    color: $gold;
+  }
+  .info{
+    //@extend .small.font;
+
+    font-size: 12px;
+    line-height: 1.3em;
+    text-align: left;
+    opacity: 0.6;
+    transition: 0.2s;
+    img{
+      max-width: 100%;
+    }
+    .title{
+      margin-top: 3px;
+    }
+    .location{
+      font-size: 13px;
+      line-height: 1.3em;
+      margin-bottom: 2px;
     }
   }
 }

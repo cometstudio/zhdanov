@@ -7,15 +7,18 @@ use DB;
 
 use App\Models\BaseModel;
 use App\Models\UserPanelModel;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PanelUser extends BaseModel
 {
     public function panelModels()
     {
-        return $this->belongsToMany('App\Models\PanelModel', 'user_panel_models', 'user_id', 'panel_model_id')->withPivot(['c','r','u','d']);
+        return $this
+            ->belongsToMany('App\Models\PanelModel', 'user_panel_models', 'user_id', 'panel_model_id')
+            ->withPivot(['c','r','u','d']);
     }
 
-    public function setPanelModelIds($panelModelIds = [])
+    public function setPanelModelIds($panelModelIds = [], $panelModelCRUD = [])
     {
         if(!is_array($panelModelIds)) throw new \Exception;
 
@@ -27,14 +30,13 @@ class PanelUser extends BaseModel
 
         if(!empty($panelModelIds)){
             foreach($panelModelIds as $panel_model_id){
-
                 $data = [
                     'user_id'=>$this->id,
                     'panel_model_id'=>$panel_model_id,
-                    'c'=>1,
+                    'c'=>(!empty($panelModelCRUD[$panel_model_id]['c']) ? 1 : 0),
                     'r'=>1,
-                    'u'=>1,
-                    'd'=>1,
+                    'u'=>(!empty($panelModelCRUD[$panel_model_id]['u']) ? 1 : 0),
+                    'd'=>(!empty($panelModelCRUD[$panel_model_id]['d']) ? 1 : 0),
                 ];
 
                 if($binding = $userPanelModel::create($data)) $affected++;
@@ -54,8 +56,6 @@ class PanelUser extends BaseModel
             $currentUserPanelModel = $currentUserPanelModels->find($panelModel->id);
 
             if(empty($currentUserPanelModel)) throw new \Exception;
-
-            //dd($currentUserPanelModel);
 
             switch($accessType){
                 default:

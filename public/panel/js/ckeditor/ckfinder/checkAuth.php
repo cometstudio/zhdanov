@@ -12,5 +12,5 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
-//@TODO Modify this line to check if current user ($user = Auth::user()) has access rights
+////@TODO Modify this line to check if current user ($user = Auth::user()) has access rights
 if (!Auth::check()) throw new \Exception();

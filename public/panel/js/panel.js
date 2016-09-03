@@ -276,7 +276,8 @@ function cookie(name, value)
 }
 
 /* Custom area */
-function courseProductAdd(el) {
+function courseProductAdd(el)
+{
     var control = $(el);
     var url = control.attr('href');
     var productId = $('select[name=_product_id]').val();
@@ -291,14 +292,15 @@ function courseProductAdd(el) {
     return false;
 }
 
-function courseProductDel(el) {
+function courseProductDel(el)
+{
+
     var control = $(el);
     var url = control.attr('href');
+    var container = $('.course-products');
 
     ajax(url, function(response){
         container.html(response.view)
-    }, null, {
-        product_id: productId
     });
 
     return false;

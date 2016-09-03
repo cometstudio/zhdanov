@@ -453,26 +453,35 @@ class ActionsController extends Controller
 
     protected function addCourseProduct()
     {
-        $model = $this->factoryModel($this->modelName);
+        try {
+            $model = $this->factoryModel($this->modelName);
 
-        $currentPanelModel = $this->getPanelModel($model);
+            $currentPanelModel = $this->getPanelModel($model);
 
-        $this->checkAccess($currentPanelModel, 'u');
+            $this->checkAccess($currentPanelModel, 'u');
 
-        $course = $model::findOrFail($this->id);
+            $course = $model::findOrFail($this->id);
 
-        $bind = new CourseProduct();
+            $bind = new CourseProduct();
 
-        $bind->course_id = $this->id;
-        $bind->product_id = $this->request->input('product_id');
+            $bind->course_id = $this->id;
+            $bind->product_id = $this->request->input('product_id');
 
-        $bind->save();
+            $bind->save();
 
-        $view = view('panel.edit.courseProducts', ['products'=>$course->products()->get()])->render();
+            $view = view('panel.edit.courseProducts', [
+                'currentPanelModel' => $currentPanelModel,
+                'products' => $course->products()->get()
+            ])->render();
 
-        return response()->json([
-            'view'=>$view
-        ]);
+            return response()->json([
+                'view'=>$view
+            ]);
+        }catch (\Exception $e){
+            throw new \Exception('Товар уже рекомендован');
+        }
+
+
     }
 
     protected function deleteCourseProduct()
@@ -483,13 +492,14 @@ class ActionsController extends Controller
 
         $this->checkAccess($currentPanelModel, 'u');
 
-        $bind = CourseProduct::where('id', '=', $this->id)->firstOrFail();
+        $bind = CourseProduct::where('id', '=', $this->request->get('bid'))->firstOrFail();
 
-        $course = $model->where('id', '=', $bind->course_id);
+        $course = $model->where('id', '=', $bind->course_id)->firstOrFail();
 
         $bind->delete();
 
         $view = view('panel.edit.courseProducts', [
+            'currentPanelModel'=>$currentPanelModel,
             'products'=>$course->products()->get()]
         )->render();
 

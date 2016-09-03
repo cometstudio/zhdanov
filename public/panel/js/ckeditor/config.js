@@ -41,12 +41,14 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.allowedContent = true;
 
-	config.filebrowserBrowseUrl = '/js/ckeditor/ckfinder/ckfinder.html';
-	config.filebrowserImageBrowseUrl = '/js/ckeditor/ckfinder/ckfinder.html?type=Images';
-	config.filebrowserFlashBrowseUrl = '/js/ckeditor/ckfinder/ckfinder.html?type=Flash';
-	config.filebrowserUploadUrl = '/js/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
-	config.filebrowserImageUploadUrl = '/js/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
-	config.filebrowserFlashUploadUrl = '/js/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
+    var CKLocation = '/panel/js/ckeditor';
+
+	config.filebrowserBrowseUrl = CKLocation + '/ckfinder/ckfinder.html';
+	config.filebrowserImageBrowseUrl = CKLocation + '/ckfinder/ckfinder.html?type=Images';
+	config.filebrowserFlashBrowseUrl = CKLocation + '/ckfinder/ckfinder.html?type=Flash';
+	config.filebrowserUploadUrl = CKLocation + '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
+	config.filebrowserImageUploadUrl = CKLocation + '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
+	config.filebrowserFlashUploadUrl = CKLocation + '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
     config.extraPlugins = 'youtube';
 };

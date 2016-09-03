@@ -14,6 +14,7 @@ class Course extends BaseModel
         'length',
         'teaser',
         'text_left',
+        'text_down_left',
         'text_right',
         'video',
         'tools',
@@ -39,7 +40,7 @@ class Course extends BaseModel
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product', 'course_products', 'course_id', 'product_id');
+        return $this->belongsToMany('App\Models\Product', 'course_products', 'course_id', 'product_id')->withPivot('id');
     }
 
     public function schedule()

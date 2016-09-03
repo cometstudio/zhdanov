@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{!! csrf_token() !!}" />
     <link rel="stylesheet" type="text/css" href="/bower_components/animate.css/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/{{ $css or 'index' }}.css?v=6" />
+    <link rel="stylesheet" type="text/css" href="/css/{{ $css or 'index' }}.css?v=7" />
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <!--[if lt IE 9]>
     <script src="/bower_components/lt-ie-9/lt-ie-9.min.js"></script>
@@ -42,6 +42,6 @@
 
 <script src="/bower_components/jquery-form/jquery.form.js"></script>
 <script src="/bower_components/cookie/cookie.min.js"></script>
-<script src="/js/js.js?v=6"></script>
+<script src="/js/js.js?v=7"></script>
 </body>
 </html>

@@ -242,11 +242,14 @@
                         </div>
                         <div class="small shop-grid grid">
                             <div class="x5 row clearfix">
-                                @foreach($products as $product)
+                                @foreach($products->slice(0, 5)->all() as $product)
                                     @include('products.gridItem', ['small'=>true])
                                 @endforeach
                             </div>
                         </div>
+                        @if($products->count() > 5)
+                            <div class="centered"><a href="{{ route('courseProducts', ['id'=>$course->id], false) }}" class="empty white buttons">Посмотреть все рекомендации</a></div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -280,6 +283,74 @@
                 </div>
             </div>
         @endif
+
+        <div class="section4 section">
+            <div class="wrapper clearfix">
+                <div class="common-h2">
+                    <h2><span>НЕ ЗАБУДЬ ЗАПИСАТЬСЯ, МЕСТА В ГРУППЕ ОГРАНИЧЕНЫ</span></h2>
+                </div>
+                <div class="grid">
+                    <div class="x2 row">
+                        @if(!empty($course->text_down_left))
+                            <div class="items">
+                                {!! $course->text_down_left !!}
+                            </div>
+                        @endif
+                        @if(!empty($course->text_right))
+                            <div class="items">
+                                {!! $course->text_right !!}
+                                @if(!empty($interval))
+                                    <div class="countdown">
+                                        До окончания записи {{ $interval[0] }} {{ \Dictionary::get('time.days',  $interval[0]) }}, {{ $interval[1] }} {{ \Dictionary::get('time.hours',  $interval[1]) }} и {{ $interval[2] }} {{ \Dictionary::get('time.min',  $interval[2]) }}
+                                    </div>
+                                @endif
+                                <div class="controls">
+                                    @if(!Auth::check())
+                                        <p><a href="/login" class="red empty big buttons">Записаться</a></p>
+                                        <p>&nbsp;</p>
+                                        <p><a href="/login" class="red empty big buttons">Добавить в портфель</a></p>
+                                    @else
+                                        @if(!empty($scheduleItem))
+                                            <p>
+                                                <a style="{{ !empty($userScheduleItem) ? '' : 'display:none;' }}" href="{{ route('scheduleAddUser', ['action'=>'del', 'id'=>$scheduleItem->id], false) }}" onclick="return scheduleAddUser(this);" opt="Записаться на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}" class="schedule-user-del red empty big buttons">Вы записаны на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}</a>
+                                                <a style="{{ empty($userScheduleItem) ? '' : 'display:none;' }}" href="{{ route('scheduleAddUser', ['action'=>'add', 'id'=>$scheduleItem->id], false) }}" onclick="return scheduleAddUser(this);" opt="Вы записаны на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}" class="schedule-user-add red empty big buttons">Записаться на {{ \Date::getDateFromTime($scheduleItem->start_time, 3) }}</a>
+                                            </p>
+                                        @else
+                                            <p><a href="{{ route('schedule', ['aid'=>$course->author_id], false) }}" class="red empty big buttons">Записаться</a></p>
+                                        @endif
+                                        @if(Auth::user()->type == 2)
+                                            <p>&nbsp;</p>
+                                            <p><a href="{{ route('packAction', ['action'=>'add', 'courseId'=>$course->id], false) }}" onclick="return pack(this);" class="red empty big buttons">Добавить в портфель</a></p>
+                                        @endif
+                                    @endif
+                                </div>
+                                <div class="controls">
+                                    <h3>Поделитесь этой страницей:</h3>
+
+                                    <script type="text/javascript">(function(w,doc) {
+                                            if (!w.__utlWdgt ) {
+                                                w.__utlWdgt = true;
+                                                var d = doc, s = d.createElement('script'), g = 'getElementsByTagName';
+                                                s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                                                s.src = ('https:' == w.location.protocol ? 'https' : 'http')  + '://w.uptolike.com/widgets/v1/uptolike.js';
+                                                var h=d[g]('body')[0];
+                                                h.appendChild(s);
+                                            }})(window,document);
+                                    </script>
+                                    <div data-background-alpha="0.0" data-buttons-color="#ffffff" data-counter-background-color="#ffffff" data-share-counter-size="12" data-top-button="false" data-share-counter-type="disable" data-share-style="6" data-mode="share" data-like-text-enable="false" data-mobile-view="false" data-icon-color="#ffffff" data-orientation="horizontal" data-text-color="#000000" data-share-shape="round-rectangle" data-sn-ids="fb.vk.tw.ok." data-share-size="30" data-background-color="#ffffff" data-preview-mobile="false" data-mobile-sn-ids="fb.vk.tw.wh.ok.vb." data-pid="1560094" data-counter-background-alpha="1.0" data-following-enable="false" data-exclude-show-more="true" data-selection-enable="false" class="uptolike-buttons" ></div>
+
+                                    <!--
+                                    <div class="ltr social-icons">
+                                        <a class="vk" href=""></a><a class="tw" href=""></a><a class="ig" href=""></a><a class="fb" href=""></a>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="footer section">
             <div class="wrapper clearfix">

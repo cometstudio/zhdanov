@@ -47,6 +47,10 @@
         <textarea name="text_left" class="ck">{{ $item->text_left }}</textarea>
     </div>
     <div class="row">
+        <dl>О программе, нижний блок, левая колонка</dl>
+        <textarea name="text_down_left" class="ck">{{ $item->text_down_left }}</textarea>
+    </div>
+    <div class="row">
         <dl>О программе, правая колонка</dl>
         <textarea name="text_right" class="ck">{{ $item->text_right }}</textarea>
     </div>
@@ -88,7 +92,7 @@
                     <select name="_product_id">
                         <option value="">выберите...</option>
                         @foreach($options['products'] as $product))
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}">{{ str_limit($product->name, 65) }}</option>
                         @endforeach
                     </select> <a onclick="return courseProductAdd(this);" href="{{ route('admin::act', ['action'=>'courseproductadd', 'modelName'=>$currentPanelModel->public_model_name, 'id'=>$item->id], false) }}" class="empty button">Рекомендовать</a>
                 </div>

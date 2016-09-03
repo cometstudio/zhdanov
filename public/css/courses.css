@@ -911,7 +911,9 @@ input[type=file] {
     margin-top: 11px; }
 
 .section4 img {
-  display: inline-block; }
+  display: inline-block;
+  max-width: 100%;
+  height: auto !important; }
 .section4 .grid {
   font-size: 16px;
   line-height: 1.5em; }

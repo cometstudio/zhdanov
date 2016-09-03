@@ -78,18 +78,16 @@ class CoursesController extends Controller
     {
         $course = Course::where('id', '=', $id)->firstOrFail();
 
+        // Get binded products
+        $products = $course->products()->get();
+
         if($request->has('schedule')){
             $scheduleItem = Schedule::where('id', '=', $request->get('schedule'))->firstOrFail();
             $userScheduleItem = UserSchedule::where('schedule_id', '=', $scheduleItem->id)->first();
             $interval = \Date::getInterval($scheduleItem->start_time);
         }
 
-
-
         $this->title = $course->name;
-
-        // Get products
-        $products = Product::orderBy('id', 'DESC')->limit(5)->get();
 
         $webinarModel = new Webinar();
         $courseModel = new Course();
@@ -101,7 +99,7 @@ class CoursesController extends Controller
         $activeMonthLength = \Date::getMonthLength($activeMonth, $activeYear);
 
         $galleryTitle = Misc::where('id', '=', 4)->first();
-        
+
         return view('courses.item', [
             'css'=>$this->css,
             'course'=>$course,

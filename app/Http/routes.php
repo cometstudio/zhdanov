@@ -45,6 +45,8 @@ Route::get('/webinars/{id}', 'WebinarsController@item')->where('id', '[0-9]+')->
 
 // Products
 Route::get('/products', 'ProductsController@index')->name('products');
+// Course products
+Route::get('/products/course/{id}', 'ProductsController@courseProducts')->where('id', '[0-9]+')->name('courseProducts');
 // Item
 Route::get('/products/{id}', 'ProductsController@item')->where('id', '[0-9]+')->name('product');
 

@@ -31,7 +31,9 @@ function CheckAuthentication()
 	// forget to add session_start() at the top of this file.
 
     try{
-		return true;
+		include 'checkAuth.php';
+
+        return true;
     }catch (\Exception $e){
         return false;
     }
@@ -70,7 +72,7 @@ for ($i = 0; $i < $min_chars; $i++) $config['LicenseKey'] .= array_key_exists($i
  Do not do this on a production server. Might be helpful when debugging why CKFinder does not work as expected.
 */
 // error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 
 /*
 To make it easy to configure CKFinder, the $baseUrl and $baseDir can be used.
@@ -87,7 +89,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-if($_SESSION['imagesAbsPath']) $baseUrl = 'http://'.$_SERVER['HTTP_HOST'].'/'; else $baseUrl = '/';
+$baseUrl = '/public/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
